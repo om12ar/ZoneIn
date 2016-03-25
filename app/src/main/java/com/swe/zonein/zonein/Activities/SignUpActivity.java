@@ -10,22 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.swe.zonein.zonein.Controllers.DBController;
+
 import com.swe.zonein.zonein.R;
 
 public class SignUpActivity extends AppCompatActivity {
 
 
-    DBController db ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            db = new DBController(this);
-        }
-        catch (Exception e){
-            Toast.makeText(SignUpActivity.this, "ERROR1 " + e.toString(), Toast.LENGTH_LONG).show();
-        }
+
         setContentView(R.layout.activity_sign_up);
         createUser();
 
@@ -39,7 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
                 final EditText passET = (EditText) findViewById(R.id.passET);
                 final EditText emailET = (EditText) findViewById(R.id.emailET);
 
-                boolean isInserted = db.addUser(nameET.getText().toString(), emailET.getText().toString(), passET.getText().toString());
+                boolean isInserted = true;
                 Log.i("SIGNUP", "" + isInserted);
                 if (isInserted) {
                     Toast.makeText(SignUpActivity.this, "Account created successfully", Toast.LENGTH_LONG).show();

@@ -11,26 +11,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.swe.zonein.zonein.Controllers.DBController;
-import com.swe.zonein.zonein.Controllers.MainController;
+
+import com.swe.zonein.zonein.Controllers.JSONParser;
+import com.swe.zonein.zonein.Controllers.MainControlller;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.json.JSONObject;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
+import java.util.HashMap;
 
 public class SignInActivity extends AppCompatActivity {
 
+    boolean loggedIn = false;
+    TextView statusET ;
     private static String TAG = "LoginActivity";
-    DBController db ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new DBController(this);
+
 
         setContentView(R.layout.activity_sign_in);
 
@@ -40,25 +41,10 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final EditText nameET = (EditText) findViewById(R.id.nameET);
                 final EditText passET = (EditText) findViewById(R.id.passET);
-                final TextView statusET = (TextView) findViewById(R.id.statusET);
+                statusET = (TextView) findViewById(R.id.statusET);
                 Log.e(TAG, "INLOGIN");
                 loginTask task = new loginTask();
-                String s = " hi ";
-                task.execute("http://zonein-zonein.rhcloud.com/ZoneIn_server/rest/follow?followerID=5&followedID=6");
-                Log.e(TAG, s);
-                int id = db.login(nameET.getText().toString(), passET.getText().toString());
-                if (id != -1) {
-                    Log.e(TAG, s);
-                    statusET.setText(s);
-                    MainController.user = new User(db.getUser(id));
-                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                    System.err.print("GOT USER FROM DB");
-                    Log.e("LOGIN ACTIVITY", MainController.user.getName());
-                    //startActivity(intent);
-                    //finish();
-                } else {
-                    statusET.setText("Wrong Email or Password ");
-                }
+                task.execute("login" , nameET.getText().toString(), passET.getText().toString());
             }
         });
         Button singup = (Button) findViewById(R.id.signUpbutton);
@@ -84,38 +70,63 @@ public class SignInActivity extends AppCompatActivity {
 
 
     }
-    public class loginTask extends AsyncTask<String ,Void , String> {
+
+    public class loginTask extends AsyncTask<String ,Void , JSONObject> {
+        JSONParser jsonParser = new JSONParser();
 
         @Override
-        protected String doInBackground(String... params) {
-            String result = "";
+        protected JSONObject doInBackground(String... args) {
+
             HttpURLConnection urlConnection = null ;
             URL url ;
-            try {
-                url = new URL(params[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                //urlConnection = url.openConnection();
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoOutput(true);
-                urlConnection.connect();
-                InputStream inputStream = urlConnection.getInputStream() ;
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 
-                int data = inputStreamReader.read();
-                while(data!=-1){
-                    char current = (char) data;
-                    result += current ;
-                    data = inputStreamReader.read();
+            try {
+
+                HashMap<String, String> params = new HashMap<>();
+                String URL =args[0];
+                params.put("email", args[1]);
+                params.put("pass", args[2]);
+
+                Log.d("request", "starting");
+
+                JSONObject json = jsonParser.makeHttpRequest(
+                        URL, "POST", params);
+
+                if (json != null) {
+                    Log.d("JSON result", json.toString());
+
+                    return json;
                 }
 
-                Log.e(TAG, result);
-                return result;
-
-            } catch (java.io.IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+
             return null;
         }
-    }
 
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+
+            if(jsonObject!=null){
+                String s = "hi";
+                    Log.e(TAG, s);
+
+
+                MainControlller.user = new User(jsonObject);
+
+                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                    System.err.print("GOT USER FROM DB");
+                    Log.e("LOGIN ACTIVITY", MainControlller.user.getName());
+                    statusET.setText(MainControlller.user.getName());
+                    startActivity(intent);
+                    finish();
+                } else {
+                    statusET.setText("Wrong Email or Password ");
+                }
+            }
+        }
 }
+
+

@@ -2,7 +2,7 @@ package com.swe.zonein.zonein.Models;
 
 
 
-import com.swe.zonein.zonein.Controllers.DBController;
+
 
 import java.util.ArrayList;
 
@@ -57,27 +57,27 @@ public class Chat {
      * @return true . iff the user is added to the chat in the database sucessfully
      * otherwise it return false.
      */
-    public boolean addUser(User user)
+   /* public boolean addUser(User user)
     {
         boolean operationDoneSuccessfully=false;
         operationDoneSuccessfully= DBController.addUserinChat(this.getID(),user.getID());
         return  operationDoneSuccessfully;
     }
 
-    /**
+    *//**
      * Return boolean value that indicate the succession of the operation 
      * or failure.
      * it function is to send the message that needed to be added to the 
      * database.
      * @param message . it contain the data of message needed to be added.
      * @return true. iff the function is added successfully otherwise false.
-     */
+     *//*
 
     public boolean addMessage(Message message)
     {
         boolean operationDoneSuccessfully= DBController.addMessageinChat(this.getID(), message.getID());
         return  operationDoneSuccessfully;
-    }
+    }*/
 
     /**
      * Return the history of the message of the chat in ana arrayList 
@@ -95,12 +95,12 @@ public class Chat {
      * @return true. iff the operation of adding a new added sucessfully.
      * otherwise return false.
      */
-    public boolean setID(int ID)
+   /* public boolean setID(int ID)
     {
         this.ID=ID;
         boolean operationDoneSuccessfully= DBController.addChat(ID);
         return  operationDoneSuccessfully;
-    }
+    }*/
 
     /**
      * Return a unique positive integer the represent the chat.

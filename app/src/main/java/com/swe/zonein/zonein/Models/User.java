@@ -1,5 +1,8 @@
 package com.swe.zonein.zonein.Models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -12,41 +15,42 @@ import java.util.ArrayList;
 public class User {
     int ID ;
     String name ;
-    String userType;
-    ArrayList<NotificationModel> notifications ;
-    ArrayList<Chat> chats;
-    ArrayList<Place> places;
-    ArrayList<Taste> userTastes;
-    ArrayList<Post> userPosts;
+    String email ;
+    String lng ;
+    String lat ;
 
-    /**
-     *
-     */
-    public User (String name){
-        this.name=name;
-        ID = -1 ;
-        userType="admin";
-        chats = new ArrayList<>() ;
-        notifications=new ArrayList<>();
-        userTastes=new ArrayList<>();
-        userPosts=new ArrayList<>();
-        places = new ArrayList<>();
-
-
+    public String getPass() {
+        return pass;
     }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    String pass ;
+
+
+
     public User (){
         this.name="";
         ID = -1 ;
-        userType="admin";
-        chats = new ArrayList<>() ;
-        notifications=new ArrayList<>();
-        userTastes=new ArrayList<>();
-        userPosts=new ArrayList<>();
-        places = new ArrayList<>();
+
+    }
+    public User(User other) {
+        this.ID = other.ID;
+        this.name = other.name;
+        this.lat = other.lat;
+        this.lng = other.lng ;
+        this.pass = other.pass;
+        this.email = other.email;
+
     }
 
+/*
+
     //////////////////////////////////////////
-    /**
+    */
+/**
      * Constructor that add data to the instaneous 
      * @param ID . unique number refer to the the data of the user.
      * @param name .String contain the user name of the user.
@@ -55,7 +59,8 @@ public class User {
      * @param userTastes . ArrayList contain the user's taste.
      * @param userPosts . ArrayList contain the user's history of posts.
      * @param places . ArrayList contain the user's favorite places.
-     */
+     *//*
+
     public User(int ID , String name , String userType ,ArrayList<Chat> chats ,ArrayList<NotificationModel> notifications
             , ArrayList<Taste> userTastes , ArrayList<Post> userPosts ,ArrayList<Place> places){
         this.ID = ID ;
@@ -69,10 +74,12 @@ public class User {
 
     }
 
-    /**
+    */
+/**
      * Copy constructor copy user instaneous in other user instaneous.
      * @param other . user instaneous hold the data needed to be copied.
-     */
+     *//*
+
     public User(User other) {
         this.ID = other.ID;
         this.name = other.name;
@@ -83,6 +90,7 @@ public class User {
         this.notifications = new ArrayList<>(other.notifications);
         this.places = new ArrayList<>(other.places);
     }
+*/
 
     /**
      * Constructor thta fill data of the user instaneous.
@@ -94,9 +102,23 @@ public class User {
     public User(int ID, String name,String userType)
     {
         this.ID=ID;
-        this.name=name;
+        this.name =name;
+    }
 
-        userType=userType;
+    public User(int id) {
+    }
+
+    public User(JSONObject jsonObject) {
+        try {
+            ID = jsonObject.getInt("id");
+            name = jsonObject.getString("name");
+            email = jsonObject.getString("email");
+            pass = jsonObject.getString("pass");
+            lat = jsonObject.getString("lat");
+            lng =jsonObject.getString("long");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     //public User(String name,String user)
     /**
@@ -133,34 +155,7 @@ public class User {
      * Return string inidcate user type whether it premium or ordinary
      * @return userType. string indicate the user type. 
      */
-    public String getUserType() {
-        return userType;
-    }
 
-    /**
-     * set userType whether it is premium or ordinary.
-     * @param userType . indicate user type.
-     */
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-    /**
-     * Getter an ArrayList of notification contain the history of notification
-     * of the user.
-     * @return notification. arrayList of notification.
-     */
-    public ArrayList<NotificationModel> getNotifications() {
-        return notifications;
-    }
-
-    /**
-     * Set the notification value by ArrayList of notification that 
-     * help to copy multiple arraylist of notification at the same time.
-     * @param notifications . ArrayList of notification.
-     */
-    public void setNotifications(ArrayList<NotificationModel> notifications) {
-        this.notifications = notifications;
-    }
     /**
      * Set notification by one notification her it add on the current notifaction.
      * @param notifications . notificationModel.
@@ -174,93 +169,93 @@ public class User {
      * of the user.
      * @return chats. arrayList of chat.
      */
-    public ArrayList<Chat> getChats() {
+  /*  public ArrayList<Chat> getChats() {
         return chats;
     }
-    /**
+    *//**
      * Set the chat value by ArrayList of chat that 
      * help to copy multiple arraylist of chat at the same time.
      * @param chats . ArrayList of chat.
-     */
+     *//*
     public void setChats(ArrayList<Chat> chats) {
         this.chats = chats;
     }
-    /**
+    *//**
      * Set chat by one chat her it add on the current chat.
      * @param chats . chat.
-     */
+     *//*
     public void setChat(Chat chats)
     {
         this.chats.add(chats);
     }
-    /**
+    *//**
      * Getter an ArrayList of taste contain the preferable tastes 
      * of the user.
      * @return usertatse. arrayList of Taste.
-     */
+     *//*
     public ArrayList<Taste> getUserTastes() {
         return userTastes;
     }
-    /**
+    *//**
      * Set the taste value by ArrayList of taste that
      * help to copy multiple arraylist of taste at the same time.
      * @param userTastes . ArrayList of taste.
-     */
+     *//*
     public void setUserTastes(ArrayList<Taste> userTastes) {
         this.userTastes = userTastes;
     }
-    /**
+    *//**
      * Set taste by one taste her it add on the current taste.
      * @param userTastes . Taste.
-     */
+     *//*
     public void setUserTastes(Taste userTastes)
     {
         this.userTastes.add(userTastes);
     }
-    /**
+    *//**
      * Getter an ArrayList of posts contain the history of posts
      * of the user.
      * @return posts. arrayList of posts.
-     */
+     *//*
     public ArrayList<Post> getUserPosts() {
         return userPosts;
     }
-    /**
+    *//**
      * Set the post value by ArrayList of post that
      * help to copy multiple arraylist of post at the same time.
      * @param userPosts . ArrayList of post.
-     */
+     *//*
     public void setUserPosts(ArrayList<Post> userPosts) {
         this.userPosts = userPosts;
     }
 
-    /**
+    *//**
      * Getter an ArrayList of places contain the save or prefered places
      * of the user.
      * @return place. arrayList of place.
-     */
+     *//*
     public ArrayList<Place> getPlaces() {
         return places;
     }
 
-    /**
+    *//**
      * Set the places value by ArrayList of place that
      * help to copy multiple arraylist of place at the same time.
      * @param places . ArrayList of places.
-     */
+     *//*
     public void setPlaces(ArrayList<Place> places) {
         this.places = new ArrayList<>(places);
     }
 
 
-    /**
+    *//**
      * Retrun Number of taste that found to be matched between user taste and place taste .
      * Used in startegy class.
      * Return 0. if no matches between user tastes and place taste.
      * Only return positive integer.
      * @param taste
      * @return counter. number of times that found between the user taste and place taste.
-     */
+     *//*
     public int check_taste(ArrayList<Taste> taste)
     {
         int counter=0;
@@ -274,7 +269,7 @@ public class User {
         }
         return counter;
     }
-
+*/
 
 }
 
