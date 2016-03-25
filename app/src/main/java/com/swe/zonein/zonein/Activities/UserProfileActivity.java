@@ -5,4 +5,5 @@ package com.swe.zonein.zonein.Activities;
  */
 public class UserProfileActivity {
     //check lw el user da hwa nfs el user wla l2 , lw l2 bn5li el follow button invisible (m3rfsh ezay)
+
 }
