@@ -14,9 +14,8 @@
             android:layout_row="0"
             android:layout_column="0"
             android:layout_gravity="fill"
-            android:layout_columnWeight="2"
-            android:layout_rowWeight="2"
-            android:visibility="visible" />
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1" />
 
         <Button
             android:layout_width="wrap_content"
@@ -49,8 +48,7 @@
             android:text="Follow"
             android:id="@+id/followButton"
             android:layout_row="1"
-            android:layout_column="0"
-            android:visibility="visible" />
+            android:layout_column="0" />
 
         <Button
             android:layout_width="wrap_content"
