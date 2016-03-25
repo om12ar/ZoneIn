@@ -38,5 +38,5 @@
             android:name=".Activities.RestorePasswordActivity"
             android:label="@string/title_activity_restore_password">Restore password</activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>
