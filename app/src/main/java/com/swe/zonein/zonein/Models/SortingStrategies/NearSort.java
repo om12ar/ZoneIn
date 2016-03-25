@@ -23,11 +23,11 @@ public class NearSort implements SortingStrategy {
      * and longitude of the current position
      * of user and the latidue of it.
      */
-    public NearSort(User u,double lng,double lat) {
+   /* public NearSort(User u,double lng,double lat) {
         user=new User(u);
         longnitude=lng;
         lat=latidue;
-    }
+    }*/
     /**
      * Return double represent the distance between two longitude and latidue.
      * @param lat1 .the latidue of the first place.

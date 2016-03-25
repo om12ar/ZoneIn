@@ -25,9 +25,7 @@ public class TasteSorting implements SortingStrategy{
      * and the current positin of the user.
      */
     public TasteSorting(User u,double lng,double lat) {
-        user=new User(u);
-        longnitude=lng;
-        lat=latidue;
+
     }
 
     /**
@@ -38,20 +36,7 @@ public class TasteSorting implements SortingStrategy{
      */
     @Override
     public void sort(ArrayList<Place> place) {
-        Place temp;
-        for (int x=0; x<place.size(); x++)         {
-            for (int i=0; i < place.size()- x -1 ; i++) {
-                int value1=user.check_taste(place.get(x).getTaste());
-                int value2=user.check_taste(place.get(x+1).getTaste());
-                if (value1 >= value2)
-                {
-                    temp = place.get(i);
-                    place.set(i, place.get(i+1) );
 
-                    place.set(i+1, temp);
-                }
-            }
-        }
     }
 
 }

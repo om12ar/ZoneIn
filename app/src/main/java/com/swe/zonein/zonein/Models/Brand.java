@@ -1,5 +1,5 @@
 package com.swe.zonein.zonein.Models;
-import com.swe.zonein.zonein.Controllers.DBController;
+
 
 import java.util.ArrayList;
 /**
@@ -30,30 +30,35 @@ public class Brand{
 	{
 		return placeId;
 	}
+/*
 
-	/**
-	 * Return a boolean value representation 
+	*/
+/**
+	 * Return a boolean value representation
 	 * the succession of adding the place to the database.
-	 * this function call a function in database controller to add 
+	 * this function call a function in database controller to add
 	 * a new place that is suspored by the brand .
 	 * @param place the  place that needed to be added in database.
 	 * @return true .iff the place is added successfully.
-	 * otherwise return false. 
-	 */
+	 * otherwise return false.
+	 *//*
+
 	public boolean addLocation(Place place)
 	{
 		boolean operationDoneSuccessfully= DBController.AddPlaceToBrand(place, BrandID);
 		return operationDoneSuccessfully;
 	}
 
-	/**
-	 * Return a boolean value represent the succession 
+	*/
+/**
+	 * Return a boolean value represent the succession
 	 * or the failure of the operation.
 	 * it add a new follower to the database and to brand.
 	 * @param follower the user that follow the brand.
 	 * @return true. iff the operation of adding a new follower to the database.
 	 * otherwise return false.
-	 */
+	 *//*
+
 	public boolean setFollower(User follower)
 	{
 		this.follower.add(follower);
@@ -61,7 +66,8 @@ public class Brand{
 		return operationDoneSuccessfully;
 	}
 
-	/**
+	*/
+/**
 	 * Return a boolean value represent the succession or failure of the operation.
 	 * it add a new brand to the database.the function take the brand name and 
 	 * user id and add it to the database it handle adding the brand in database
@@ -70,7 +76,8 @@ public class Brand{
 	 * @param userID . the user that creat brand.
 	 * @return true. iff the function of a new brand done successfully.
 	 * false otherwise.
-	 */
+	 *//*
+
 	public boolean addBrand(String brandName, int userID)
 	{
 		Brand brand=new Brand();
@@ -80,6 +87,7 @@ public class Brand{
 		boolean operationDoneSuccessfully=DBController.saveBrand(brand);
 		return operationDoneSuccessfully;
 	}
+*/
 
 	/**
 	 * Setter function used to set the value of id 
