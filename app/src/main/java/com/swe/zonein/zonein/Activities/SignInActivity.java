@@ -43,7 +43,8 @@ public class SignInActivity extends AppCompatActivity {
                 final TextView statusET = (TextView) findViewById(R.id.statusET);
                 Log.e(TAG, "INLOGIN");
                 loginTask task = new loginTask();
-                String s = task.execute("http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a").toString();
+                String s = " hi ";
+                task.execute("http://zonein-zonein.rhcloud.com/ZoneIn_server/rest/follow?followerID=5&followedID=6");
                 Log.e(TAG, s);
                 int id = db.login(nameET.getText().toString(), passET.getText().toString());
                 if (id != -1) {
@@ -94,7 +95,7 @@ public class SignInActivity extends AppCompatActivity {
                 url = new URL(params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 //urlConnection = url.openConnection();
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestMethod("POST");
                 urlConnection.setDoOutput(true);
                 urlConnection.connect();
                 InputStream inputStream = urlConnection.getInputStream() ;
