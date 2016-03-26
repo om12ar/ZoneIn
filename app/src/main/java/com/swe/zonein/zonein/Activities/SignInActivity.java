@@ -78,10 +78,6 @@ public class SignInActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(String... args) {
-
-            HttpURLConnection urlConnection = null ;
-            URL url ;
-
             try {
 
                 HashMap<String, String> params = new HashMap<>();
