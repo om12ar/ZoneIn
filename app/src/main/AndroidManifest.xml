@@ -35,6 +35,10 @@
                 android:value=".Activities.SignInActivity" />
         </activity>
         <activity
+            android:name=".Activities.FollowersActivity"
+            android:label="@string/title_FollowersActivity">
+        </activity>
+        <activity
             android:name=".Activities.RestorePasswordActivity"
             android:label="@string/title_activity_restore_password">Restore password</activity>
     </application>
