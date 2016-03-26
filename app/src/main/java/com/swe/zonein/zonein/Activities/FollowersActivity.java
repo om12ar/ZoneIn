@@ -55,19 +55,6 @@ public class FollowersActivity extends ListActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        /*followers.add("Number of Followers : "+followersJson.length());
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, followers);
-
-        followersListView.setAdapter(arrayAdapter);
-
-        followersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "this is item number: " + followers.get(position), Toast.LENGTH_LONG).show();
-
-            }
-        });*/
-
 
         adapter = new followersAdapter();
         setListAdapter(adapter);
@@ -94,7 +81,7 @@ public class FollowersActivity extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            TextView holder = null;
+            TextView holder;
 
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.follower_item, parent, false);
@@ -131,7 +118,8 @@ public class FollowersActivity extends ListActivity {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-               // getListView().removeViewAt(position);
+                followers.remove(position);
+                adapter.notifyDataSetChanged();
 
             }
 
