@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.swe.zonein.zonein">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/zoneinlogo"
@@ -14,7 +16,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
             </intent-filter>
         </activity>
         <activity
@@ -36,11 +37,15 @@
         </activity>
         <activity
             android:name=".Activities.FollowersActivity"
-            android:label="@string/title_FollowersActivity">
-        </activity>
+            android:label="@string/title_FollowersActivity"></activity>
         <activity
             android:name=".Activities.RestorePasswordActivity"
-            android:label="@string/title_activity_restore_password">Restore password</activity>
+            android:label="@string/title_activity_restore_password">
+            Restore password
+        </activity>
+        <activity
+            android:name=".Activities.AllUsers"
+            android:label="@string/title_activity_all_users"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
 </manifest>

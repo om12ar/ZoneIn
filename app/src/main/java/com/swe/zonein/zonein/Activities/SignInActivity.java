@@ -1,5 +1,6 @@
 package com.swe.zonein.zonein.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,10 +25,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends Activity {
 
-    boolean loggedIn = false;
-    //TextView statusET ;
+    TextView statusET ;
     private static String TAG = "LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,21 +108,17 @@ public class SignInActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
 
             if(jsonObject!=null){
-                String s = "hi";
-                    Log.e(TAG, s);
-
-
                 MainControlller.user = new User(jsonObject);
 
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                    System.err.print("GOT USER FROM DB");
+
                     Log.e("LOGIN ACTIVITY", MainControlller.user.getName());
-                    //statusET.setText(MainControlller.user.getName());
+                    Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_LONG).show();
                     startActivity(intent);
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "Wrong Email or Password!", Toast.LENGTH_LONG).show();
-                   // statusET.setText("Wrong Email or Password ");
+
                 }
             }
         }

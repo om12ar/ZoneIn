@@ -98,9 +98,12 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, FollowersActivity.class);
 
             startActivity(intent);
-            finish();
+       //     finish();
         } else if (id == R.id.nav_share) {
 
+            Intent intent = new Intent(MainActivity.this, AllUsers.class);
+            startActivity(intent);
+//            finish();
         } else if (id == R.id.nav_send) {
 
         }

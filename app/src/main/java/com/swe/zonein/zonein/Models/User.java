@@ -115,7 +115,7 @@ public class User {
             email = jsonObject.getString("email");
             pass = jsonObject.getString("pass");
             lat = jsonObject.getString("lat");
-            lng =jsonObject.getString("long");
+            lng =jsonObject.getString("lon");
         } catch (JSONException e) {
             e.printStackTrace();
         }
