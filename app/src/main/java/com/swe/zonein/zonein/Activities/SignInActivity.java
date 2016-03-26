@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.swe.zonein.zonein.Controllers.JSONParser;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 public class SignInActivity extends AppCompatActivity {
 
     boolean loggedIn = false;
-    TextView statusET ;
+    //TextView statusET ;
     private static String TAG = "LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final EditText nameET = (EditText) findViewById(R.id.nameET);
                 final EditText passET = (EditText) findViewById(R.id.passET);
-                statusET = (TextView) findViewById(R.id.statusET);
+                //statusET = (TextView) findViewById(R.id.statusET);
                 Log.e(TAG, "INLOGIN");
                 loginTask task = new loginTask();
                 task.execute("login" , nameET.getText().toString(), passET.getText().toString());
@@ -116,11 +117,12 @@ public class SignInActivity extends AppCompatActivity {
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                     System.err.print("GOT USER FROM DB");
                     Log.e("LOGIN ACTIVITY", MainControlller.user.getName());
-                    statusET.setText(MainControlller.user.getName());
+                    //statusET.setText(MainControlller.user.getName());
                     startActivity(intent);
                     finish();
                 } else {
-                    statusET.setText("Wrong Email or Password ");
+                    Toast.makeText(getApplicationContext(), "Wrong Email or Password!", Toast.LENGTH_LONG).show();
+                   // statusET.setText("Wrong Email or Password ");
                 }
             }
         }
