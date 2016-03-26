@@ -1,14 +1,20 @@
 package com.swe.zonein.zonein.Activities;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.swe.zonein.zonein.Controllers.JSONParser;
@@ -31,29 +37,25 @@ import static java.util.Arrays.asList;
 /**
  * Created by Noha on 3/25/2016.
  */
-public class FollowersActivity extends Activity {
+public class FollowersActivity extends ListActivity {
     final String TAG = "FollowersActivity";
-    ArrayList<String> followers = new ArrayList<>();
+    ArrayList<User> followers = new ArrayList<>();
+    private followersAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_followers);
-
-        ListView followersListView = (ListView)findViewById(R.id.followersListView);
 
 
-        //elmfrood a get el followers names list mn el data base hna w a3mlhom add fel arraylist b for loop
         getFollowersTask GFtask = new getFollowersTask();
-        JSONArray followersJson = null;
         try {
-            followersJson =  GFtask.execute("getFollowers" , ""+MainControlller.user.getID()).get();
+            GFtask.execute("getFollowers",""+MainControlller.user.getID()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        followers.add("Number of Followers : "+followersJson.length());
+        /*followers.add("Number of Followers : "+followersJson.length());
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, followers);
 
         followersListView.setAdapter(arrayAdapter);
@@ -61,17 +63,84 @@ public class FollowersActivity extends Activity {
         followersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // elmfrood hna nroo7 le e profile bta3 el follower elly hyb2a clicked on
                 Toast.makeText(getApplicationContext(), "this is item number: " + followers.get(position), Toast.LENGTH_LONG).show();
 
             }
-        });
+        });*/
+
+
+        adapter = new followersAdapter();
+        setListAdapter(adapter);
 
     }
 
+    private class followersAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return followers.size();
+        }
+
+        @Override
+        public String getItem(int position) {
+            return followers.get(position).getName();
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            TextView holder = null;
+
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.follower_item, parent, false);
+
+
+                holder = (TextView) convertView.findViewById(R.id.followerNameTextView);
+
+                convertView.findViewById(R.id.unfollowButton).setOnClickListener(mBuyButtonClickListener);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (TextView) convertView.getTag();
+            }
+
+            Log.e(TAG,followers.get(position).getName());
+            holder.setText(followers.get(position).getName());
+
+            return convertView;
+        }
+    }
+
+    private View.OnClickListener mBuyButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final int position = getListView().getPositionForView(v);
+            if (position != ListView.INVALID_POSITION) {
+                Log.e(TAG , position+"");
+                unfollowTask unfollowtask = new unfollowTask();
+
+                try {
+                    unfollowtask.execute("unfollow",""+followers.get(position).getID() , ""+MainControlller.user.getID()).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+               // getListView().removeViewAt(position);
+
+            }
+
+        }
+    };
+
     public class getFollowersTask extends AsyncTask<String ,Void , JSONArray> {
         JSONParser jsonParser = new JSONParser();
-//getFollowers
+
         @Override
         protected JSONArray doInBackground(String... args) {
 
@@ -110,14 +179,60 @@ public class FollowersActivity extends Activity {
 
                 for (int i=0 ;i < jsonArray.length() ;i++){
                     try {
-                        followers.add(jsonArray.getJSONObject(i).getString("name"));
+                        User tempuser = new User(jsonArray.getJSONObject(i));
+                        followers.add(tempuser);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
             } else {
-                followers.add("No followers");
+            }
+        }
+    }
+
+    public class unfollowTask extends AsyncTask<String ,Void , JSONArray> {
+        JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+            try {
+
+                HashMap<String, String> params = new HashMap<>();
+                String URL =args[0];
+                params.put("followerID", args[1]);
+                params.put("followedID", args[2]);
+
+                Log.d("request", "starting");
+
+                JSONObject json = jsonParser.makeHttpRequest(
+                        URL, "POST", params);
+
+                if (json != null) {
+                    JSONArray result = json.getJSONArray("followersList");
+
+                    Log.d("JSON result", json.toString());
+
+                    return result;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
+
+            if(jsonArray!=null){
+
+                //followers.remove();
+
+            } else {
+                //followers.add("No followers");
             }
         }
     }
