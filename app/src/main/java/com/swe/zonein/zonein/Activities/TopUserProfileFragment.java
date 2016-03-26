@@ -16,7 +16,7 @@ public class TopUserProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.top_user_profile_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_user, container, false);
 
         return view;
     }
