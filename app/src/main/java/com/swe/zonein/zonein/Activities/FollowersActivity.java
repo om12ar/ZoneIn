@@ -82,14 +82,15 @@ public class FollowersActivity extends ListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             TextView holder;
-
+            Button btn ;
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.follower_item, parent, false);
+                convertView = getLayoutInflater().inflate(R.layout.fragment_all_users, parent, false);
 
 
-                holder = (TextView) convertView.findViewById(R.id.followerNameTextView);
-
-                convertView.findViewById(R.id.unfollowButton).setOnClickListener(mBuyButtonClickListener);
+                holder = (TextView) convertView.findViewById(R.id.userNameTextView);
+                btn = (Button) convertView.findViewById(R.id.followButton);
+                btn.setVisibility(View.INVISIBLE);
+            //    convertView.findViewById(R.id.unfollowButton).setOnClickListener(mBuyButtonClickListener);
 
                 convertView.setTag(holder);
             } else {
@@ -103,6 +104,7 @@ public class FollowersActivity extends ListActivity {
         }
     }
 
+/*
     private View.OnClickListener mBuyButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -124,7 +126,7 @@ public class FollowersActivity extends ListActivity {
             }
 
         }
-    };
+    };*/
 
     public class getFollowersTask extends AsyncTask<String ,Void , JSONArray> {
         JSONParser jsonParser = new JSONParser();
@@ -178,7 +180,7 @@ public class FollowersActivity extends ListActivity {
         }
     }
 
-    public class unfollowTask extends AsyncTask<String ,Void , JSONArray> {
+    /*public class unfollowTask extends AsyncTask<String ,Void , JSONArray> {
         JSONParser jsonParser = new JSONParser();
 
         @Override
@@ -222,5 +224,5 @@ public class FollowersActivity extends ListActivity {
                 //followers.add("No followers");
             }
         }
-    }
+    }*/
 }

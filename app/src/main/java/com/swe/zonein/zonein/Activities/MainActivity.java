@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView hello = (TextView) findViewById(R.id.welcomeUserNameTextView);
-        hello.setText(MainControlller.user.getName());
+        //hello.setText(MainControlller.user.getName());
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
+            Intent intent = new Intent(MainActivity.this, FollowingActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
             Intent intent = new Intent(MainActivity.this, FollowersActivity.class);

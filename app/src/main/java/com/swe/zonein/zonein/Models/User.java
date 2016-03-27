@@ -21,24 +21,24 @@ public class User {
 
     String lat ;
     String pass ;
-    ArrayList<Integer> follows;
-    ArrayList<Integer> followedBy;
+    ArrayList<Integer> peopleIFollow;
+    ArrayList<Integer> peopleFolowingMe;
 
 
-    public ArrayList<Integer> getFollowedBy() {
-        return followedBy;
+    public ArrayList<Integer> getPeopleFolowingMe() {
+        return peopleFolowingMe;
     }
 
-    public void setFollowedBy(ArrayList<Integer> followedBy) {
-        this.followedBy = followedBy;
+    public void setPeopleFolowingMe(ArrayList<Integer> peopleFolowingMe) {
+        this.peopleFolowingMe = peopleFolowingMe;
     }
 
-    public ArrayList<Integer> getFollows() {
-        return follows;
+    public ArrayList<Integer> getPeopleIFollow() {
+        return peopleIFollow;
     }
 
-    public void setFollows(ArrayList<Integer> follows) {
-        this.follows = follows;
+    public void setPeopleIFollow(ArrayList<Integer> peopleIFollow) {
+        this.peopleIFollow = peopleIFollow;
     }
     public String getPass() {
         return pass;
@@ -89,8 +89,8 @@ public class User {
         this.lng = other.lng ;
         this.pass = other.pass;
         this.email = other.email;
-        this.follows= new ArrayList<>(other.follows);
-        this.followedBy= new ArrayList<>(other.followedBy);
+        this.peopleIFollow = new ArrayList<>(other.peopleIFollow);
+        this.peopleFolowingMe = new ArrayList<>(other.peopleFolowingMe);
 
     }
 
@@ -214,31 +214,41 @@ public class User {
     }
 
     public void Addfollower(int temp_id) {
-        if(followedBy ==null){
-            followedBy = new ArrayList<>();
+        if(peopleFolowingMe ==null){
+            peopleFolowingMe = new ArrayList<>();
         }
-        followedBy.add(temp_id);
+        peopleFolowingMe.add(temp_id);
 
     }
+
     public void follow(int temp_id) {
-        if(followedBy ==null){
-            followedBy = new ArrayList<>();
+        if(peopleIFollow ==null){
+            peopleIFollow = new ArrayList<>();
         }
-        followedBy.add(temp_id);
+        peopleIFollow.add(temp_id);
 
     }
     public void unfollow(int temp_id) {
-        if(followedBy ==null){
-            followedBy = new ArrayList<>();
+        if(peopleIFollow ==null){
+            peopleIFollow = new ArrayList<>();
         }
-        int index = followedBy.indexOf(temp_id);
-        followedBy.remove(index);
+        int index = peopleIFollow.indexOf(temp_id);
+        peopleIFollow.remove(index);
     }
-    public boolean isFollwer (int temp_id) {
-        if(followedBy ==null){
+    public boolean isFollower(int temp_id) {
+        if(peopleFolowingMe ==null){
             return false;
         }
-        int index = followedBy.indexOf(temp_id);
+        int index = peopleFolowingMe.indexOf(temp_id);
+        if(index==-1)
+            return false;
+        return true ;
+    }
+    public boolean isFollowing(int temp_id) {
+        if(peopleIFollow ==null){
+            return false;
+        }
+        int index = peopleIFollow.indexOf(temp_id);
         if(index==-1)
             return false;
         return true ;

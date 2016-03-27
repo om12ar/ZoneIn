@@ -23,7 +23,7 @@
 
 
     <Button
-        android:id="@+id/unfollowButton"
+        android:id="@+id/followButton"
 
         android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:textStyle="bold"
         android:background="@drawable/follow_button_shape"
 
-        android:text="Follow"
+        android:text="UnFollow"
         />
 
 </LinearLayout>
