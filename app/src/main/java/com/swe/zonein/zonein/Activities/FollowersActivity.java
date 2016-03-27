@@ -151,7 +151,6 @@ public class FollowersActivity extends ListActivity {
 
                     return result;
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

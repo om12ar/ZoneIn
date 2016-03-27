@@ -81,7 +81,6 @@ public class AllUsers extends ListActivity {
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.fragment_all_users, parent, false);
 
-
                 holder = (TextView) convertView.findViewById(R.id.userNameTextView);
 
                 convertView.findViewById(R.id.unfollowButton).setOnClickListener(buttonListener);
@@ -108,13 +107,16 @@ public class AllUsers extends ListActivity {
                 followTask followtask = new followTask();
 
                 try {
+                   // if()
                     followtask.execute("follow",""+users.get(position).getID() , ""+MainControlller.user.getID()).get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-                users.remove(position);
+                TextView tv = (TextView) v.findViewById(R.id.unfollowButton);
+                tv.setText("Unfollow");
+                //users.remove(position);
                 adapter.notifyDataSetChanged();
 
             }

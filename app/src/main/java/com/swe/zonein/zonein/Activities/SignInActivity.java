@@ -25,9 +25,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class SignInActivity extends Activity {
+public class SignInActivity extends AppCompatActivity {
 
-    TextView statusET ;
+
     private static String TAG = "LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
