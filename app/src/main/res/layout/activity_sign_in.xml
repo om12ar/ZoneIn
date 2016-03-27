@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/location"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:contextClickable="false">
 
     <EditText
         android:layout_width="match_parent"
@@ -20,17 +21,13 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:padding="5dp"
-        android:background="#FFFFFFFF"
-        android:hint="email" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/statusET"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_weight="0.03" />
+        android:background="#ffffff"
+        android:alpha="0.6"
+        android:hint="Email Address"
+        android:elegantTextHeight="true"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -38,9 +35,13 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/passET"
-        android:padding="5dp"
-        android:background="#FFFFFFFF"
-        android:hint="password" />
+        android:background="#ffffff"
+        android:alpha="0.6"
+        android:hint="Password"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
 
 
@@ -53,15 +54,23 @@
         android:src="@android:drawable/ic_dialog_email" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Forgot password?"
-        android:id="@+id/forgotPasswordbutton" />
+        android:id="@+id/forgotPasswordbutton"
+        android:background="#b7b7b7"
+        android:alpha="0.8"
+        android:textStyle="bold|italic"
+        android:padding="0dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="sign up"
-        android:id="@+id/signUpbutton" />
+        android:text="Sign up"
+        android:id="@+id/signUpbutton"
+        android:background="#b7b7b7"
+        android:alpha="0.8"
+        android:textStyle="bold|italic"
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>
