@@ -17,8 +17,29 @@ public class User {
     String name ;
     String email ;
     String lng ;
-    String lat ;
 
+
+    String lat ;
+    String pass ;
+    ArrayList<Integer> follows;
+    ArrayList<Integer> followedBy;
+
+
+    public ArrayList<Integer> getFollowedBy() {
+        return followedBy;
+    }
+
+    public void setFollowedBy(ArrayList<Integer> followedBy) {
+        this.followedBy = followedBy;
+    }
+
+    public ArrayList<Integer> getFollows() {
+        return follows;
+    }
+
+    public void setFollows(ArrayList<Integer> follows) {
+        this.follows = follows;
+    }
     public String getPass() {
         return pass;
     }
@@ -27,7 +48,23 @@ public class User {
         this.pass = pass;
     }
 
-    String pass ;
+
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
 
 
 
@@ -36,6 +73,15 @@ public class User {
         ID = -1 ;
 
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public User(User other) {
         this.ID = other.ID;
         this.name = other.name;
@@ -43,6 +89,8 @@ public class User {
         this.lng = other.lng ;
         this.pass = other.pass;
         this.email = other.email;
+        this.follows= new ArrayList<>(other.follows);
+        this.followedBy= new ArrayList<>(other.followedBy);
 
     }
 
@@ -115,7 +163,7 @@ public class User {
             email = jsonObject.getString("email");
             pass = jsonObject.getString("pass");
             lat = jsonObject.getString("lat");
-            lng =jsonObject.getString("lon");
+            lng =jsonObject.getString("long");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -164,6 +212,38 @@ public class User {
     {
         NotificationModel notification=new NotificationModel(notifications);
     }
+
+    public void Addfollower(int temp_id) {
+        if(followedBy ==null){
+            followedBy = new ArrayList<>();
+        }
+        followedBy.add(temp_id);
+
+    }
+    public void follow(int temp_id) {
+        if(followedBy ==null){
+            followedBy = new ArrayList<>();
+        }
+        followedBy.add(temp_id);
+
+    }
+    public void unfollow(int temp_id) {
+        if(followedBy ==null){
+            followedBy = new ArrayList<>();
+        }
+        int index = followedBy.indexOf(temp_id);
+        followedBy.remove(index);
+    }
+    public boolean isFollwer (int temp_id) {
+        if(followedBy ==null){
+            return false;
+        }
+        int index = followedBy.indexOf(temp_id);
+        if(index==-1)
+            return false;
+        return true ;
+    }
+
     /**
      * Getter an ArrayList of chat contain the history of chat
      * of the user.

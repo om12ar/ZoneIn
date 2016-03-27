@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,6 @@ public class AllUsers extends ListActivity {
     private followersAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
 
@@ -77,6 +77,7 @@ public class AllUsers extends ListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             TextView holder;
+            Button fButton ;
 
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.fragment_all_users, parent, false);
@@ -84,15 +85,21 @@ public class AllUsers extends ListActivity {
                 holder = (TextView) convertView.findViewById(R.id.userNameTextView);
 
                 convertView.findViewById(R.id.unfollowButton).setOnClickListener(buttonListener);
-
                 convertView.setTag(holder);
+
             } else {
                 holder = (TextView) convertView.getTag();
             }
+            fButton = (Button) convertView.findViewById(R.id.unfollowButton) ;
 
-            Log.e(TAG,users.get(position).getName());
+            Log.e(TAG, users.get(position).getName());
             holder.setText(users.get(position).getName());
-
+            if(MainControlller.user.isFollwer(users.get(position).getID())){
+                fButton.setText("Unfollow");
+            }
+            else {
+                fButton.setText("Follow");
+            }
 
             return convertView;
         }
@@ -107,15 +114,21 @@ public class AllUsers extends ListActivity {
                 followTask followtask = new followTask();
 
                 try {
-                   // if()
-                    followtask.execute("follow",""+users.get(position).getID() , ""+MainControlller.user.getID()).get();
+                    if(MainControlller.user.isFollwer(users.get(position).getID())){
+                        followtask.execute("unfollow",""+users.get(position).getID() , ""+MainControlller.user.getID()).get();
+                        MainControlller.user.unfollow(users.get(position).getID());
+                    }else {
+                        followtask.execute("follow",""+users.get(position).getID() , ""+MainControlller.user.getID()).get();
+                        MainControlller.user.follow(users.get(position).getID());
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
                 TextView tv = (TextView) v.findViewById(R.id.unfollowButton);
-                tv.setText("Unfollow");
+                //tv.setText("Unfollow");
                 //users.remove(position);
                 adapter.notifyDataSetChanged();
 
