@@ -1,18 +1,18 @@
 package com.swe.zonein.zonein.Activities;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,20 +26,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
-import static java.util.Arrays.asList;
+public class AllUsers extends ListActivity {
 
-/**
- * Created by Noha on 3/25/2016.
- */
-public class FollowersActivity extends ListActivity {
-    final String TAG = "FollowersActivity";
-    ArrayList<User> followers = new ArrayList<>();
+    final String TAG = "AllUSersActivity";
+    ArrayList<User> users = new ArrayList<>();
     private followersAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +41,10 @@ public class FollowersActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
 
-        getFollowersTask GFtask = new getFollowersTask();
+        getUsersTask GFtask = new getUsersTask();
+
         try {
-            GFtask.execute("getFollowers",""+MainControlller.user.getID()).get();
+            GFtask.execute("getAllUsers").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -65,12 +60,12 @@ public class FollowersActivity extends ListActivity {
 
         @Override
         public int getCount() {
-            return followers.size();
+            return users.size();
         }
 
         @Override
         public String getItem(int position) {
-            return followers.get(position).getName();
+            return users.get(position).getName();
         }
 
         @Override
@@ -84,41 +79,44 @@ public class FollowersActivity extends ListActivity {
             TextView holder;
 
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.follower_item, parent, false);
+                convertView = getLayoutInflater().inflate(R.layout.fragment_all_users, parent, false);
 
+                holder = (TextView) convertView.findViewById(R.id.userNameTextView);
 
-                holder = (TextView) convertView.findViewById(R.id.followerNameTextView);
-
-                convertView.findViewById(R.id.unfollowButton).setOnClickListener(mBuyButtonClickListener);
+                convertView.findViewById(R.id.unfollowButton).setOnClickListener(buttonListener);
 
                 convertView.setTag(holder);
             } else {
                 holder = (TextView) convertView.getTag();
             }
 
-            Log.e(TAG,followers.get(position).getName());
-            holder.setText(followers.get(position).getName());
+            Log.e(TAG,users.get(position).getName());
+            holder.setText(users.get(position).getName());
+
 
             return convertView;
         }
     }
 
-    private View.OnClickListener mBuyButtonClickListener = new View.OnClickListener() {
+    private View.OnClickListener buttonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             final int position = getListView().getPositionForView(v);
             if (position != ListView.INVALID_POSITION) {
                 Log.e(TAG , position+"");
-                unfollowTask unfollowtask = new unfollowTask();
+                followTask followtask = new followTask();
 
                 try {
-                    unfollowtask.execute("unfollow",""+followers.get(position).getID() , ""+MainControlller.user.getID()).get();
+                   // if()
+                    followtask.execute("follow",""+users.get(position).getID() , ""+MainControlller.user.getID()).get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-                followers.remove(position);
+                TextView tv = (TextView) v.findViewById(R.id.unfollowButton);
+                tv.setText("Unfollow");
+                //users.remove(position);
                 adapter.notifyDataSetChanged();
 
             }
@@ -126,7 +124,7 @@ public class FollowersActivity extends ListActivity {
         }
     };
 
-    public class getFollowersTask extends AsyncTask<String ,Void , JSONArray> {
+    public class getUsersTask extends AsyncTask<String ,Void , JSONArray> {
         JSONParser jsonParser = new JSONParser();
 
         @Override
@@ -137,20 +135,19 @@ public class FollowersActivity extends ListActivity {
 
                 HashMap<String, String> params = new HashMap<>();
                 String URL =args[0];
-                params.put("userID", args[1]);
-
                 Log.d("request", "starting");
 
                 JSONObject json = jsonParser.makeHttpRequest(
                         URL, "POST", params);
 
                 if (json != null) {
-                    JSONArray result = json.getJSONArray("followersList");
+                    JSONArray result = json.getJSONArray("userList");
 
-                    Log.d("JSON result", json.toString());
+                    Log.d("JSON userList", json.toString());
 
                     return result;
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -166,8 +163,8 @@ public class FollowersActivity extends ListActivity {
 
                 for (int i=0 ;i < jsonArray.length() ;i++){
                     try {
-                        User tempuser = new User(jsonArray.getJSONObject(i));
-                        followers.add(tempuser);
+                        User tempUser = new User(jsonArray.getJSONObject(i));
+                        users.add(tempUser);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -178,7 +175,7 @@ public class FollowersActivity extends ListActivity {
         }
     }
 
-    public class unfollowTask extends AsyncTask<String ,Void , JSONArray> {
+    public class followTask extends AsyncTask<String ,Void , JSONArray> {
         JSONParser jsonParser = new JSONParser();
 
         @Override
