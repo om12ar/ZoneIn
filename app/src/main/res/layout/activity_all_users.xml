@@ -1,7 +1,36 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment"
-    android:name="com.swe.zonein.zonein.Activities.AllUsersFragment"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout="@layout/fragment_all_users" />
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="15dp"
+        android:id="@+id/users_list">
+
+    </ListView>
+
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer"
+        android:visibility="visible" />
+
+</android.support.v4.widget.DrawerLayout>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.swe.zonein.zonein.Controllers.MainControlller;
 import com.swe.zonein.zonein.R;
 
 public class MainActivity extends AppCompatActivity
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity
        //     finish();
         } else if (id == R.id.nav_share) {
 
-            Intent intent = new Intent(MainActivity.this, AllUsers.class);
+            Intent intent = new Intent(MainActivity.this, AllUsersActivity.class);
             startActivity(intent);
 //            finish();
         } else if (id == R.id.nav_send) {

@@ -73,7 +73,7 @@ public class FollowingActivity extends ListActivity{
             TextView holder;
 
             if (convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.fragment_all_users, parent, false);
+                convertView = getLayoutInflater().inflate(R.layout.user_item, parent, false);
 
 
                 holder = (TextView) convertView.findViewById(R.id.userNameTextView);

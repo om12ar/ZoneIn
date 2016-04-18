@@ -47,7 +47,7 @@
             Restore password
         </activity>
         <activity
-            android:name=".Activities.AllUsers"
+            android:name=".Activities.AllUsersActivity"
             android:label="@string/title_activity_all_users"></activity>
     </application>
 
