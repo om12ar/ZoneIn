@@ -23,6 +23,7 @@ public class User {
     String pass ;
     ArrayList<Integer> peopleIFollow;
     ArrayList<Integer> peopleFolowingMe;
+    ArrayList<Integer> savedPlaces;
 
 
     public ArrayList<Integer> getPeopleFolowingMe() {
@@ -91,6 +92,7 @@ public class User {
         this.email = other.email;
         this.peopleIFollow = new ArrayList<>(other.peopleIFollow);
         this.peopleFolowingMe = new ArrayList<>(other.peopleFolowingMe);
+        this.savedPlaces = new ArrayList<>(other.savedPlaces);
 
     }
 
@@ -252,6 +254,31 @@ public class User {
         if(index==-1)
             return false;
         return true ;
+    }
+
+    public boolean isPlaceSaved(int placeId) {
+        if(savedPlaces ==null){
+            return false;
+        }
+        int index = savedPlaces.indexOf(placeId);
+        if(index==-1)
+            return false;
+        return true ;
+    }
+
+    public void unSavePlace(int id) {
+        if(savedPlaces ==null){
+            savedPlaces = new ArrayList<>();
+        }
+        int index = savedPlaces.indexOf(id);
+        savedPlaces.remove(index);
+    }
+
+    public void SavePlace(int id) {
+        if(savedPlaces ==null){
+            savedPlaces = new ArrayList<>();
+        }
+        savedPlaces.add(id);
     }
 
     /**

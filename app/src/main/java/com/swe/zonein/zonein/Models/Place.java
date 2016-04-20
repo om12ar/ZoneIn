@@ -7,7 +7,7 @@ public class Place {
 	String name;
     String description;
 	int numberOfCheckIn=0;
-	ArrayList<Taste> taste= new ArrayList<Taste>();
+	ArrayList<Taste> taste= new ArrayList<>();
 	int ID;
 	float rating;
 	public Place(){
@@ -27,7 +27,14 @@ public class Place {
 			ID=place.getID();
 			rating=place.getRating();
 		}
-
+		public Place(String name , String description ,String lng , String lat){
+			this.name = name;
+            this.description= description;
+            this.lng =lng;
+            this.lat =lat;
+            numberOfCheckIn = 0 ;
+            rating=0;
+		}
 		public Place(String lng, String lat, String name, int numberOfCheckIn,ArrayList<Taste> taste, int iD,
 		float rating) {
 			super();

@@ -1,4 +1,4 @@
-package com.swe.zonein.zonein.Activities;
+package com.swe.zonein.zonein.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -53,14 +53,9 @@ public class UserAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder = new Holder();
-
-
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.user_item, null);
 
@@ -69,8 +64,15 @@ public class UserAdapter extends BaseAdapter {
 
         holder.username = u;
         holder.follow = p;
-        holder.follow.setText("Follow");
-
+        int user = list.get(position).getID();
+        boolean isFollower;
+        isFollower = MainController.user.isFollowing(user);
+        if (isFollower == true) {
+            holder.follow.setText("UnFollow");
+        }
+        else{
+            holder.follow.setText("Follow");
+        }
 
 
         String username = list.get(position).getName();
@@ -83,10 +85,14 @@ public class UserAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 int user = list.get(position).getID();
-                boolean isFollower = true; //TODO GET FROM DB
+                boolean isFollower;
+                isFollower = MainController.user.isFollowing(user);
+
                 if (isFollower == true) {
                     p.setText("Unfollow");
                     p.refreshDrawableState();
+
+
                     final String url = VolleyController.baseURL + "unfollow";
 
 
@@ -129,7 +135,11 @@ public class UserAdapter extends BaseAdapter {
 
                     VolleyController.getInstance().addToRequestQueue(request);
 
+                    MainController.user.unfollow(list.get(position).getID());
+                    p.setText("Follow");
+
                 } else {
+
                     p.setText("Follow");
                     p.refreshDrawableState();
 
@@ -174,17 +184,23 @@ public class UserAdapter extends BaseAdapter {
 
 
                     VolleyController.getInstance().addToRequestQueue(request);
+
+                    MainController.user.follow(list.get(position).getID());
+                    p.setText("unFollow");
                 }
 
-            }
+
+
+                }
+
+
         });
         return convertView;
+}
+
+}
+    class Holder {
+        TextView username;
+        Button follow;
     }
-}
-
-
-class Holder {
-    TextView username;
-    Button follow;
-}
 

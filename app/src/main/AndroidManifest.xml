@@ -3,6 +3,7 @@
     package="com.swe.zonein.zonein">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".Activities.ZoneInApp"
@@ -12,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+
+
             android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -20,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity
+
+
             android:name=".Activities.SignInActivity"
             android:label="@string/title_activity_sign_in">
             <intent-filter>
@@ -29,6 +34,8 @@
             </intent-filter>
         </activity>
         <activity
+
+
             android:name=".Activities.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:parentActivityName=".Activities.SignInActivity">
@@ -38,18 +45,16 @@
         </activity>
         <activity
             android:name=".Activities.FollowersActivity"
-            android:label="@string/title_FollowersActivity"></activity>
+            android:label="@string/title_FollowersActivity" />
         <activity
             android:name=".Activities.FollowingActivity"
-            android:label="@string/title_FollowingActivity"></activity>
+            android:label="@string/title_FollowingActivity" />
         <activity
             android:name=".Activities.RestorePasswordActivity"
             android:label="@string/title_activity_restore_password">
             Restore password
         </activity>
-        <activity
-            android:name=".Activities.AllUsersActivity"
-            android:label="@string/title_activity_all_users"></activity>
+
     </application>
 
 </manifest>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#c9c9b7"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_weight="1"
+       android:layout_margin="3dp">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAppearance="?android:attr/textAppearanceLarge"
+           android:text="placeItemName"
+           android:id="@+id/placeItemNameTV"
+           android:layout_weight="0.9"
+           android:focusable="false"
+           android:focusableInTouchMode="false"
+
+           />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+
+           android:text="save"
+           android:id="@+id/placeSaveBtn"
+           android:layout_gravity="bottom|center_horizontal|right"
+           android:layout_weight="0.1"
+           android:textColor="#FFFFFF"
+           android:textSize="15dp"
+           android:textStyle="bold"
+           android:background="@drawable/follow_button_shape"
+           />
+
+   </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="description"
+        android:id="@+id/placeDescTV" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/placeRatingBar"
+        android:numStars="5"
+        android:rating="3.5"
+        android:isIndicator="false"
+         />
+</LinearLayout>
