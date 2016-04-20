@@ -16,14 +16,14 @@
            android:layout_height="wrap_content"
            android:textAppearance="?android:attr/textAppearanceLarge"
            android:text="placename"
-           android:id="@+id/pNameTV"
+           android:id="@+id/placeNameTV"
            android:layout_weight="0.9" />
        <Button
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
 
            android:text="save"
-           android:id="@+id/saveBtn"
+           android:id="@+id/placeSaveBtn"
            android:layout_gravity="bottom|center_horizontal|right"
            android:layout_weight="0.1"
            android:textColor="#FFFFFF"
@@ -38,12 +38,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="description"
-        android:id="@+id/description" />
+        android:id="@+id/placeDescTV" />
 
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ratingBar2"
+        android:id="@+id/placeRatingBar"
         android:numStars="5"
         android:rating="3.5"
         android:isIndicator="false"

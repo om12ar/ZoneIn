@@ -42,18 +42,6 @@ public class AllUsersFragment extends android.support.v4.app.Fragment{
         userAdapter = new UserAdapter(users ,getActivity());
 
         usersListView.setAdapter(userAdapter);
-        fillListView();
-
-        userAdapter.notifyDataSetChanged();
-        Log.e("AF", users.toString());
-        usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            }
-        });
-        return v;
-    }
-    private void  fillListView() {
 
         try {
             new getUsersTask().execute("getAllUsers").get();
@@ -64,6 +52,16 @@ public class AllUsersFragment extends android.support.v4.app.Fragment{
         }
         Log.e("AFff", users.size()+"");
         userAdapter.notifyDataSetChanged();
+
+
+        userAdapter.notifyDataSetChanged();
+        Log.e("AF", users.toString());
+        usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+        return v;
     }
 
     public class getUsersTask extends AsyncTask<String ,Void , JSONArray> {

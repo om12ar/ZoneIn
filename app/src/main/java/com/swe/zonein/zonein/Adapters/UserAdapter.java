@@ -51,32 +51,9 @@ public class UserAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-
-  /*  public View getView(int position, View convertView, ViewGroup parent) {
-        Holder viewHolder = new Holder();
-        if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.user_item, null);
-            viewHolder.follow = (Button) convertView.findViewById(R.id.followersButton);
-            viewHolder.username = (TextView) convertView.findViewById(R.id.userNameTextView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (Holder) convertView.getTag();
-        }
-
-        viewHolder.follow.setText("follow");
-        viewHolder.username.setText(list.get(position).getName());
-        return convertView;
-    }
-
-*/
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder = new Holder();
-
-
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.user_item, null);
 

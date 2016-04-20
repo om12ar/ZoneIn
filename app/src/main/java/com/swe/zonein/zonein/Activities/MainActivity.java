@@ -90,7 +90,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            toolbar.setTitle("All Places");
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.view_content, AllPlacesFragment.newInstance(),
+                            "FRAGMENT").addToBackStack(null).commit();
+            ;
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
