@@ -2,13 +2,16 @@ package com.swe.zonein.zonein.Activities;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,21 +33,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class AllUsersActivity extends AppCompatActivity {
+public class AllUsersFragment  extends android.support.v4.app.Fragment{
 
 
 
     ListView checkInsList;
-    List<User> users = new ArrayList<>() ;
+    List<User> users;
+    ListView usersListView;
+    UserAdapter userAdapter ;
+    public static AllUsersFragment newInstance() {
+        AllUsersFragment fragment = new AllUsersFragment();
+        Bundle args = new Bundle();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-        setContentView(R.layout.activity_all_users);
+        return fragment;
+    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.list_view, container, false);
 
-        checkInsList = (ListView) findViewById(R.id.users_list);
+        usersListView = (ListView) v.findViewById(R.id.list_view);
+        users = new ArrayList<>() ;
+        userAdapter = new UserAdapter(users ,getActivity());
 
+        usersListView.setAdapter(userAdapter);
+        fillListView();
+
+        userAdapter.notifyDataSetChanged();
+        Log.e("AF", users.toString());
+        usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
+        return v;
+    }
+    private void  fillListView() {
 
         try {
             new getUsersTask().execute("getAllUsers").get();
@@ -53,10 +75,8 @@ public class AllUsersActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        UserAdapter useradapter = new UserAdapter(users,this);
-        checkInsList.setAdapter(useradapter);
-
+        Log.e("AFff", users.size()+"");
+        userAdapter.notifyDataSetChanged();
     }
 
     public class getUsersTask extends AsyncTask<String ,Void , JSONArray> {
@@ -105,8 +125,9 @@ public class AllUsersActivity extends AppCompatActivity {
                     }
                 }
 
-            } else {
             }
+            Log.e("PE", users.size()+"");
+            userAdapter.notifyDataSetChanged();
         }
     }
 

@@ -52,6 +52,24 @@ public class UserAdapter extends BaseAdapter {
         return 0;
     }
 
+  /*  public View getView(int position, View convertView, ViewGroup parent) {
+        Holder viewHolder = new Holder();
+        if (convertView == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.user_item, null);
+            viewHolder.follow = (Button) convertView.findViewById(R.id.followersButton);
+            viewHolder.username = (TextView) convertView.findViewById(R.id.userNameTextView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (Holder) convertView.getTag();
+        }
+
+        viewHolder.follow.setText("follow");
+        viewHolder.username.setText(list.get(position).getName());
+        return convertView;
+    }
+
+*/
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -67,8 +85,15 @@ public class UserAdapter extends BaseAdapter {
 
         holder.username = u;
         holder.follow = p;
-        holder.follow.setText("Follow");
-
+        int user = list.get(position).getID();
+        boolean isFollower;
+        isFollower = MainControlller.user.isFollowing(user);
+        if (isFollower == true) {
+            holder.follow.setText("UnFollow");
+        }
+        else{
+            holder.follow.setText("Follow");
+        }
 
 
         String username = list.get(position).getName();
@@ -81,16 +106,21 @@ public class UserAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 int user = list.get(position).getID();
-                boolean isFollower = true; //TODO GET FROM DB
+                boolean isFollower;
+                isFollower = MainControlller.user.isFollowing(user);
                 if (isFollower == true) {
                     p.setText("Unfollow");
                     p.refreshDrawableState();
                     new followTask().execute("unfollow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
+                    MainControlller.user.unfollow(list.get(position).getID());
+                    p.setText("Follow");
 
                 } else {
                     p.setText("Follow");
                     p.refreshDrawableState();
                     new followTask().execute("follow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
+                    MainControlller.user.follow(list.get(position).getID());
+                    p.setText("unFollow");
                 }
 
             }
@@ -99,54 +129,56 @@ public class UserAdapter extends BaseAdapter {
     }
 }
 
-class followTask extends AsyncTask<String, Void, JSONArray> {
-    JSONParser jsonParser = new JSONParser();
 
-    @Override
-    protected JSONArray doInBackground(String... args) {
-        try {
+    class followTask extends AsyncTask<String, Void, JSONArray> {
+        JSONParser jsonParser = new JSONParser();
 
-            HashMap<String, String> params = new HashMap<>();
-            String URL = args[0];
-            params.put("followerID", args[1]);
-            params.put("followedID", args[2]);
+        @Override
+        protected JSONArray doInBackground(String... args) {
+            try {
 
-            Log.d("request", "starting");
+                HashMap<String, String> params = new HashMap<>();
+                String URL = args[0];
+                params.put("followerID", args[1]);
+                params.put("followedID", args[2]);
 
-            JSONObject json = jsonParser.makeHttpRequest(
-                    URL, "POST", params);
+                Log.d("request", "starting");
 
-            if (json != null) {
-                JSONArray result = json.getJSONArray("status");
+                JSONObject json = jsonParser.makeHttpRequest(
+                        URL, "POST", params);
 
-                Log.d("JSON result", json.toString());
+                if (json != null) {
+                    JSONArray result = json.getJSONArray("status");
 
-                return result;
+                    Log.d("JSON result", json.toString());
+
+                    return result;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
 
-        return null;
-    }
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
 
-    @Override
-    protected void onPostExecute(JSONArray jsonArray) {
-        super.onPostExecute(jsonArray);
+            if (jsonArray != null) {
 
-        if (jsonArray != null) {
+                //followers.remove();
 
-            //followers.remove();
-
-        } else {
-            //followers.add("No followers");
+            } else {
+                //followers.add("No followers");
+            }
         }
     }
-}
 
-class Holder {
-    TextView username;
-    Button follow;
-}
+    class Holder {
+        TextView username;
+        Button follow;
+    }
+
 

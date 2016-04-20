@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,14 +21,14 @@ import com.swe.zonein.zonein.R;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Toolbar toolbar ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView hello = (TextView) findViewById(R.id.welcomeUserNameTextView);
-        //hello.setText(MainControlller.user.getName());
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +83,10 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+       // android.support.v4.app.Fragment fragment = new android.support.v4.app.Fragment();
+
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
@@ -99,9 +103,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
        //     finish();
         } else if (id == R.id.nav_share) {
-
-            Intent intent = new Intent(MainActivity.this, AllUsersActivity.class);
-            startActivity(intent);
+            toolbar.setTitle("Followers");
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.view_content, AllUsersFragment.newInstance(),
+                            "FRAGMENT").addToBackStack(null).commit();
+          /*  Intent intent = new Intent(MainActivity.this, AllUsersFragment.class);
+            startActivity(intent);*/
 //            finish();
         } else if (id == R.id.nav_send) {
 

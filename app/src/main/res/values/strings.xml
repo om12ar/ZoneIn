@@ -11,4 +11,6 @@
     <string name="title_FollowersActivity">Followers</string>
     <string name="title_activity_all_users">AllUsers</string>
     <string name="title_FollowingActivity">People I follow</string>
+    <string name="title_activity_base">baseActivity</string>
+    <string name="menu">Menu</string>
 </resources>
