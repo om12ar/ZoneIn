@@ -1,26 +1,16 @@
 package com.swe.zonein.zonein.Activities;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.swe.zonein.zonein.Adapters.UserAdapter;
 import com.swe.zonein.zonein.Controllers.JSONParser;
-import com.swe.zonein.zonein.Controllers.MainControlller;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
@@ -33,11 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class AllUsersFragment  extends android.support.v4.app.Fragment{
+public class AllUsersFragment extends android.support.v4.app.Fragment{
 
-
-
-    ListView checkInsList;
     List<User> users;
     ListView usersListView;
     UserAdapter userAdapter ;

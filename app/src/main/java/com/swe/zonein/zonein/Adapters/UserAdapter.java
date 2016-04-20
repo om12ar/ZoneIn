@@ -1,4 +1,4 @@
-package com.swe.zonein.zonein.Activities;
+package com.swe.zonein.zonein.Adapters;
 
 import android.content.Context;
 import android.os.AsyncTask;
