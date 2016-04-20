@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.swe.zonein.zonein.Adapters.UserAdapter;
-import com.swe.zonein.zonein.Controllers.MainControlller;
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
@@ -52,8 +52,8 @@ public class AddPlaceFragment extends android.support.v4.app.Fragment{
                 String lng ,lat ;
                 if (isCurrentLocation.isChecked()){
                     //TODO maybe update location first
-                    lng= MainControlller.user.getLng();
-                    lat= MainControlller.user.getLat();
+                    lng= MainController.user.getLng();
+                    lat= MainController.user.getLat();
                 }
                 else{
                     EditText userLong = (EditText) v.findViewById(R.id.placelongET);

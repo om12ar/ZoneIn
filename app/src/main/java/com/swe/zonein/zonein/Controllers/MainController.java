@@ -7,9 +7,9 @@ import com.swe.zonein.zonein.Models.User;
  * Created by Menna on 12/17/2015.
  */
 
-public  class MainControlller {
+public  class MainController {
     public static User user = null;
-    public MainControlller(User user){
+    public MainController(User user){
         this.user=new User(user);
 
     }

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.swe.zonein.zonein.Controllers.MainControlller;
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
@@ -55,7 +55,7 @@ public class PlaceAdapter extends BaseAdapter{
     holder.rating.setEnabled(false);
         int place = list.get(position).getID();
         boolean isSaved;
-        isSaved = MainControlller.user.isPlaceSaved(place);
+        isSaved = MainController.user.isPlaceSaved(place);
         if (isSaved == true) {
             holder.save.setText("UnSave");
         }
@@ -73,19 +73,19 @@ public class PlaceAdapter extends BaseAdapter{
             public void onClick(View view) {
                 int place = list.get(position).getID();
                 boolean isSaved;
-                isSaved = MainControlller.user.isPlaceSaved(place);
+                isSaved = MainController.user.isPlaceSaved(place);
                 if (isSaved == true) {
                     pSave.setText("Unsave");
                     pSave.refreshDrawableState();
                     //new followTask().execute("unfollow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
-                    MainControlller.user.unSavePlace(list.get(position).getID());
+                    MainController.user.unSavePlace(list.get(position).getID());
                     pSave.setText("save");
 
                 } else {
                     pSave.setText("Save");
                     pSave.refreshDrawableState();
                     //    new followTask().execute("follow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
-                    MainControlller.user.SavePlace(list.get(position).getID());
+                    MainController.user.SavePlace(list.get(position).getID());
                     pSave.setText("UnSave");
                 }
 
