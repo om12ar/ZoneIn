@@ -1,40 +1,21 @@
 package com.swe.zonein.zonein.Activities;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.swe.zonein.zonein.Controllers.JSONParser;
-import com.swe.zonein.zonein.Controllers.MainControlller;
 import com.swe.zonein.zonein.Models.Post;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
-
-import static java.util.Arrays.asList;
 
 /**
  * Created by Noha on 3/25/2016.

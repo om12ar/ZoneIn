@@ -1,7 +1,7 @@
 package com.swe.zonein.zonein.Activities;
 
 import android.app.ListActivity;
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,8 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.swe.zonein.zonein.Controllers.JSONParser;
-import com.swe.zonein.zonein.Controllers.MainControlller;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
@@ -21,7 +25,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by ois2h on 3/27/2016.
@@ -35,18 +38,60 @@ public class FollowingActivity extends ListActivity{
 
         super.onCreate(savedInstanceState);
 
+        final Context myContext = this;
 
-        getFollowersTask GFtask = new getFollowersTask();
-        try {
-            GFtask.execute("getFollowedBy",""+ MainControlller.user.getID()).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        final String url = VolleyController.baseURL + "getFollowedBy";
 
-        adapter = new followersAdapter();
-        setListAdapter(adapter);
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    JSONObject jsnObject = new JSONObject(response);
+                    JSONArray jsonArray = jsnObject.getJSONArray("followedByUser");
+                    if(jsonArray!=null){
+
+                        for (int i=0 ;i < jsonArray.length() ;i++){
+                            try {
+                                User tempUser = new User(jsonArray.getJSONObject(i));
+                                followers.add(tempUser);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        adapter = new followersAdapter();
+                        setListAdapter(adapter);
+
+                    } else {
+
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }){
+            @Override
+            protected HashMap<String, String> getParams()
+            {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("userID", "" + MainController.user.getID());
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request, TAG);
 
     }
 
@@ -98,18 +143,52 @@ public class FollowingActivity extends ListActivity{
             final int position = getListView().getPositionForView(v);
             if (position != ListView.INVALID_POSITION) {
                 Log.e(TAG , position+"");
-                unfollowTask unfollowtask = new unfollowTask();
 
-                try {
-                    unfollowtask.execute("unfollow",""+MainControlller.user.getID() , ""+followers.get(position).getID() ).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+
+                final String url = VolleyController.baseURL + "unfollow";
+
+
+                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+
+                            JSONObject jsnObject = new JSONObject(response);
+                            JSONArray jsonArray = jsnObject.getJSONArray("status");
+                            if(jsonArray!=null){
+
+
+                            } else {
+
+                            }
+                        }catch(Exception e){
+                            e.printStackTrace();
+                            e.getMessage();
+                            System.out.println("ERROR Exception!");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("ERROR!");
+                    }
+                }){
+                    @Override
+                    protected HashMap<String, String> getParams()
+                    {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("FollowerID", "" + MainController.user.getID());
+                        params.put("FollowedID", ""+ followers.get(position).getID());
+                        return params;
+                    }
+
+                };
+
+
+                VolleyController.getInstance().addToRequestQueue(request, TAG);
 
                 if(position>followers.size()){
-                    MainControlller.user.unfollow(followers.get(position).getID());
+                    MainController.user.unfollow(followers.get(position).getID());
                 }
                 followers.remove(position);
                 adapter.notifyDataSetChanged();
@@ -119,102 +198,6 @@ public class FollowingActivity extends ListActivity{
         }
     };
 
-    public class getFollowersTask extends AsyncTask<String ,Void , JSONArray> {
-        JSONParser jsonParser = new JSONParser();
 
-        @Override
-        protected JSONArray doInBackground(String... args) {
-
-
-            try {
-
-                HashMap<String, String> params = new HashMap<>();
-                String URL =args[0];
-                params.put("userID", args[1]);
-
-                Log.d("request", "starting");
-
-                JSONObject json = jsonParser.makeHttpRequest(
-                        URL, "POST", params);
-
-                if (json != null) {
-                    JSONArray result = json.getJSONArray("followedByUser");
-
-                    Log.d("JSON result", json.toString());
-
-                    return result;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray jsonArray) {
-            super.onPostExecute(jsonArray);
-
-            if(jsonArray!=null){
-
-                for (int i=0 ;i < jsonArray.length() ;i++){
-                    try {
-                        User tempuser = new User(jsonArray.getJSONObject(i));
-                        followers.add(tempuser);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-            }
-        }
-    }
-
-    public class unfollowTask extends AsyncTask<String ,Void , JSONArray> {
-        JSONParser jsonParser = new JSONParser();
-
-        @Override
-        protected JSONArray doInBackground(String... args) {
-            try {
-
-                HashMap<String, String> params = new HashMap<>();
-                String URL =args[0];
-                params.put("followerID", args[1]);
-                params.put("followedID", args[2]);
-
-                Log.d("request", "starting");
-
-                JSONObject json = jsonParser.makeHttpRequest(
-                        URL, "POST", params);
-
-                if (json != null) {
-                    JSONArray result = json.getJSONArray("status");
-
-                    Log.d("JSON result", json.toString());
-
-                    return result;
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray jsonArray) {
-            super.onPostExecute(jsonArray);
-
-            if(jsonArray!=null){
-
-                //followers.remove();
-
-            } else {
-                //followers.add("No followers");
-            }
-        }
-    }
 }
 

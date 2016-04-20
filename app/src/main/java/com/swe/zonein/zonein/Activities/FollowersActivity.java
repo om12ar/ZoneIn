@@ -1,24 +1,21 @@
 package com.swe.zonein.zonein.Activities;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.swe.zonein.zonein.Controllers.JSONParser;
-import com.swe.zonein.zonein.Controllers.MainControlller;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
@@ -26,13 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
-
-import static java.util.Arrays.asList;
 
 /**
  * Created by Noha on 3/25/2016.
@@ -46,18 +38,62 @@ public class FollowersActivity extends ListActivity {
 
         super.onCreate(savedInstanceState);
 
+        final Context myContext = this;
 
-        getFollowersTask GFtask = new getFollowersTask();
-        try {
-            GFtask.execute("getFollowers",""+MainControlller.user.getID()).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        final String url = VolleyController.baseURL + "getFollowers";
 
-        adapter = new followersAdapter();
-        setListAdapter(adapter);
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    JSONObject jsnObject = new JSONObject(response);
+                    JSONArray jsonArray = jsnObject.getJSONArray("followersList");
+                    if(jsonArray!=null){
+
+                        for (int i=0 ;i < jsonArray.length() ;i++){
+                            try {
+                                User tempUser = new User(jsonArray.getJSONObject(i));
+                                followers.add(tempUser);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        adapter = new followersAdapter();
+                        setListAdapter(adapter);
+
+                    } else {
+
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }){
+            @Override
+            protected HashMap<String, String> getParams()
+            {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("userID", "" + MainController.user.getID());
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request, TAG);
+
+
 
     }
 
@@ -104,125 +140,4 @@ public class FollowersActivity extends ListActivity {
         }
     }
 
-/*
-    private View.OnClickListener mBuyButtonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            final int position = getListView().getPositionForView(v);
-            if (position != ListView.INVALID_POSITION) {
-                Log.e(TAG , position+"");
-                unfollowTask unfollowtask = new unfollowTask();
-
-                try {
-                    unfollowtask.execute("unfollow",""+followers.get(position).getID() , ""+MainControlller.user.getID()).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                followers.remove(position);
-                adapter.notifyDataSetChanged();
-
-            }
-
-        }
-    };*/
-
-    public class getFollowersTask extends AsyncTask<String ,Void , JSONArray> {
-        JSONParser jsonParser = new JSONParser();
-
-        @Override
-        protected JSONArray doInBackground(String... args) {
-
-
-            try {
-
-                HashMap<String, String> params = new HashMap<>();
-                String URL =args[0];
-                params.put("userID", args[1]);
-
-                Log.d("request", "starting");
-
-                JSONObject json = jsonParser.makeHttpRequest(
-                        URL, "POST", params);
-
-                if (json != null) {
-                    JSONArray result = json.getJSONArray("followersList");
-
-                    Log.d("JSON result", json.toString());
-
-                    return result;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray jsonArray) {
-            super.onPostExecute(jsonArray);
-
-            if(jsonArray!=null){
-
-                for (int i=0 ;i < jsonArray.length() ;i++){
-                    try {
-                        User tempuser = new User(jsonArray.getJSONObject(i));
-                        followers.add(tempuser);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-            }
-        }
-    }
-
-    /*public class unfollowTask extends AsyncTask<String ,Void , JSONArray> {
-        JSONParser jsonParser = new JSONParser();
-
-        @Override
-        protected JSONArray doInBackground(String... args) {
-            try {
-
-                HashMap<String, String> params = new HashMap<>();
-                String URL =args[0];
-                params.put("followerID", args[1]);
-                params.put("followedID", args[2]);
-
-                Log.d("request", "starting");
-
-                JSONObject json = jsonParser.makeHttpRequest(
-                        URL, "POST", params);
-
-                if (json != null) {
-                    JSONArray result = json.getJSONArray("followersList");
-
-                    Log.d("JSON result", json.toString());
-
-                    return result;
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray jsonArray) {
-            super.onPostExecute(jsonArray);
-
-            if(jsonArray!=null){
-
-                //followers.remove();
-
-            } else {
-                //followers.add("No followers");
-            }
-        }
-    }*/
 }

@@ -1,23 +1,15 @@
 package com.swe.zonein.zonein.Activities;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.swe.zonein.zonein.Controllers.JSONParser;
-import com.swe.zonein.zonein.Controllers.MainControlller;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
@@ -28,7 +20,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class AllUsersActivity extends AppCompatActivity {
 
@@ -45,69 +36,61 @@ public class AllUsersActivity extends AppCompatActivity {
 
         checkInsList = (ListView) findViewById(R.id.users_list);
 
+        final Context myContext = this;
 
-        try {
-            new getUsersTask().execute("getAllUsers").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        UserAdapter useradapter = new UserAdapter(users,this);
-        checkInsList.setAdapter(useradapter);
-
-    }
-
-    public class getUsersTask extends AsyncTask<String ,Void , JSONArray> {
-        JSONParser jsonParser = new JSONParser();
-
-        @Override
-        protected JSONArray doInBackground(String... args) {
+        final String url = VolleyController.baseURL + "getAllUsers";
 
 
-            try {
-
-                HashMap<String, String> params = new HashMap<>();
-                String URL =args[0];
-                Log.d("request", "starting");
-
-                JSONObject json = jsonParser.makeHttpRequest(
-                        URL, "POST", params);
-
-                if (json != null) {
-                    JSONArray result = json.getJSONArray("userList");
-
-                    Log.d("JSON userList", json.toString());
-
-                    return result;
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray jsonArray) {
-            super.onPostExecute(jsonArray);
-
-            if(jsonArray!=null){
-
-                for (int i=0 ;i < jsonArray.length() ;i++){
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
                     try {
-                        User tempUser = new User(jsonArray.getJSONObject(i));
-                        users.add(tempUser);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
 
-            } else {
+                        JSONObject jsnObject = new JSONObject(response);
+                        JSONArray jsonArray = jsnObject.getJSONArray("userList");
+                        if(jsonArray!=null){
+
+                            for (int i=0 ;i < jsonArray.length() ;i++){
+                                try {
+                                    User tempUser = new User(jsonArray.getJSONObject(i));
+                                    users.add(tempUser);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            UserAdapter useradapter = new UserAdapter(users, myContext);
+                            checkInsList.setAdapter(useradapter);
+
+                        } else {
+
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        e.getMessage();
+                        System.out.println("ERROR Exception!");
+                    }
             }
-        }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }){
+            @Override
+            protected HashMap<String, String> getParams()
+            {
+                HashMap<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request);
+
+
     }
 
 }
