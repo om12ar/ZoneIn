@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class PlaceFragment extends android.support.v4.app.Fragment{
     List<CheckIn> checkIns;
     ListView listview;
     CheckinAdapter adapter ;
+
     public PlaceFragment newInstance() {
         PlaceFragment fragment = new PlaceFragment();
         return fragment;
@@ -42,8 +45,8 @@ public class PlaceFragment extends android.support.v4.app.Fragment{
         adapter = new CheckinAdapter(checkIns ,getContext());
         listview.setAdapter(adapter);
         checkIns.add(new CheckIn("bla", "111", 0, 1, 2));
-        checkIns.add(new  CheckIn("bla bla ","111", 2.5 , 1, 2));
-        checkIns.add(new  CheckIn("bla bla bla","111", 5 , 1, 2));
+        checkIns.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));
+        checkIns.add(new CheckIn("bla bla bla", "111", 5, 1, 2));
         // TODO VOLLEY
        /* try {
             new getUsersTask().execute("getAllUsers").get();
@@ -54,7 +57,37 @@ public class PlaceFragment extends android.support.v4.app.Fragment{
         }*/
         Log.e("AFff", checkIns.size() + "");
         adapter.notifyDataSetChanged();
+      /*  listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("allplaces :", "ON CLICK ");
+                Bundle bundle = new Bundle();
+                TextView name = (TextView) view.findViewById(R.id.placeItemNameTV);
+                bundle.putString("placeName", name.getText().toString());
 
+                PlaceFragment nextFrag = new PlaceFragment();
+                nextFrag.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.view_content, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });*/
+
+
+        Button checkin = (Button) v.findViewById(R.id.plcChechInBtn);
+        checkin.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                CheckInFragment nextFrag = new CheckInFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.view_content, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         return v;
     }
 }

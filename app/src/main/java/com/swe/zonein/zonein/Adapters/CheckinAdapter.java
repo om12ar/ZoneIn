@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.swe.zonein.zonein.Controllers.MainControlller;
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
 
@@ -78,7 +78,7 @@ public class CheckinAdapter extends BaseAdapter {
                     likeBtn.refreshDrawableState();
                     //TODO LIKE
                     //new followTask().execute("unfollow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
-                    MainControlller.user.unSavePlace(list.get(position).getID());
+                    MainController.user.unSavePlace(list.get(position).getID());
                     likeBtn.setText("like");
                     isLiked = false;
                 } else {
@@ -96,7 +96,7 @@ public class CheckinAdapter extends BaseAdapter {
         cmntBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO IMPLMENT COMMENT
+                //TODO IMPLEMENT COMMENT
 
             }
         });
