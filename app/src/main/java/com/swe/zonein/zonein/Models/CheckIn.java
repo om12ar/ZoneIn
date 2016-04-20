@@ -1,5 +1,7 @@
 package com.swe.zonein.zonein.Models;
 
+import java.util.ArrayList;
+
 /**
  * Checkin class hold the data of user checkin 
  * it construct and add the information of the checkin
@@ -13,8 +15,32 @@ public class CheckIn {
 	int ID;
 	int userID;
 	int placeID;
-    float rate ;
+    double rate ;
+	int likes ;
+	ArrayList<String> comments= new ArrayList<>();
+	public int getLikes() {
+		return likes;
+	}
 
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
+	public ArrayList<String> getComments() {
+		return comments;
+	}
+
+	public void setComments(ArrayList<String> comments) {
+		this.comments = comments;
+	}
+
+
+	public void like (){
+		likes++;
+	}
+	public void unlike (){
+		likes--;
+	}
     public CheckIn(){
         text="";
         time="";
@@ -22,6 +48,8 @@ public class CheckIn {
         userID=-1;
         placeID=-1;
         rate=-1;
+		likes = 0 ;
+		comments = new ArrayList<>();
 
 
     }
@@ -30,14 +58,14 @@ public class CheckIn {
 	 * Constructor that take copy the data in check in
 	 * @param text . the feedback on the checkin .
 	 * @param time . it indicate the time that the check in take place.
-	 * @param iD . the check in id.
+	 * @param rating . the check in id.
 	 * @param userID . the user that make the checkin id.
 	 * @param placeID . the id of the place at which the check takeplace.
 	 */
-	public CheckIn(String text, String time, int iD, int userID, int placeID) {
+	public CheckIn(String text, String time, double rating , int userID, int placeID) {
 		this.text = text;
 		this.time = time;
-		ID = iD;
+		this.rate = rating;
 		this.userID = userID;
 		this.placeID = placeID;
 	}
@@ -75,7 +103,7 @@ public class CheckIn {
 		this.time = time;
 	}
 
-    public float getRate() {
+    public double getRate() {
         return rate;
     }
 
