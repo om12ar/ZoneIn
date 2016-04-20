@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.swe.zonein.zonein.Controllers.MainControlller;
 import com.swe.zonein.zonein.Models.Place;
-import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
 import java.util.List;
@@ -40,11 +39,11 @@ public class PlaceAdapter extends BaseAdapter{
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Holder holder = new Holder();
+        final Holder holder = new Holder();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.place_item, null);
 
-        TextView pName = (TextView) convertView.findViewById(R.id.placeNameTV);
+        TextView pName = (TextView) convertView.findViewById(R.id.placeItemNameTV);
         TextView pDesc = (TextView) convertView.findViewById(R.id.placeDescTV);
         RatingBar pRating = (RatingBar) convertView.findViewById(R.id.placeRatingBar);
         final Button pSave = (Button) convertView.findViewById(R.id.placeSaveBtn);
@@ -53,7 +52,7 @@ public class PlaceAdapter extends BaseAdapter{
         holder.placeDesc = pDesc;
         holder.rating = pRating;
         holder.save=pSave ;
-
+    holder.rating.setEnabled(false);
         int place = list.get(position).getID();
         boolean isSaved;
         isSaved = MainControlller.user.isPlaceSaved(place);
@@ -85,15 +84,19 @@ public class PlaceAdapter extends BaseAdapter{
                 } else {
                     pSave.setText("Save");
                     pSave.refreshDrawableState();
-                //    new followTask().execute("follow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
+                    //    new followTask().execute("follow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
                     MainControlller.user.SavePlace(list.get(position).getID());
                     pSave.setText("UnSave");
                 }
 
             }
         });
+
+
         return convertView;
     }
+
+
 
     class Holder {
         TextView placeName;

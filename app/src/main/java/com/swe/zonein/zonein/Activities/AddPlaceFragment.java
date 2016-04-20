@@ -1,6 +1,7 @@
 package com.swe.zonein.zonein.Activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +70,8 @@ public class AddPlaceFragment extends android.support.v4.app.Fragment{
 
             }
         });
+
+
         return v;
     }
 }

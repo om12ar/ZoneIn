@@ -1,12 +1,15 @@
 package com.swe.zonein.zonein.Activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.swe.zonein.zonein.Adapters.PlaceAdapter;
 import com.swe.zonein.zonein.Adapters.UserAdapter;
@@ -40,7 +43,9 @@ public class AllPlacesFragment extends android.support.v4.app.Fragment{
         adapter = new PlaceAdapter(places ,getActivity());
 
         listview.setAdapter(adapter);
-        places.add(new Place("test","desc", "-1","-1.6"));
+        places.add(new Place("1", "desc", "-1", "-1.6"));
+        places.add(new Place("2","desc", "-1","-1.6"));
+        places.add(new Place("3","desc", "-1","-1.6"));
     // TODO VOLLEY
        /* try {
             new getUsersTask().execute("getAllUsers").get();
@@ -53,9 +58,29 @@ public class AllPlacesFragment extends android.support.v4.app.Fragment{
         adapter.notifyDataSetChanged();
 
         Log.e("AF", places.toString());
+      /*  listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // When clicked, show a toast with the TextView text
+                Toast.makeText(getContext(),
+                        ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("allplaces :" ,"ON CLICK ");
+                Bundle bundle = new Bundle();
+                TextView name = (TextView) view.findViewById(R.id.placeItemNameTV);
+                bundle.putString("placeName", name.getText().toString());
+
+                PlaceFragment nextFrag= new PlaceFragment();
+                nextFrag.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.view_content, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
+
             }
         });
         return v;
