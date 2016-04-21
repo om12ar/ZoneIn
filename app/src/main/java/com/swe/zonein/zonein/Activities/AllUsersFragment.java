@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AllUsersFragment extends android.support.v4.app.Fragment{
+public class AllUsersFragment extends  android.app.Fragment {
 
     List<User> users;
     ListView usersListView;

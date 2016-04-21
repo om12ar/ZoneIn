@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by om12ar on 4/20/16.
  */
-public class AllPlacesFragment extends android.support.v4.app.Fragment{
+public class AllPlacesFragment extends android.app.Fragment {
     List<Place> places;
     ListView listview;
     PlaceAdapter adapter ;
@@ -76,7 +76,7 @@ public class AllPlacesFragment extends android.support.v4.app.Fragment{
 
                 PlaceFragment nextFrag= new PlaceFragment();
                 nextFrag.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction()
+                getActivity().getFragmentManager().beginTransaction()
                         .replace(R.id.view_content, nextFrag)
                         .addToBackStack(null)
                         .commit();

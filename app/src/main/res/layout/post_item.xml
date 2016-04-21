@@ -70,7 +70,6 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
             android:id="@+id/commentButton"
             android:layout_weight="0.5"
             android:gravity="center" />

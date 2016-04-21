@@ -18,7 +18,7 @@ import com.swe.zonein.zonein.R;
 /**
  * Created by om12ar on 4/21/16.
  */
-public class CheckInFragment extends android.support.v4.app.Fragment {
+public class CheckInFragment extends  android.app.Fragment {
     public static AddPlaceFragment newInstance() {
         AddPlaceFragment fragment = new AddPlaceFragment();
         Bundle args = new Bundle();

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by om12ar on 4/20/16.
  */
-public class PlaceFragment extends android.support.v4.app.Fragment{
+public class PlaceFragment extends  android.app.Fragment {
     static Bundle args ;
     List<CheckIn> checkIns;
     ListView listview;
@@ -57,37 +57,45 @@ public class PlaceFragment extends android.support.v4.app.Fragment{
         }*/
         Log.e("AFff", checkIns.size() + "");
         adapter.notifyDataSetChanged();
-      /*  listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("allplaces :", "ON CLICK ");
-                Bundle bundle = new Bundle();
-                TextView name = (TextView) view.findViewById(R.id.placeItemNameTV);
-                bundle.putString("placeName", name.getText().toString());
+     /* listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              Log.e("allplaces :", "ON CLICK ");
+              *//*Bundle bundle = new Bundle();
+              TextView name = (TextView) view.findViewById(R.id.placeItemNameTV);
+              bundle.putString("placeName", name.getText().toString());*//*
 
-                PlaceFragment nextFrag = new PlaceFragment();
-                nextFrag.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.view_content, nextFrag)
-                        .addToBackStack(null)
-                        .commit();
+              CheckInFragment nextFrag = new CheckInFragment();
+              //nextFrag.setArguments(bundle);
+              getActivity().getSupportFragmentManager().beginTransaction()
+                      .replace(R.id.view_content, nextFrag)
+                      .addToBackStack(null)
+                      .commit();
 
-            }
-        });*/
-
+          }
+      });
+*/
 
         Button checkin = (Button) v.findViewById(R.id.plcChechInBtn);
-        checkin.setOnClickListener(new View.OnClickListener(){
+        checkin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 CheckInFragment nextFrag = new CheckInFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
+                getActivity().getFragmentManager().beginTransaction()
                         .replace(R.id.view_content, nextFrag)
                         .addToBackStack(null)
                         .commit();
             }
         });
+        /*Button comment = (Button) v.findViewById(R.id.commentButton);
+        comment.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
         return v;
     }
 }
