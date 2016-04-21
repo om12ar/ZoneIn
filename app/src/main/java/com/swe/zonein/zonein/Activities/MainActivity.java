@@ -55,13 +55,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if(fragmentManager.getBackStackEntryCount() != 0) {
-            fragmentManager.popBackStack();
-        }
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+         if (getFragmentManager().getBackStackEntryCount() == 0) {
+                this.finish();
+            } else {
+                getFragmentManager().popBackStack();
+            }
         }
 
     }
@@ -92,18 +94,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-
-       // android.support.v4.app.Fragment fragment = new android.support.v4.app.Fragment();
-
         int id = item.getItemId();
+        if (id == R.id.nav_home) {
+            toolbar.setTitle("Home");
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
 
-        if (id == R.id.nav_all_places) {
+        }
+        else if (id == R.id.nav_all_places) {
             toolbar.setTitle("All Places");
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.view_content, AllPlacesFragment.newInstance(),
                             "FRAGMENT").addToBackStack(null).commit();
-            ;
+
+
         } else if (id == R.id.nav_check_in) {
             toolbar.setTitle("Check in");
 

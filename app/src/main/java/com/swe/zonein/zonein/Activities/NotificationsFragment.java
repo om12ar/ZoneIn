@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * Created by Noha on 4/21/2016.
  */
-public class NotificationsFragment extends android.support.v4.app.Fragment{
+public class NotificationsFragment extends android.app.Fragment{
 
 
         List<NotificationModel> notifications;
