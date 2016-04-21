@@ -5,34 +5,42 @@
     android:weightSum="1">
 
     <include
-        layout="@layout/checkin_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
+        layout="@layout/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberPassword"
+        android:id="@+id/commentsList"
+        android:layout_weight="1" />
 
-        android:lines="5"
-        android:id="@+id/editText"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.5"
-        android:hint="Write Your Comment "
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp" />
-
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Comment"
-        android:id="@+id/CommentSubmitBtn"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/confirm_button"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="15dp" />
+        android:layout_weight="0.1"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:id="@+id/commentWriteET"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.5"
+            android:hint="Write Your Comment "
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="comment"
+            android:id="@+id/CommentSubmitBtn"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/confirm_button"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.5" />
+    </LinearLayout>
 
 
 </LinearLayout>
