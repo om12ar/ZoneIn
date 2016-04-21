@@ -97,11 +97,16 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
-        Button singup = (Button) findViewById(R.id.signUpbutton);
+        Button singup = (Button) findViewById(R.id.signUpButton);
         singup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
 
+                Log.e("LOGIN ACTIVITY", "New user ");
+                Toast.makeText(getApplicationContext(), "Please Create an account ", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+                finish();
 
             }
         });

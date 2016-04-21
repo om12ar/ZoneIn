@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by om12ar on 4/20/16.
  */
-public class AddPlaceFragment extends android.support.v4.app.Fragment{
+public class AddPlaceFragment extends  android.app.Fragment {
 
     public static AddPlaceFragment newInstance() {
         AddPlaceFragment fragment = new AddPlaceFragment();

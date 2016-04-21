@@ -52,7 +52,7 @@ public class PlaceAdapter extends BaseAdapter{
         holder.placeDesc = pDesc;
         holder.rating = pRating;
         holder.save=pSave ;
-    holder.rating.setEnabled(false);
+        holder.rating.setEnabled(false);
         int place = list.get(position).getID();
         boolean isSaved;
         isSaved = MainController.user.isPlaceSaved(place);

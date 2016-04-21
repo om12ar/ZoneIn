@@ -1,5 +1,8 @@
 package com.swe.zonein.zonein.Adapters;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
+import android.support.v4.app.Fragment;
+import com.swe.zonein.zonein.Activities.CommentFragment;
 import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
@@ -93,10 +97,16 @@ public class CheckinAdapter extends BaseAdapter {
 
             }
         });
+
         cmntBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO IMPLEMENT COMMENT
+                CommentFragment nextFrag = new CommentFragment();
+
+                ((Activity) context).getFragmentManager().beginTransaction()
+                        .replace(R.id.view_content, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
