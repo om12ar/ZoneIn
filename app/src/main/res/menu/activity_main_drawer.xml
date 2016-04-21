@@ -3,33 +3,39 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_all_places"
+            android:icon="@drawable/allplaces"
             android:title="All Places" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_check_in"
+            android:icon="@drawable/checkin"
+            android:title="Check-in" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="people I follow" />
+            android:id="@+id/nav_add_place"
+            android:icon="@drawable/addplace"
+            android:title="Add Place" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="People following me" />
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/notification"
+            android:title="Notifications" />
+
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
+                android:id="@+id/nav_all_users"
+                android:icon="@drawable/allusers"
                 android:title="All users" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Add Place" />
+                android:id="@+id/nav_People_i_follow"
+                android:icon="@drawable/peopleifollow"
+                android:title="people I follow" />
+            <item
+                android:id="@+id/nav_people_following_me"
+                android:icon="@drawable/peoplefollowingme"
+                android:title="People following me" />
+
         </menu>
     </item>
 
