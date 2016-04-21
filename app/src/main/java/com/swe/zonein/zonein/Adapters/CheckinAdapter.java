@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,7 @@ public class CheckinAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
+
                 boolean isLiked = false;
                 if (isLiked == true) {
                     likeBtn.setText("unlike");
@@ -102,7 +104,9 @@ public class CheckinAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 CommentFragment nextFrag = new CommentFragment();
-
+                int checkinID = list.get(position).getID() ;
+                Bundle bundle = new Bundle();
+                bundle.putInt("checkinID", checkinID);
                 ((Activity) context).getFragmentManager().beginTransaction()
                         .replace(R.id.view_content, nextFrag)
                         .addToBackStack(null)

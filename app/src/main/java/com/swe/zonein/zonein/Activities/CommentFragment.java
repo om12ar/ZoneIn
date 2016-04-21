@@ -39,7 +39,7 @@ public class CommentFragment extends  android.app.Fragment  {
     CommentAdapter adapter ;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_comment, container, false);
-
+        int checkinID = getArguments().getInt("checkinID");
         commentString = (EditText) v.findViewById(R.id.commentWriteET);
         submitComment = (Button) v.findViewById(R.id.CommentSubmitBtn);
         ListView otherComments = (ListView) v.findViewById(R.id.commentsList);
