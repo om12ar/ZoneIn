@@ -77,6 +77,7 @@ public class PlaceAdapter extends BaseAdapter{
                 if (isSaved == true) {
                     pSave.setText("Unsave");
                     pSave.refreshDrawableState();
+                    //TODO VOLLEY
                     //new followTask().execute("unfollow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
                     MainController.user.unSavePlace(list.get(position).getID());
                     pSave.setText("save");
@@ -84,6 +85,7 @@ public class PlaceAdapter extends BaseAdapter{
                 } else {
                     pSave.setText("Save");
                     pSave.refreshDrawableState();
+                    //TODO VOLLEY
                     //    new followTask().execute("follow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
                     MainController.user.SavePlace(list.get(position).getID());
                     pSave.setText("UnSave");

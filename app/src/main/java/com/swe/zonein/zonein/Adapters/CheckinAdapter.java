@@ -69,8 +69,8 @@ public class CheckinAdapter extends BaseAdapter {
         holder.userName.setText(list.get(position).getUserID()+"");
         holder.desc.setText(list.get(position).getText()+"");
         holder.rating.setRating((float)list.get(position).getRate());
-        holder.like.setText(list.get(position).getLikes()+"");
-        holder.comment.setText(list.get(position).getComments().size()+"");
+        holder.like.setText(list.get(position).getLikes()+" Likes");
+        holder.comment.setText(list.get(position).getComments().size()+" Comments");
 
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

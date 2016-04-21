@@ -44,7 +44,7 @@ public class CheckInFragment extends  android.app.Fragment {
 
                 CheckIn newCheckin = new CheckIn();
 
-                //TODO add to DB
+                //TODO VOLLEY
 
                 Toast.makeText(getActivity(), descString,
                         Toast.LENGTH_LONG).show();

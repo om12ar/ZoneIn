@@ -13,6 +13,13 @@
         android:id="@+id/view_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        android:gravity="center" >
+        <include
+            layout="@layout/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:id="@+id/homePageList" />
+    </FrameLayout>
+
 
 </RelativeLayout>

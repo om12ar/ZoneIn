@@ -51,6 +51,7 @@ public class FollowingActivity extends ListActivity{
                     JSONObject jsnObject = new JSONObject(response);
                     JSONArray jsonArray = jsnObject.getJSONArray("followedByUser");
                     if(jsonArray!=null){
+                        Log.e(TAG ,  jsonArray.toString());
 
                         for (int i=0 ;i < jsonArray.length() ;i++){
                             try {

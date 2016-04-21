@@ -47,9 +47,9 @@ public class CommentFragment extends  android.app.Fragment  {
         adapter = new CommentAdapter( comments,getActivity());
         otherComments.setAdapter(adapter);
 
-        comments.add(new Comment("my", "this"));
-        comments.add(new Comment("name","place"));
-        comments.add(new Comment("is", "SUCKS"));
+        comments.add(new Comment("User1", "comment "));
+        comments.add(new Comment("user name ","loooooooooooooooooooooooooooooooooooooooooooong cooooooooooooooooooooooooooooooooooooomment"));
+        comments.add(new Comment("user", "hi"));
         // TODO VOLLEY
        /* try {
             new getUsersTask().execute("getCommentsOnPost").get();
