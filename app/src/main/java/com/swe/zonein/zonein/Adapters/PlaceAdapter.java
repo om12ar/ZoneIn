@@ -21,6 +21,7 @@ import java.util.List;
 public class PlaceAdapter extends BaseAdapter{
     List<Place> list;
     Context context;
+    boolean buttonStatus = true;
     public PlaceAdapter(List<Place> list, Context context) {
         this.list = list;
         this.context = context;
@@ -54,7 +55,7 @@ public class PlaceAdapter extends BaseAdapter{
         holder.save=pSave ;
         holder.rating.setEnabled(false);
         int place = list.get(position).getID();
-        boolean isSaved;
+        boolean isSaved  ;
         isSaved = MainController.user.isPlaceSaved(place);
         if (isSaved == true) {
             holder.save.setText("UnSave");
@@ -98,6 +99,9 @@ public class PlaceAdapter extends BaseAdapter{
         return convertView;
     }
 
+    public void setButtons(boolean b) {
+        buttonStatus = b ;
+    }
 
 
     class Holder {

@@ -39,88 +39,91 @@ import java.util.List;
 /**
  * Created by Noha on 4/21/2016.
  */
-public class NotificationsFragment extends android.app.Fragment{
+public class NotificationsFragment extends android.app.Fragment {
 
 
-        List<NotificationModel> notifications;
-        ListView notificationsListView;
-        NotificationAdapter notificationAdapter ;
+    List<NotificationModel> notifications;
+    ListView notificationsListView;
+    NotificationAdapter notificationAdapter;
 
-        public static NotificationsFragment newInstance() {
-                NotificationsFragment fragment = new NotificationsFragment();
-                Bundle args = new Bundle();
+    public static NotificationsFragment newInstance() {
+        NotificationsFragment fragment = new NotificationsFragment();
+        Bundle args = new Bundle();
 
-                return fragment;
-        }
+        return fragment;
+    }
 
-public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.list_view, container, false);
 
         notificationsListView = (ListView) v.findViewById(R.id.list_view);
-        notifications = new ArrayList<>() ;
-        notificationAdapter = new NotificationAdapter(notifications ,getActivity());
+        notifications = new ArrayList<>();
+        notifications.add(new NotificationModel("first"));
+        notifications.add(new NotificationModel("third"));
+        notifications.add(new NotificationModel("Fourth"));
+        notifications.add(new NotificationModel("last"));
+        notificationAdapter = new NotificationAdapter(notifications, getActivity());
 
         notificationsListView.setAdapter(notificationAdapter);
 
 
-
-final String url = VolleyController.baseURL + "getAllNotifications";
+        final String url = VolleyController.baseURL + "getAllNotifications";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-@Override
-public void onResponse(String response) {
-        try {
+            @Override
+            public void onResponse(String response) {
+                try {
 
-        JSONObject jsnObject = new JSONObject(response);
-        JSONArray jsonArray = jsnObject.getJSONArray("notificationsList");
-        if(jsonArray!=null){
+                    JSONObject jsnObject = new JSONObject(response);
+                    JSONArray jsonArray = jsnObject.getJSONArray("notificationsList");
+                    if (jsonArray != null) {
 
-        for (int i=0 ;i < jsonArray.length() ;i++){
-        try {
-        NotificationModel tempNotification = new NotificationModel(jsonArray.getJSONObject(i));
-        notifications.add(tempNotification);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                NotificationModel tempNotification = new NotificationModel(jsonArray.getJSONObject(i));
+                                notifications.add(tempNotification);
 
-        } catch (JSONException e) {
-        e.printStackTrace();
-        }
-        }
-
-
-        Log.e("AFff", notifications.size()+"");
-
-        notificationAdapter.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
 
-        notificationAdapter.notifyDataSetChanged();
-        Log.e("AF", notifications.toString());
-        notificationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-@Override
-public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        }
-        });
+                        Log.e("AFff", notifications.size() + "");
 
-        } else {
+                        notificationAdapter.notifyDataSetChanged();
 
-        }
-        }catch(Exception e){
-        e.printStackTrace();
-        e.getMessage();
-        System.out.println("ERROR Exception!");
-        }
-        }
+
+                        notificationAdapter.notifyDataSetChanged();
+                        Log.e("AF", notifications.toString());
+                        notificationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            }
+                        });
+
+                    } else {
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
+                }
+            }
         }, new Response.ErrorListener() {
-@Override
-public void onErrorResponse(VolleyError error) {
-        System.out.println("ERROR!");
-        }
-        }){
-@Override
-protected HashMap<String, String> getParams()
-        {
-        HashMap<String, String> params = new HashMap<String, String>();
-        return params;
-        }
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }) {
+            @Override
+            protected HashMap<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<String, String>();
+                // TODO VOLLEY
+                return params;
+            }
 
         };
 
@@ -128,9 +131,9 @@ protected HashMap<String, String> getParams()
         VolleyController.getInstance().addToRequestQueue(request);
 
         return v;
-        }
+    }
 
 
+}
 
-        }
 

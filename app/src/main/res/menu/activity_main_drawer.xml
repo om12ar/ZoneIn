@@ -39,6 +39,10 @@
                 android:id="@+id/nav_people_following_me"
                 android:icon="@drawable/peoplefollowingme"
                 android:title="People following me" />
+            <item
+                android:id="@+id/nav_saved_places"
+                android:icon="@drawable/peoplefollowingme"
+                android:title="Saved Places" />
 
         </menu>
     </item>

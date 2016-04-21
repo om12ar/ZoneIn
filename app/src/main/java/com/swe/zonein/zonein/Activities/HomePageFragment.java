@@ -48,6 +48,7 @@ public class HomePageFragment extends android.app.Fragment {
         homePosts.add(new CheckIn("bla", "111", 0, 1, 2));
         homePosts.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));
         homePosts.add(new CheckIn("bla bla bla", "111", 5, 1, 2));
+        homePosts.add(new CheckIn("bla bla bla bla", "111", 5, 1, 2));
         adapter.notifyDataSetChanged();
         list = (ListView) v.findViewById(R.id.homePageList);
         list.setAdapter(adapter);

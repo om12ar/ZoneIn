@@ -53,6 +53,10 @@ public class NotificationModel {
     public NotificationModel(JSONObject jsonObject) {
     }
 
+    public NotificationModel(String text) {
+        this.notification = text;
+    }
+
 
     /**
      * set ID
