@@ -92,38 +92,47 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_all_places) {
             toolbar.setTitle("All Places");
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.view_content, AllPlacesFragment.newInstance(),
                             "FRAGMENT").addToBackStack(null).commit();
             ;
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_check_in) {
+            toolbar.setTitle("Check in");
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_People_i_follow) {
+            toolbar.setTitle("People I Follow");
             Intent intent = new Intent(MainActivity.this, FollowingActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_people_following_me) {
+            toolbar.setTitle("People Following Me");
             Intent intent = new Intent(MainActivity.this, FollowersActivity.class);
 
             startActivity(intent);
        //     finish();
-        } else if (id == R.id.nav_share) {
-            toolbar.setTitle("Followers");
+        } else if (id == R.id.nav_all_users) {
+            toolbar.setTitle("All Users");
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.view_content, AllUsersFragment.newInstance(),
                             "FRAGMENT").addToBackStack(null).commit();
-;
-        } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.nav_add_place) {
             toolbar.setTitle("Add Place");
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.view_content, AddPlaceFragment.newInstance(),
                             "FRAGMENT").addToBackStack(null).commit();
-            ;
+
+        }
+        else if (id == R.id.nav_notifications) {
+            toolbar.setTitle("Notifications");
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.view_content, NotificationsFragment.newInstance(),
+                            "FRAGMENT").addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

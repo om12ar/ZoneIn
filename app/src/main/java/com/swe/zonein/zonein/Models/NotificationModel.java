@@ -1,5 +1,7 @@
 package com.swe.zonein.zonein.Models;
 
+import org.json.JSONObject;
+
 /**
  * Notification Model creat an instaneous 
  * of Notification and add to it the information
@@ -47,6 +49,10 @@ public class NotificationModel {
         this.ID=other.ID;
         this.contentID=other.contentID;
     }
+
+    public NotificationModel(JSONObject jsonObject) {
+    }
+
 
     /**
      * set ID
