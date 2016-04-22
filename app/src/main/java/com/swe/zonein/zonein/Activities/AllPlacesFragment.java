@@ -11,13 +11,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.PlaceAdapter;
 import com.swe.zonein.zonein.Adapters.UserAdapter;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -43,17 +53,69 @@ public class AllPlacesFragment extends android.app.Fragment {
         adapter = new PlaceAdapter(places ,getActivity());
 
         listview.setAdapter(adapter);
-        places.add(new Place("1", "desc", "-1", "-1.6"));
-        places.add(new Place("2","desc", "-1","-1.6"));
-        places.add(new Place("3","desc", "-1","-1.6"));
-    // TODO VOLLEY
-       /* try {
-            new getUsersTask().execute("getAllUsers").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }*/
+
+        final String url = VolleyController.baseURL + "getAllPlaces";
+
+
+            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+
+                        JSONObject jsnObject = new JSONObject(response);
+                        JSONArray jsonArray = jsnObject.getJSONArray("placeList");
+                        if(jsonArray!=null){
+
+                            for (int i=0 ;i < jsonArray.length() ;i++){
+                                try {
+                                    Place tempPlace = new Place(jsonArray.getJSONObject(i));
+                                    places.add(tempPlace);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                            Log.e("AFff", places.size()+"");
+
+                            adapter.notifyDataSetChanged();
+
+
+                            adapter.notifyDataSetChanged();
+                            Log.e("AF", places.toString());
+                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                }
+                            });
+
+                        } else {
+
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        e.getMessage();
+                        System.out.println("ERROR Exception!");
+                    }
+                }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }){
+            @Override
+            protected HashMap<String, String> getParams()
+            {
+                HashMap<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request);
         Log.e("AFff", places.size() + "");
         adapter.notifyDataSetChanged();
 

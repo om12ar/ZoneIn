@@ -36,7 +36,7 @@ import java.util.concurrent.ExecutionException;
  * Created by om12ar on 4/20/16.
  */
 public class AddPlaceFragment extends  android.app.Fragment {
-    final String url = VolleyController.baseURL + "addplace";
+
     final String TAG = "Add place Fragment";
     public static AddPlaceFragment newInstance() {
         AddPlaceFragment fragment = new AddPlaceFragment();
@@ -76,7 +76,9 @@ public class AddPlaceFragment extends  android.app.Fragment {
                 Place newPlace = new Place(pName,pDesc,lng,lat);
                 final String finalLong = lng ;
                 final String finalLat = lat ;
-//TODO VOLLEY
+
+                final String url = VolleyController.baseURL + "addplace";
+
                 StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

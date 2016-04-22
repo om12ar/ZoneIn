@@ -9,10 +9,18 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -72,13 +80,14 @@ public class PlaceAdapter extends BaseAdapter{
 
             @Override
             public void onClick(View view) {
-                int place = list.get(position).getID();
+                final int place = list.get(position).getID();
                 boolean isSaved;
                 isSaved = MainController.user.isPlaceSaved(place);
                 if (isSaved == true) {
                     pSave.setText("Unsave");
                     pSave.refreshDrawableState();
                     //TODO VOLLEY
+
                     //new followTask().execute("unfollow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
                     MainController.user.unSavePlace(list.get(position).getID());
                     pSave.setText("save");
@@ -86,10 +95,53 @@ public class PlaceAdapter extends BaseAdapter{
                 } else {
                     pSave.setText("Save");
                     pSave.refreshDrawableState();
-                    //TODO VOLLEY
-                    //    new followTask().execute("follow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
-                    MainController.user.SavePlace(list.get(position).getID());
-                    pSave.setText("UnSave");
+
+                    final String url = VolleyController.baseURL + "saveplaces";
+
+
+                    StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+
+                                JSONObject jsnObject = new JSONObject(response);
+
+                                if(jsnObject!=null){
+
+
+                                    MainController.user.SavePlace(list.get(position).getID());
+                                    pSave.setText("UnSave");
+                                } else {
+
+                                }
+                            }catch(Exception e){
+                                e.printStackTrace();
+                                e.getMessage();
+                                System.out.println("ERROR Exception!");
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("ERROR!");
+                        }
+                    }){
+                        @Override
+                        protected HashMap<String, String> getParams()
+                        {
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put("userID", "" + MainController.user.getID() );
+                            params.put("placeID", "" + place);
+                            return params;
+                        }
+
+                    };
+
+
+                    VolleyController.getInstance().addToRequestQueue(request);
+
+
+
                 }
 
             }

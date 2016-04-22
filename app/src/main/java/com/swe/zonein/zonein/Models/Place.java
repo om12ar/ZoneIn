@@ -1,4 +1,7 @@
 package com.swe.zonein.zonein.Models;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Place {
@@ -54,6 +57,24 @@ public class Place {
 		// public Place(String lng, String lat, String name) {
 		//   this.ID = ID;
 //    }
+
+
+	public Place(JSONObject jsonObject) {
+
+		try {
+			ID = jsonObject.getInt("id");
+			name = jsonObject.getString("name");
+			description = jsonObject.getString("description");
+			lng = jsonObject.getString("long");
+			lat = jsonObject.getString("lat");
+
+
+		}catch (JSONException e){
+			e.printStackTrace();
+		}
+
+
+	}
 
 	public String getLng() {
 		return lng;

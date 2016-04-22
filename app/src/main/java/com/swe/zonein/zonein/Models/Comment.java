@@ -1,5 +1,8 @@
 package com.swe.zonein.zonein.Models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by om12ar on 4/21/16.
  */
@@ -40,6 +43,19 @@ public class Comment {
         this.commentString = commentString;
     }
 
+    public Comment(JSONObject jsonObject) {
 
+        try {
+            ID = jsonObject.getInt("id");
+            userName = jsonObject.getString("userID");
+            commentString = jsonObject.getString("comment");
+
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 }

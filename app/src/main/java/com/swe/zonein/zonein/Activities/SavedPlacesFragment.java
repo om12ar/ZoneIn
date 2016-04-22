@@ -9,12 +9,22 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.PlaceAdapter;
 
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,27 +54,14 @@ public class SavedPlacesFragment extends android.app.Fragment {
 
         places.add(new Place("3","desc", "-1","-1.6"));
 
+    //TODO Volley
 
-        // TODO VOLLEY
-       /* try {
-            new getUsersTask().execute("getAllUsers").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }*/
+
         Log.e("AFff", places.size() + "");
         adapter.notifyDataSetChanged();
 
         Log.e("AF", places.toString());
-      /*  listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // When clicked, show a toast with the TextView text
-                Toast.makeText(getContext(),
-                        ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,6 +79,8 @@ public class SavedPlacesFragment extends android.app.Fragment {
 
             }
         });
+
+
         return v;
     }
 

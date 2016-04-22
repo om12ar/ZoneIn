@@ -42,7 +42,7 @@ public class PlaceFragment extends  android.app.Fragment {
 
         listview = (ListView) v.findViewById(R.id.placeCheckinsList);
         checkIns = new ArrayList<>() ;
-        adapter = new CheckinAdapter(checkIns ,getContext());
+        adapter = new CheckinAdapter(checkIns ,getActivity());
         listview.setAdapter(adapter);
         checkIns.add(new CheckIn("bla", "111", 0, 1, 2));
         checkIns.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));

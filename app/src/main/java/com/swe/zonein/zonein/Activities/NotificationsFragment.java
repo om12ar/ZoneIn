@@ -67,7 +67,12 @@ public class NotificationsFragment extends android.app.Fragment {
         notificationsListView.setAdapter(notificationAdapter);
 
 
+
+
+
+
         final String url = VolleyController.baseURL + "getAllNotifications";
+
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -76,43 +81,49 @@ public class NotificationsFragment extends android.app.Fragment {
                 try {
 
                     JSONObject jsnObject = new JSONObject(response);
-                    JSONArray jsonArray = jsnObject.getJSONArray("notificationsList");
+                    JSONArray jsonArray = jsnObject.getJSONArray("UserNotication: ");
+
                     if (jsonArray != null) {
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                NotificationModel tempNotification = new NotificationModel(jsonArray.getJSONObject(i));
-                                notifications.add(tempNotification);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                        if (jsonArray != null) {
+
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                try {
+                                    NotificationModel tempNotification = new NotificationModel(jsonArray.getJSONObject(i));
+                                    notifications.add(tempNotification);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
+
+                            Log.e("AFff", notifications.size() + "");
+
+                            notificationAdapter.notifyDataSetChanged();
+
+
+                            notificationAdapter.notifyDataSetChanged();
+                            Log.e("AF", notifications.toString());
+                            notificationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                }
+                            });
+
+                        } else {
+
                         }
-
-
-                        Log.e("AFff", notifications.size() + "");
-
-                        notificationAdapter.notifyDataSetChanged();
-
-
-                        notificationAdapter.notifyDataSetChanged();
-                        Log.e("AF", notifications.toString());
-                        notificationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            }
-                        });
-
-                    } else {
-
                     }
-                } catch (Exception e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                     e.getMessage();
                     System.out.println("ERROR Exception!");
                 }
-            }
-        }, new Response.ErrorListener() {
+
+            }}, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("ERROR!");
