@@ -14,7 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.PlaceAdapter;
-
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
@@ -50,17 +50,69 @@ public class SavedPlacesFragment extends android.app.Fragment {
         adapter = new PlaceAdapter(places ,getActivity());
         adapter.setButtons(false);
         list.setAdapter(adapter);
-        places.add(new Place("1", "desc", "-1", "-1.6"));
 
-        places.add(new Place("3","desc", "-1","-1.6"));
+        final String url = VolleyController.baseURL + "getsavedplaces";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
 
-    //TODO Volley
+                    JSONObject jsnObject = new JSONObject(response);
+                    System.out.print("UserSavedPlaces : " + jsnObject.toString());
+                    JSONArray jsonArray = jsnObject.getJSONArray("UserSavedPlaces");
+                    if (jsonArray != null) {
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                Place tempPlace = new Place(jsonArray.getJSONObject(i));
+                                places.add(tempPlace);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        Log.e("AFff", places.size() + "");
+
+                        adapter.notifyDataSetChanged();
 
 
+                        adapter.notifyDataSetChanged();
+                        Log.e("AF", places.toString());
+                        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            }
+                        });
+
+                    } else {
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }) {
+            @Override
+            protected HashMap<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("userID", MainController.user.getID() + "");
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request);
         Log.e("AFff", places.size() + "");
         adapter.notifyDataSetChanged();
-
-        Log.e("AF", places.toString());
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

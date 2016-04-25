@@ -49,50 +49,47 @@ public class AllPlacesFragment extends android.app.Fragment {
         listview.setAdapter(adapter);
 
         final String url = VolleyController.baseURL + "getAllPlaces";
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
 
+                    JSONObject jsnObject = new JSONObject(response);
+                    JSONArray jsonArray = jsnObject.getJSONArray("placeList");
+                    if (jsonArray != null) {
 
-            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                Place tempPlace = new Place(jsonArray.getJSONObject(i));
+                                places.add(tempPlace);
 
-                        JSONObject jsnObject = new JSONObject(response);
-                        JSONArray jsonArray = jsnObject.getJSONArray("placeList");
-                        if(jsonArray!=null){
-
-                            for (int i=0 ;i < jsonArray.length() ;i++){
-                                try {
-                                    Place tempPlace = new Place(jsonArray.getJSONObject(i));
-                                    places.add(tempPlace);
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-
-                            Log.e("AFff", places.size()+"");
-
-                            adapter.notifyDataSetChanged();
-
-
-                            adapter.notifyDataSetChanged();
-                            Log.e("AF", places.toString());
-                            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                }
-                            });
-
-                        } else {
-
                         }
-                    }catch(Exception e){
-                        e.printStackTrace();
-                        e.getMessage();
-                        System.out.println("ERROR Exception!");
+
+                        Log.e("AFff", places.size() + "");
+
+                        adapter.notifyDataSetChanged();
+
+
+                        adapter.notifyDataSetChanged();
+                        Log.e("AF", places.toString());
+                        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            }
+                        });
+
+                    } else {
+
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
                 }
+            }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -114,31 +111,7 @@ public class AllPlacesFragment extends android.app.Fragment {
         adapter.notifyDataSetChanged();
 
         Log.e("AF", places.toString());
-      /*  listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // When clicked, show a toast with the TextView text
-                Toast.makeText(getContext(),
-                        ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
-        /*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("allplaces :" ,"ON CLICK ");
-                Bundle bundle = new Bundle();
-                TextView name = (TextView) view.findViewById(R.id.placeItemNameTV);
-                bundle.putString("placeName", name.getText().toString());
 
-                PlaceFragment nextFrag= new PlaceFragment();
-                nextFrag.setArguments(bundle);
-                getActivity().getFragmentManager().beginTransaction()
-                        .replace(R.id.view_content, nextFrag)
-                        .addToBackStack(null)
-                        .commit();
-
-            }
-        });*/
         return v;
     }
 

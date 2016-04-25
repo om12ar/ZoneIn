@@ -3,6 +3,7 @@ package com.swe.zonein.zonein.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,19 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Activities.CommentFragment;
-import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -60,7 +69,7 @@ public class CheckinAdapter extends BaseAdapter {
         holder.comment = cmntBtn;
         holder.rating = pRating;
         holder.rating.setEnabled(false);
-        int place = list.get(position).getID();
+        final int checkin = list.get(position).getID();
 
 
         //TODO CHANGE TO NAMES
@@ -68,32 +77,72 @@ public class CheckinAdapter extends BaseAdapter {
         holder.userName.setText(list.get(position).getUserID()+"");
         holder.desc.setText(list.get(position).getText()+"");
         holder.rating.setRating((float)list.get(position).getRate());
-        holder.like.setText(list.get(position).getLikes()+" Likes");
+        //TODO GET NNUMBER OF LIKES
+        //holder.like.setText(list.get(position).getLikes()+" Likes");
+        holder.like.setText("Like");
         holder.comment.setText(list.get(position).getComments().size()+" Comments");
 
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String fn = "";
 
-
-                boolean isLiked = false;
+                boolean isLiked = (likeBtn.getText() != "Like");
                 if (isLiked == true) {
                     likeBtn.setText("unlike");
                     likeBtn.refreshDrawableState();
                     //TODO LIKE
-                    //new followTask().execute("unfollow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
-                    MainController.user.unSavePlace(list.get(position).getID());
-                    likeBtn.setText("like");
+                    fn = "unlike";
+
                     isLiked = false;
                 } else {
                     likeBtn.setText("like");
                     likeBtn.refreshDrawableState();
                     //TODO UNLIKE
-                    //    new followTask().execute("follow", "" + MainControlller.user.getID(), "" + list.get(position).getID());
+                    fn = "like";
                     list.get(position).like();
-                    likeBtn.setText("unlike");
+
                     isLiked = true;
                 }
+
+
+                final String url = VolleyController.baseURL + fn;
+
+
+                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            if (obj != null) {
+
+                                Log.e("Checkin Adapter", "Liked/unliked " + obj);
+
+
+                            } else {
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("ERROR!");
+                    }
+                }) {
+                    @Override
+                    protected HashMap<String, String> getParams() {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("checkinID", "" + checkin);
+
+                        return params;
+                    }
+
+                };
+
+
+                VolleyController.getInstance().addToRequestQueue(request, "Checkin Adapter ");
 
             }
         });

@@ -1,19 +1,5 @@
 package com.swe.zonein.zonein.Activities;
 
-import android.app.Notification;
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.swe.zonein.zonein.Adapters.NotificationAdapter;
-import com.swe.zonein.zonein.Controllers.VolleyController;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.swe.zonein.zonein.Adapters.UserAdapter;
-
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.swe.zonein.zonein.Adapters.NotificationAdapter;
+import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.NotificationModel;
-import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
 import org.json.JSONArray;
@@ -58,10 +48,10 @@ public class NotificationsFragment extends android.app.Fragment {
 
         notificationsListView = (ListView) v.findViewById(R.id.list_view);
         notifications = new ArrayList<>();
-        notifications.add(new NotificationModel("first"));
+       /* notifications.add(new NotificationModel("first"));
         notifications.add(new NotificationModel("third"));
         notifications.add(new NotificationModel("Fourth"));
-        notifications.add(new NotificationModel("last"));
+        notifications.add(new NotificationModel("last"));*/
         notificationAdapter = new NotificationAdapter(notifications, getActivity());
 
         notificationsListView.setAdapter(notificationAdapter);
@@ -132,7 +122,7 @@ public class NotificationsFragment extends android.app.Fragment {
             @Override
             protected HashMap<String, String> getParams() {
                 HashMap<String, String> params = new HashMap<String, String>();
-                // TODO VOLLEY
+                params.put("ID", "" + MainController.user.getID());
                 return params;
             }
 
