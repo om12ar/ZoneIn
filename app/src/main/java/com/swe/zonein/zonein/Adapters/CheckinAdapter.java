@@ -1,8 +1,6 @@
 package com.swe.zonein.zonein.Adapters;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
+
 import com.swe.zonein.zonein.Activities.CommentFragment;
 import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Models.CheckIn;
@@ -107,6 +105,7 @@ public class CheckinAdapter extends BaseAdapter {
                 int checkinID = list.get(position).getID() ;
                 Bundle bundle = new Bundle();
                 bundle.putInt("checkinID", checkinID);
+                nextFrag.setArguments(bundle);
                 ((Activity) context).getFragmentManager().beginTransaction()
                         .replace(R.id.view_content, nextFrag)
                         .addToBackStack(null)

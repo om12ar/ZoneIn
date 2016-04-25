@@ -160,6 +160,7 @@ public class PlaceAdapter extends BaseAdapter{
                 TextView name = (TextView) v.findViewById(R.id.placeItemNameTV);
                 bundle.putString("placeName", name.getText().toString());
                 bundle.putInt("placeID", list.get(position).getID());
+                bundle.putFloat("rating", list.get(position).getRating());
                 Log.e("PLACEE ADAPTER", bundle.toString());
                 PlaceFragment nextFrag = new PlaceFragment();
                 nextFrag.setArguments(bundle);

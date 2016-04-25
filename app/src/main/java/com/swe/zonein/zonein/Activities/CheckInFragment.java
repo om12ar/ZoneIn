@@ -59,7 +59,6 @@ public class CheckInFragment extends  android.app.Fragment {
 
                 final String url = VolleyController.baseURL + "checkIn";
 
-
                 StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -75,8 +74,6 @@ public class CheckInFragment extends  android.app.Fragment {
                              else{
                                 Toast.makeText(getActivity(), "Check In failed!", Toast.LENGTH_LONG).show();
                              }
-
-
 
 
                             }
