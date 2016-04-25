@@ -1,14 +1,11 @@
 package com.swe.zonein.zonein.Activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -20,11 +17,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
-import com.swe.zonein.zonein.Models.Place;
-import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,20 +28,22 @@ import java.util.HashMap;
  * Created by om12ar on 4/21/16.
  */
 public class CheckInFragment extends  android.app.Fragment {
-    public static AddPlaceFragment newInstance() {
-        AddPlaceFragment fragment = new AddPlaceFragment();
+    EditText desc;
+    RatingBar rate;
+    Button checkIn;
+
+    public static CheckInFragment newInstance() {
+        CheckInFragment fragment = new CheckInFragment();
         Bundle args = new Bundle();
         return fragment;
 
 
     }
 
-    EditText desc ;
-    RatingBar rate ;
-    Button checkIn;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_checkin, container, false);
-
+        final int placeID = getArguments().getInt("placeID");
+        String PlaceName = getArguments().getString("placeName");
         desc = (EditText) v.findViewById(R.id.checkinReview);
         rate = (RatingBar) v.findViewById(R.id.checkinRate);
 
@@ -57,9 +53,9 @@ public class CheckInFragment extends  android.app.Fragment {
             @Override
             public void onClick(View view) {
                 String descString = desc.getText().toString();
-               float pDesc = rate.getRating();
+                float pRate = rate.getRating();
 
-                final CheckIn newCheckin = new CheckIn();
+                final CheckIn newCheckin = new CheckIn(MainController.user.getID(), placeID, descString, pRate);
 
                 final String url = VolleyController.baseURL + "checkIn";
 
@@ -71,10 +67,11 @@ public class CheckInFragment extends  android.app.Fragment {
 
                             JSONObject jsnObject = new JSONObject(response);
                              if(jsnObject!=null){
-
+                                 Log.e("CheckinFragment", jsnObject.toString());
                                     Toast.makeText(getActivity(), "Checked In!", Toast.LENGTH_LONG).show();
+                                 getActivity().getFragmentManager().popBackStack();
 
-                                    }
+                             }
                              else{
                                 Toast.makeText(getActivity(), "Check In failed!", Toast.LENGTH_LONG).show();
                              }
@@ -100,9 +97,10 @@ public class CheckInFragment extends  android.app.Fragment {
                     protected HashMap<String, String> getParams()
                     {
                         HashMap<String, String> params = new HashMap<String, String>();
-                          params.put("placeID", "" + newCheckin.getPlaceID());
-                          params.put("userID", "" + newCheckin.getUserID());
-
+                        params.put("placeID", "" + newCheckin.getPlaceID());
+                        params.put("review", "" + newCheckin.getText());
+                        params.put("userID", "" + newCheckin.getUserID());
+                        Log.e("CheckinFragment", url + " " + params.toString());
                         return params;
                     }
 
@@ -111,8 +109,6 @@ public class CheckInFragment extends  android.app.Fragment {
 
                 VolleyController.getInstance().addToRequestQueue(request);
 
-                Toast.makeText(getActivity(), descString,
-                        Toast.LENGTH_LONG).show();
 
             }
         });

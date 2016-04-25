@@ -1,25 +1,20 @@
 package com.swe.zonein.zonein.Activities;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.PlaceAdapter;
-import com.swe.zonein.zonein.Adapters.UserAdapter;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
-import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
 import org.json.JSONArray;
@@ -29,7 +24,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by om12ar on 4/20/16.
@@ -128,7 +122,7 @@ public class AllPlacesFragment extends android.app.Fragment {
                         ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
             }
         });*/
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("allplaces :" ,"ON CLICK ");
@@ -144,7 +138,7 @@ public class AllPlacesFragment extends android.app.Fragment {
                         .commit();
 
             }
-        });
+        });*/
         return v;
     }
 

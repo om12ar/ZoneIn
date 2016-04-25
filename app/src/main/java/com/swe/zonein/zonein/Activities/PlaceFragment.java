@@ -5,15 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.swe.zonein.zonein.Adapters.CheckinAdapter;
-import com.swe.zonein.zonein.Adapters.PlaceAdapter;
 import com.swe.zonein.zonein.Models.CheckIn;
-import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
 import java.util.ArrayList;
@@ -36,7 +33,8 @@ public class PlaceFragment extends  android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_place, container, false);
 
-        String name = getArguments().getString("placeName");
+        final String name = getArguments().getString("placeName");
+        final int placeID = getArguments().getInt("placeID");
         TextView nameTv = (TextView) v.findViewById(R.id.placeItemNameTV);
         nameTv.setText(name);
 
@@ -81,7 +79,10 @@ public class PlaceFragment extends  android.app.Fragment {
 
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("placeID", placeID);
                 CheckInFragment nextFrag = new CheckInFragment();
+                nextFrag.setArguments(bundle);
                 getActivity().getFragmentManager().beginTransaction()
                         .replace(R.id.view_content, nextFrag)
                         .addToBackStack(null)

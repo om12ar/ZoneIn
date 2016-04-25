@@ -18,29 +18,14 @@ public class CheckIn {
     double rate ;
 	int likes ;
 	ArrayList<String> comments= new ArrayList<>();
-	public int getLikes() {
-		return likes;
-	}
 
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
+    public CheckIn(int Userid, int placeID, String descString, float pRate) {
+        userID = Userid;
+        this.placeID = placeID;
+        text = descString;
+        rate = pRate;
+    }
 
-	public ArrayList<String> getComments() {
-		return comments;
-	}
-
-	public void setComments(ArrayList<String> comments) {
-		this.comments = comments;
-	}
-
-
-	public void like (){
-		likes++;
-	}
-	public void unlike (){
-		likes--;
-	}
     public CheckIn(){
         text="";
         time="";
@@ -68,7 +53,31 @@ public class CheckIn {
 		this.rate = rating;
 		this.userID = userID;
 		this.placeID = placeID;
-	}
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
+    }
+
+    public void like() {
+        likes++;
+    }
+
+    public void unlike() {
+        likes--;
+    }
 
 	/**
 	 * Return a string value indicate the feedback of the user

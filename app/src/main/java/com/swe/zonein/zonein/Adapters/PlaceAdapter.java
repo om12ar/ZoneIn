@@ -1,6 +1,9 @@
 package com.swe.zonein.zonein.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.swe.zonein.zonein.Activities.PlaceFragment;
 import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
@@ -147,9 +151,28 @@ public class PlaceAdapter extends BaseAdapter{
             }
         });
 
+        pName.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Log.e("allplaces :", "ON CLICK ");
+                Bundle bundle = new Bundle();
+                TextView name = (TextView) v.findViewById(R.id.placeItemNameTV);
+                bundle.putString("placeName", name.getText().toString());
+                bundle.putInt("placeID", list.get(position).getID());
+                Log.e("PLACEE ADAPTER", bundle.toString());
+                PlaceFragment nextFrag = new PlaceFragment();
+                nextFrag.setArguments(bundle);
+                ((Activity) context).getFragmentManager().beginTransaction()
+                        .replace(R.id.view_content, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
         return convertView;
     }
+
 
     public void setButtons(boolean b) {
         buttonStatus = b ;
