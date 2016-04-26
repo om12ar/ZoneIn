@@ -93,6 +93,7 @@ public class AllPlacesFragment extends android.app.Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                System.out.println(error.getMessage());
                 System.out.println("ERROR!");
             }
         }){

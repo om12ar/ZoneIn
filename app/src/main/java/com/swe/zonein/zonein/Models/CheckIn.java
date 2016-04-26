@@ -1,5 +1,8 @@
 package com.swe.zonein.zonein.Models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -14,6 +17,7 @@ public class CheckIn {
 	String time;
 	int ID;
 	int userID;
+	String userName;
 	int placeID;
     double rate ;
 	int likes ;
@@ -39,6 +43,7 @@ public class CheckIn {
 
     }
 
+
 	/**
 	 * Constructor that take copy the data in check in
 	 * @param text . the feedback on the checkin .
@@ -54,6 +59,23 @@ public class CheckIn {
 		this.userID = userID;
 		this.placeID = placeID;
     }
+
+
+	public CheckIn(JSONObject object){
+
+		try {
+
+			ID = object.getInt("id");
+			text = object.getString("review");
+			rate = object.getDouble("rating");
+			likes = object.getInt("likes");
+		}
+		catch (JSONException e){
+
+			e.printStackTrace();
+		}
+
+	}
 
     public int getLikes() {
         return likes;
@@ -165,6 +187,11 @@ public class CheckIn {
 	 */
 	public void setPlaceID(int placeID) {
 		this.placeID = placeID;
+	}
+
+	public String getUserName(){
+
+		return userName;
 	}
 
 }

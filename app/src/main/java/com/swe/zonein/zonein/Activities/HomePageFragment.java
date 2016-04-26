@@ -22,6 +22,7 @@ import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +36,7 @@ public class HomePageFragment extends android.app.Fragment {
 
     ArrayList<CheckIn> homePosts;
     ListView list;
+    CheckinAdapter adapter;
     public static HomePageFragment newInstance() {
         HomePageFragment fragment = new HomePageFragment();
         Bundle args = new Bundle();
@@ -43,15 +45,78 @@ public class HomePageFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.content_main, container, false);
         homePosts = new ArrayList<>();
-        CheckinAdapter adapter = new CheckinAdapter(homePosts,getActivity());
+        adapter = new CheckinAdapter(homePosts,getActivity());
 
-        homePosts.add(new CheckIn("bla", "111", 0, 1, 2));
-        homePosts.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));
-        homePosts.add(new CheckIn("bla bla bla", "111", 5, 1, 2));
-        homePosts.add(new CheckIn("bla bla bla bla", "111", 5, 1, 2));
-        adapter.notifyDataSetChanged();
+
         list = (ListView) v.findViewById(R.id.homePageList);
         list.setAdapter(adapter);
+
+        //homePosts.add(new CheckIn("bla", "111", 0, 1, 2));
+        // homePosts.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));
+        //homePosts.add(new CheckIn("bla bla bla", "111", 5, 1, 2));
+        //homePosts.add(new CheckIn("bla bla bla bla", "111", 5, 1, 2));
+
+        final String url = VolleyController.baseURL + "getCheckinsByUser";
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsnObject = new JSONObject(response);
+                    JSONArray jsonArray = jsnObject.getJSONArray("placeList");
+                    if(jsonArray!=null){
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                CheckIn tempCheckin = new CheckIn(jsonArray.getJSONObject(i));
+                                homePosts.add(tempCheckin);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+
+                        Log.e("AFff", homePosts.size() + "");
+                        adapter.notifyDataSetChanged();
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "getting Check-Ins failed!", Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+
+                catch(JSONException e){
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }){
+            @Override
+            protected HashMap<String, String> getParams()
+            {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("userID", "" + MainController.user.getID());
+                Log.e("Place Fragment ", url + " " + params.toString());
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request);
+
+
+
+
+
         return v;
     }
 }

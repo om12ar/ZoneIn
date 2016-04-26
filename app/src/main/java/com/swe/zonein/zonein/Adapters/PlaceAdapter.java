@@ -101,7 +101,7 @@ public class PlaceAdapter extends BaseAdapter{
 
                 } else {
                     Log.e("PLACE Fragment ", "SAVE");
-                    fn = "saveplaces";
+                    fn = "saveplace";
                     pSave.setActivated(false);
                     pSave.refreshDrawableState();
 

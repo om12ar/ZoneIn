@@ -9,12 +9,24 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.CheckinAdapter;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
+import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,13 +60,68 @@ public class PlaceFragment extends  android.app.Fragment {
         listview.setAdapter(adapter);
 
 
-        checkIns.add(new CheckIn("bla", "111", 0, 1, 2));
-        checkIns.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));
-        checkIns.add(new CheckIn("bla bla bla", "111", 5, 1, 2));
-        // TODO VOLLEY
+    //    checkIns.add(new CheckIn("bla PLACE", "111", 0, 1, 2));
+    //    checkIns.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));
+    //    checkIns.add(new CheckIn("bla bla bla", "111", 5, 1, 2));
 
-        Log.e("AFff", checkIns.size() + "");
-        adapter.notifyDataSetChanged();
+        final String url = VolleyController.baseURL + "getCheckinsByPlace";
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsnObject = new JSONObject(response);
+                    JSONArray jsonArray = jsnObject.getJSONArray("placeList");
+                    if(jsonArray!=null){
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                CheckIn tempCheckin = new CheckIn(jsonArray.getJSONObject(i));
+                                checkIns.add(tempCheckin);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+
+                        Log.e("AFff", checkIns.size() + "");
+                        adapter.notifyDataSetChanged();
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "getting Check-Ins failed!", Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+
+                catch(JSONException e){
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }){
+            @Override
+            protected HashMap<String, String> getParams()
+            {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("placeID", "" + placeID);
+                Log.e("Place Fragment ", url + " " + params.toString());
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request);
+
+
 
         Button checkin = (Button) v.findViewById(R.id.plcChechInBtn);
         checkin.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +139,8 @@ public class PlaceFragment extends  android.app.Fragment {
             }
         });
 
-
-
-/*      TODO getPlaceCheckins
-        final String url = VolleyController.baseURL + "getPlaceCheckins";
+/*
+        final String url = VolleyController.baseURL + "getCheckinsByPlace";
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -112,7 +177,7 @@ public class PlaceFragment extends  android.app.Fragment {
             protected HashMap<String, String> getParams()
             {
                 HashMap<String, String> params = new HashMap<String, String>();
-                params.put("placeID", "" + newCheckin.getPlaceID());
+                params.put("placeID", "" + placeID);
                 Log.e("Place Fragment ", url + " " + params.toString());
                 return params;
             }
