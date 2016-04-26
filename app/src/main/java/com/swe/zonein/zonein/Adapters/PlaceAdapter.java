@@ -108,15 +108,15 @@ public class PlaceAdapter extends BaseAdapter{
 
                 }
 
-                final String url = VolleyController.baseURL + fn;
-                Log.e("PLACE Fragment url ", url);
-                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                final String urlLogin = VolleyController.baseURL + fn;
+                Log.e("PLACE Fragment url ", urlLogin);
+                StringRequest request = new StringRequest(Request.Method.POST, urlLogin, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
 
                             JSONObject jsnObject = new JSONObject(response);
-                            System.out.print("PlaceADapter save " + jsnObject + " " + url);
+                            System.out.print("PlaceADapter save " + jsnObject + " " + urlLogin);
                             if (jsnObject != null) {
                                 Log.e("PLACE Fragment url ", jsnObject.toString());
 

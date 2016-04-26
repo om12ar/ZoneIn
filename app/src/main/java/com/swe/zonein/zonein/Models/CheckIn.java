@@ -66,6 +66,7 @@ public class CheckIn {
 		try {
 
 			ID = object.getInt("id");
+			userName = object.getString("username");
 			text = object.getString("review");
 			rate = object.getDouble("rating");
 			likes = object.getInt("likes");
@@ -77,7 +78,10 @@ public class CheckIn {
 
 	}
 
-    public int getLikes() {
+
+
+	public int getLikes() {
+
         return likes;
     }
 
