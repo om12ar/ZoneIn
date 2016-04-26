@@ -85,7 +85,7 @@ public class PlaceAdapter extends BaseAdapter{
             @Override
             public void onClick(View view) {
 
-                Log.e("PLACE Fragment ", "hi");
+
                 final int place = list.get(position).getID();
                 boolean isSaved;
                 isSaved = MainController.user.isPlaceSaved(place);
@@ -95,26 +95,30 @@ public class PlaceAdapter extends BaseAdapter{
                     pSave.refreshDrawableState();
                     //TODO VOLLEY
 
+                    Log.e("PLACE Fragment ", "UNSAVE ");
                     MainController.user.unSavePlace(list.get(position).getID());
 
 
                 } else {
+                    Log.e("PLACE Fragment ", "SAVE");
                     fn = "saveplaces";
                     pSave.setActivated(false);
                     pSave.refreshDrawableState();
 
 
                 }
+
                 final String url = VolleyController.baseURL + fn;
+                Log.e("PLACE Fragment url ", url);
                 StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
 
                             JSONObject jsnObject = new JSONObject(response);
-
+                            System.out.print("PlaceADapter save " + jsnObject + " " + url);
                             if (jsnObject != null) {
-                                System.out.print("PlaceADapter save " + jsnObject + " " + url);
+                                Log.e("PLACE Fragment url ", jsnObject.toString());
 
                                 MainController.user.SavePlace(list.get(position).getID());
                                 pSave.setText("UnSave");
@@ -139,7 +143,7 @@ public class PlaceAdapter extends BaseAdapter{
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("userID", "" + MainController.user.getID());
                         params.put("placeID", "" + place);
-                        System.out.print(params.toString());
+                        Log.e("PLACE Fragment url ", params.toString());
                         return params;
                     }
 

@@ -65,8 +65,9 @@ public class CheckInFragment extends  android.app.Fragment {
                         try {
 
                             JSONObject jsnObject = new JSONObject(response);
+
                              if(jsnObject!=null){
-                                 Log.e("CheckinFragment", jsnObject.toString());
+                                 Log.e("CheckinFragment obj ", jsnObject.toString());
                                     Toast.makeText(getActivity(), "Checked In!", Toast.LENGTH_LONG).show();
                                  getActivity().getFragmentManager().popBackStack();
 
