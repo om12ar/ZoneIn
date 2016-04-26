@@ -62,6 +62,7 @@ public class Place {
 	public Place(JSONObject jsonObject) {
 
 		try {
+			//TODO UPDATE
 			ID = jsonObject.getInt("id");
 			name = jsonObject.getString("name");
 			description = jsonObject.getString("description");
@@ -112,12 +113,12 @@ public class Place {
 		return taste;
 	}
 
-	public void setTaste(ArrayList<Taste> taste) {
-		this.taste = taste;
-	}
-
 	public void setTaste(Taste taste) {
 		this.taste .add(taste);
+	}
+
+	public void setTaste(ArrayList<Taste> taste) {
+		this.taste = taste;
 	}
 
 	public int getID() {

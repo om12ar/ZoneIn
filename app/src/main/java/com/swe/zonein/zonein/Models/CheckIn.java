@@ -1,5 +1,8 @@
 package com.swe.zonein.zonein.Models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -55,7 +58,24 @@ public class CheckIn {
 		this.placeID = placeID;
     }
 
-    public int getLikes() {
+	public CheckIn(JSONObject json) {
+/*        checkinJson.put("id" , checkin.getCheckinID() );
+		checkinJson.put("username", checkin.getUserName() );
+        checkinJson.put("review", checkin.getReview() );
+        checkinJson.put("rating", checkin.getRating() );
+        checkinJson.put("likes", checkin.getLikes());*/
+
+		try {
+			ID = json.getInt("id");
+			rate = json.getDouble("rating");
+			text = json.getString("review");
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int getLikes() {
         return likes;
     }
 

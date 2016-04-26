@@ -10,11 +10,21 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.CheckinAdapter;
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,13 +57,51 @@ public class PlaceFragment extends  android.app.Fragment {
         adapter = new CheckinAdapter(checkIns ,getActivity());
         listview.setAdapter(adapter);
 
+        final String url = VolleyController.baseURL + "getCheckinsByPlace";
+        Log.e("Place Fragment ", url + " " + placeID);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsnObject = new JSONObject(response);
 
-        checkIns.add(new CheckIn("bla", "111", 0, 1, 2));
-        checkIns.add(new CheckIn("bla bla ", "111", 2.5, 1, 2));
-        checkIns.add(new CheckIn("bla bla bla", "111", 5, 1, 2));
-        // TODO VOLLEY
+                    JSONArray jsonArray = jsnObject.getJSONArray("placeList");
 
-        Log.e("AFff", checkIns.size() + "");
+                    if (jsonArray != null) {
+                        Log.i("Place Fragmrnt ", response);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                CheckIn tempCheckin = new CheckIn(jsonArray.getJSONObject(i));
+                                checkIns.add(tempCheckin);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }) {
+            @Override
+            protected HashMap<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("placeID", "" + placeID);
+
+                return params;
+            }
+
+        };
+
+        VolleyController.getInstance().addToRequestQueue(request);
+
+
         adapter.notifyDataSetChanged();
 
         Button checkin = (Button) v.findViewById(R.id.plcChechInBtn);
@@ -74,53 +122,11 @@ public class PlaceFragment extends  android.app.Fragment {
 
 
 
-/*      TODO getPlaceCheckins
-        final String url = VolleyController.baseURL + "getPlaceCheckins";
-
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-
-                    JSONObject jsnObject = new JSONObject(response);
-                    if(jsnObject!=null){
-                        Log.e("CheckinFragment", jsnObject.toString());
-                        Toast.makeText(getActivity(), "Checked In!", Toast.LENGTH_LONG).show();
-                        getActivity().getFragmentManager().popBackStack();
-
-                    }
-                    else{
-                        Toast.makeText(getActivity(), "Check In failed!", Toast.LENGTH_LONG).show();
-                    }
 
 
-                }
-
-                catch(JSONException e){
-                    e.printStackTrace();
-                    e.getMessage();
-                    System.out.println("ERROR Exception!");
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR!");
-            }
-        }){
-            @Override
-            protected HashMap<String, String> getParams()
-            {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("placeID", "" + newCheckin.getPlaceID());
-                Log.e("Place Fragment ", url + " " + params.toString());
-                return params;
-            }
-
-        };
 
 
-        VolleyController.getInstance().addToRequestQueue(request);*/
+
 
         return v;
     }
