@@ -49,4 +49,10 @@
             android:id="@+id/checkinSubmitBtn" />
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"></LinearLayout>
+
 </LinearLayout>

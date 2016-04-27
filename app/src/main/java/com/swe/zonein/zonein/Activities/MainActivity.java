@@ -115,14 +115,25 @@ public class MainActivity extends AppCompatActivity
             toolbar.setTitle("Check in");
 
         } else if (id == R.id.nav_People_i_follow) {
-            toolbar.setTitle("People I Follow");
-            Intent intent = new Intent(MainActivity.this, FollowingActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_people_following_me) {
-            toolbar.setTitle("People Following Me");
-            Intent intent = new Intent(MainActivity.this, FollowersActivity.class);
+            toolbar.setTitle("Following");
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.view_content, FollowingFragment.newInstance(),
+                            "FRAGMENT").addToBackStack(null).commit();
 
-            startActivity(intent);
+            //toolbar.setTitle("People I Follow");
+            //Intent intent = new Intent(MainActivity.this, FollowingActivity.class);
+            //startActivity(intent);
+        } else if (id == R.id.nav_people_following_me) {
+            toolbar.setTitle("Followers");
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.view_content, FollowersFragment.newInstance(),
+                            "FRAGMENT").addToBackStack(null).commit();
+
+            //Intent intent = new Intent(MainActivity.this, FollowersActivity.class);
+
+            //startActivity(intent);
        //     finish();
         } else if (id == R.id.nav_all_users) {
             toolbar.setTitle("All Users");
