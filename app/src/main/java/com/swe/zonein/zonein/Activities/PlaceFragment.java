@@ -67,7 +67,7 @@ public class PlaceFragment extends  android.app.Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsnObject = new JSONObject(response);
-                    JSONArray jsonArray = jsnObject.getJSONArray("placeList");
+                    JSONArray jsonArray = jsnObject.getJSONArray("checkinList");
                     if (jsonArray != null) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
