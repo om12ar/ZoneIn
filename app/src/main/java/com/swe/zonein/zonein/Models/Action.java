@@ -8,5 +8,6 @@ import org.json.JSONObject;
 public class Action {
 
     public Action(JSONObject jsonObject) {
+
     }
 }
