@@ -1,28 +1,36 @@
 package com.swe.zonein.zonein.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.swe.zonein.zonein.Adapters.UserAdapter;
 import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
+import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by om12ar on 4/20/16.
@@ -30,17 +38,16 @@ import java.util.HashMap;
 public class AddPlaceFragment extends  android.app.Fragment {
 
     final String TAG = "Add place Fragment";
-    EditText placeName ;
-    EditText placeDescription ;
-    CheckBox isCurrentLocation;
-    Button addPlace;
-
     public static AddPlaceFragment newInstance() {
         AddPlaceFragment fragment = new AddPlaceFragment();
         Bundle args = new Bundle();
         return fragment;
     }
+    EditText placeName ;
+    EditText placeDescription ;
+    CheckBox isCurrentLocation;
 
+    Button addPlace;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.add_place, container, false);
 
@@ -82,8 +89,6 @@ public class AddPlaceFragment extends  android.app.Fragment {
 
                                 Toast.makeText(getActivity(), "Place added", Toast.LENGTH_LONG).show();
                                 Log.e(TAG,obj.toString());
-                                getActivity().getFragmentManager().popBackStack();
-
 
                             } else {
                                 Toast.makeText(getActivity(), "Creation failed ",

@@ -72,8 +72,13 @@ public class SavedPlacesFragment extends android.app.Fragment {
                             }
                         }
 
+                        Log.e("AFff", places.size() + "");
+
                         adapter.notifyDataSetChanged();
-                        Log.e("AF", places + "");
+
+
+                        adapter.notifyDataSetChanged();
+                        Log.e("AF", places.toString());
                         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

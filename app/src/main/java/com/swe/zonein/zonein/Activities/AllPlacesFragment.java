@@ -56,7 +56,6 @@ public class AllPlacesFragment extends android.app.Fragment {
 
                     JSONObject jsnObject = new JSONObject(response);
                     JSONArray jsonArray = jsnObject.getJSONArray("placeList");
-                    Log.e("AF", jsonArray.toString());
                     if (jsonArray != null) {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -75,7 +74,7 @@ public class AllPlacesFragment extends android.app.Fragment {
 
 
                         adapter.notifyDataSetChanged();
-
+                        Log.e("AF", places.toString());
                         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -66,8 +66,9 @@ public class Place {
 			ID = jsonObject.getInt("id");
 			name = jsonObject.getString("name");
 			description = jsonObject.getString("description");
-			lng = jsonObject.getDouble("long") + "";
-			lat = jsonObject.getDouble("lat") + "";
+			lng = jsonObject.getString("long");
+			lat = jsonObject.getString("lat");
+
 
 		}catch (JSONException e){
 			e.printStackTrace();
@@ -112,12 +113,12 @@ public class Place {
 		return taste;
 	}
 
-	public void setTaste(ArrayList<Taste> taste) {
-		this.taste = taste;
-	}
-
 	public void setTaste(Taste taste) {
 		this.taste .add(taste);
+	}
+
+	public void setTaste(ArrayList<Taste> taste) {
+		this.taste = taste;
 	}
 
 	public int getID() {

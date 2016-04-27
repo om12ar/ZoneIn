@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.CheckinAdapter;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
+import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
 import org.json.JSONArray;

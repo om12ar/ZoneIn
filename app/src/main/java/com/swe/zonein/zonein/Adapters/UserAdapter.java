@@ -1,14 +1,12 @@
 package com.swe.zonein.zonein.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,6 +17,7 @@ import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -30,9 +29,9 @@ import java.util.List;
  */
 public class UserAdapter extends BaseAdapter {
 
-    final String TAG = " User Adapter";
     List<User> list;
     Context context;
+
     public UserAdapter(List<User> list, Context context) {
         this.list = list;
         this.context = context;
@@ -90,7 +89,12 @@ public class UserAdapter extends BaseAdapter {
                 isFollower = MainController.user.isFollowing(user);
 
                 if (isFollower == true) {
+                    p.setText("Unfollow");
+                    p.refreshDrawableState();
+
+
                     final String url = VolleyController.baseURL + "unfollow";
+
 
                     StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
@@ -98,12 +102,12 @@ public class UserAdapter extends BaseAdapter {
                             try {
 
                                 JSONObject jsnObject = new JSONObject(response);
+                                JSONArray jsonArray = jsnObject.getJSONArray("status");
+                                if(jsonArray!=null){
 
-                                Log.e(TAG + "unfollow", jsnObject.toString());
-                                if (jsnObject != null) {
-                                    Toast.makeText(context, "User unfollowed ", Toast.LENGTH_SHORT).show();
+
                                 } else {
-                                    Toast.makeText(context, " Error ", Toast.LENGTH_SHORT).show();
+
                                 }
                             }catch(Exception e){
                                 e.printStackTrace();
@@ -121,9 +125,8 @@ public class UserAdapter extends BaseAdapter {
                         protected HashMap<String, String> getParams()
                         {
                             HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("FollowedID", "" + MainController.user.getID());
-                            params.put("FollowerID", "" + list.get(position).getID());
-                            Log.i(TAG, url + " " + params.toString());
+                            params.put("FollowerID", "" + MainController.user.getID());
+                            params.put("FollowedID", ""+ list.get(position).getID());
                             return params;
                         }
 
@@ -136,6 +139,10 @@ public class UserAdapter extends BaseAdapter {
                     p.setText("Follow");
 
                 } else {
+
+                    p.setText("Follow");
+                    p.refreshDrawableState();
+
                     final String url = VolleyController.baseURL + "follow";
 
 
@@ -145,14 +152,12 @@ public class UserAdapter extends BaseAdapter {
                             try {
 
                                 JSONObject jsnObject = new JSONObject(response);
+                                JSONArray jsonArray = jsnObject.getJSONArray("status");
+                                if(jsonArray!=null){
 
-                                Log.e(TAG + "follow", jsnObject.toString());
-                                if (jsnObject != null) {
-                                    Log.i(TAG, jsnObject.toString());
-                                    Toast.makeText(context, "User followed ", Toast.LENGTH_SHORT).show();
 
                                 } else {
-                                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+
                                 }
                             }catch(Exception e){
                                 e.printStackTrace();
@@ -170,9 +175,8 @@ public class UserAdapter extends BaseAdapter {
                         protected HashMap<String, String> getParams()
                         {
                             HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("FollowedID", "" + MainController.user.getID());
-                            params.put("FollowerID", "" + list.get(position).getID());
-                            Log.i(TAG, url + " " + params.toString());
+                            params.put("FollowerID", "" + MainController.user.getID());
+                            params.put("FollowedID", ""+ list.get(position).getID());
                             return params;
                         }
 
