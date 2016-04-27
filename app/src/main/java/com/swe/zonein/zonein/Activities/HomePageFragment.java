@@ -86,7 +86,7 @@ public class HomePageFragment extends android.app.Fragment {
 
                             Log.e("AFff", homePosts.size() + "");
 
-                            adapter.notifyDataSetChanged();
+                         //   adapter.notifyDataSetChanged();
                         } else {
                             Toast.makeText(getActivity(), "getting Check-Ins failed!", Toast.LENGTH_LONG).show();
                         }
@@ -115,7 +115,62 @@ public class HomePageFragment extends android.app.Fragment {
             };
 
 
-            VolleyController.getInstance().addToRequestQueue(request);
+
+
+        final String url2 = VolleyController.baseURL + "getHomePage";
+
+        final StringRequest  request2 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsnObject = new JSONObject(response);
+                    JSONArray jsonArray = jsnObject.getJSONArray("placeList");
+                    if (jsonArray != null) {
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                CheckIn tempCheckin = new CheckIn(jsonArray.getJSONObject(i));
+                                homePosts.add(tempCheckin);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        VolleyController.getInstance().addToRequestQueue(request);
+                        Log.e("AFff", homePosts.size() + "");
+
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getActivity(), "getting Check-Ins failed!", Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    e.getMessage();
+                    System.out.println("ERROR Exception!");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR!");
+            }
+        }) {
+            @Override
+            protected HashMap<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("userID", "" + MainController.user.getID());
+                Log.e("Place Fragment ", url + " " + params.toString());
+                return params;
+            }
+
+        };
+
+
+        VolleyController.getInstance().addToRequestQueue(request2);
+
+
 
         Button sortByNearby = (Button) v.findViewById(R.id.sortByNearbyButton);
         sortByNearby.setOnClickListener(new View.OnClickListener() {

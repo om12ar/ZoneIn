@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.ActionAdapter;
 import com.swe.zonein.zonein.Adapters.UserAdapter;
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Action;
 import com.swe.zonein.zonein.Models.User;
@@ -55,7 +56,7 @@ public class AllActionsFragment extends  android.app.Fragment {
 
 
 
-        final String url = VolleyController.baseURL + "getActions";
+        final String url = VolleyController.baseURL + "getactions";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -110,6 +111,7 @@ public class AllActionsFragment extends  android.app.Fragment {
             protected HashMap<String, String> getParams()
             {
                 HashMap<String, String> params = new HashMap<String, String>();
+                params.put("userID", "" + MainController.user.getID());
                 return params;
             }
 
