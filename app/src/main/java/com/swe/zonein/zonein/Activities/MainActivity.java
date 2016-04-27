@@ -149,6 +149,13 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.view_content, SavedPlacesFragment.newInstance(),
                             "FRAGMENT").addToBackStack(null).commit();
         }
+        else if (id == R.id.nav_all_actions) {
+            toolbar.setTitle("All Actions");
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.view_content, AllActionsFragment.newInstance(),
+                            "FRAGMENT").addToBackStack(null).commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

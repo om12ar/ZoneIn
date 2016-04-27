@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/home"
             android:title="Home" />
         <item
             android:id="@+id/nav_all_places"
@@ -22,7 +22,14 @@
             android:id="@+id/nav_notifications"
             android:icon="@drawable/notification"
             android:title="Notifications" />
-
+        <item
+            android:id="@+id/nav_saved_places"
+            android:icon="@drawable/savedplaces"
+            android:title="Saved Places" />
+        <item
+            android:id="@+id/nav_all_actions"
+            android:icon="@drawable/allactions"
+            android:title="All Actions" />
     </group>
 
     <item android:title="Communicate">
@@ -39,10 +46,7 @@
                 android:id="@+id/nav_people_following_me"
                 android:icon="@drawable/peoplefollowingme"
                 android:title="People following me" />
-            <item
-                android:id="@+id/nav_saved_places"
-                android:icon="@drawable/peoplefollowingme"
-                android:title="Saved Places" />
+
 
         </menu>
     </item>
