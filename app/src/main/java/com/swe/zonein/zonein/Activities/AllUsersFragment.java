@@ -1,18 +1,6 @@
 package com.swe.zonein.zonein.Activities;
 
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.swe.zonein.zonein.Controllers.VolleyController;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.UserAdapter;
-
+import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
@@ -68,8 +60,8 @@ public class AllUsersFragment extends  android.app.Fragment {
 
                     JSONObject jsnObject = new JSONObject(response);
                     JSONArray jsonArray = jsnObject.getJSONArray("userList");
-                    if(jsonArray!=null){
 
+                    if (jsonArray != null) {
                         for (int i=0 ;i < jsonArray.length() ;i++){
                             try {
                                 User tempUser = new User(jsonArray.getJSONObject(i));
@@ -113,6 +105,8 @@ public class AllUsersFragment extends  android.app.Fragment {
             protected HashMap<String, String> getParams()
             {
                 HashMap<String, String> params = new HashMap<String, String>();
+
+
                 return params;
             }
 
