@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.UserAdapter;
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
@@ -30,10 +31,10 @@ import java.util.List;
  */
 public class FollowersFragment extends  android.app.Fragment {
 
+    final String TAG = "FollowersFragment";
         List<User> followers;
         ListView followersListView;
         UserAdapter followersAdapter ;
-
 
         public static FollowersFragment newInstance() {
             FollowersFragment fragment = new FollowersFragment();
@@ -62,6 +63,7 @@ public class FollowersFragment extends  android.app.Fragment {
 
                         JSONObject jsnObject = new JSONObject(response);
                         JSONArray jsonArray = jsnObject.getJSONArray("followersList");
+                        Log.i(TAG, jsonArray.toString());
                         if(jsonArray!=null){
 
                             for (int i=0 ;i < jsonArray.length() ;i++){
@@ -81,7 +83,7 @@ public class FollowersFragment extends  android.app.Fragment {
 
 
                             followersAdapter.notifyDataSetChanged();
-                            Log.e("AF", followers.toString());
+
                             followersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -107,6 +109,8 @@ public class FollowersFragment extends  android.app.Fragment {
                 protected HashMap<String, String> getParams()
                 {
                     HashMap<String, String> params = new HashMap<String, String>();
+                    params.put("userID", MainController.user.getID() + "");
+                    Log.i(TAG, url + " " + params.toString());
                     return params;
                 }
 

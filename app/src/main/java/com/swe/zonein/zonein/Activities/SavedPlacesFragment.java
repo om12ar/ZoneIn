@@ -59,7 +59,7 @@ public class SavedPlacesFragment extends android.app.Fragment {
 
                     JSONObject jsnObject = new JSONObject(response);
                     System.out.print("UserSavedPlaces : " + jsnObject.toString());
-                    JSONArray jsonArray = jsnObject.getJSONArray("UserSavedPlaces");
+                    JSONArray jsonArray = jsnObject.getJSONArray("SavedPlaces");
                     if (jsonArray != null) {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -72,13 +72,8 @@ public class SavedPlacesFragment extends android.app.Fragment {
                             }
                         }
 
-                        Log.e("AFff", places.size() + "");
-
                         adapter.notifyDataSetChanged();
-
-
-                        adapter.notifyDataSetChanged();
-                        Log.e("AF", places.toString());
+                        Log.e("AF", places + "");
                         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

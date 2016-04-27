@@ -3,9 +3,6 @@ package com.swe.zonein.zonein.Activities;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,14 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.swe.zonein.zonein.Adapters.CheckinAdapter;
-import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -115,15 +106,13 @@ public class MainActivity extends AppCompatActivity
             toolbar.setTitle("Check in");
 
         } else if (id == R.id.nav_People_i_follow) {
-            toolbar.setTitle("Following");
+            toolbar.setTitle("People I Follow");
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.view_content, FollowingFragment.newInstance(),
                             "FRAGMENT").addToBackStack(null).commit();
 
-            //toolbar.setTitle("People I Follow");
-            //Intent intent = new Intent(MainActivity.this, FollowingActivity.class);
-            //startActivity(intent);
+
         } else if (id == R.id.nav_people_following_me) {
             toolbar.setTitle("Followers");
             fragmentManager
@@ -131,10 +120,6 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.view_content, FollowersFragment.newInstance(),
                             "FRAGMENT").addToBackStack(null).commit();
 
-            //Intent intent = new Intent(MainActivity.this, FollowersActivity.class);
-
-            //startActivity(intent);
-       //     finish();
         } else if (id == R.id.nav_all_users) {
             toolbar.setTitle("All Users");
             fragmentManager

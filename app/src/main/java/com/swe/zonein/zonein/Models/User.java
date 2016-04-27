@@ -26,6 +26,54 @@ public class User {
     ArrayList<Integer> savedPlaces;
 
 
+    public User() {
+        this.name = "";
+        ID = -1;
+
+    }
+
+    public User(User other) {
+        this.ID = other.ID;
+        this.name = other.name;
+        this.lat = other.lat;
+        this.lng = other.lng;
+        this.pass = other.pass;
+        this.email = other.email;
+        this.peopleIFollow = new ArrayList<>(other.peopleIFollow);
+        this.peopleFolowingMe = new ArrayList<>(other.peopleFolowingMe);
+        this.savedPlaces = new ArrayList<>(other.savedPlaces);
+
+    }
+
+    /**
+     * Constructor thta fill data of the user instaneous.
+     *
+     * @param ID       . a unique positive integer refer to the data
+     *                 that the instaneous hold.
+     * @param name     . String hold the username of this instaneous.
+     * @param userType .String hold two value premium or ordinary user.
+     */
+    public User(int ID, String name, String userType) {
+        this.ID = ID;
+        this.name = name;
+    }
+
+    public User(int id) {
+    }
+
+    public User(JSONObject jsonObject) {
+        try {
+            ID = jsonObject.getInt("id");
+            name = jsonObject.getString("name");
+            email = jsonObject.getString("email");
+            pass = jsonObject.getString("pass");
+            lat = jsonObject.getString("lat");
+            lng = jsonObject.getString("long");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Integer> getPeopleFolowingMe() {
         return peopleFolowingMe;
     }
@@ -41,6 +89,7 @@ public class User {
     public void setPeopleIFollow(ArrayList<Integer> peopleIFollow) {
         this.peopleIFollow = peopleIFollow;
     }
+
     public String getPass() {
         return pass;
     }
@@ -48,8 +97,6 @@ public class User {
     public void setPass(String pass) {
         this.pass = pass;
     }
-
-
 
     public String getLat() {
         return lat;
@@ -61,39 +108,6 @@ public class User {
 
     public String getLng() {
         return lng;
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng;
-    }
-
-
-
-    public User (){
-        this.name="";
-        ID = -1 ;
-
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public User(User other) {
-        this.ID = other.ID;
-        this.name = other.name;
-        this.lat = other.lat;
-        this.lng = other.lng ;
-        this.pass = other.pass;
-        this.email = other.email;
-        this.peopleIFollow = new ArrayList<>(other.peopleIFollow);
-        this.peopleFolowingMe = new ArrayList<>(other.peopleFolowingMe);
-        this.savedPlaces = new ArrayList<>(other.savedPlaces);
-
     }
 
 /*
@@ -141,43 +155,35 @@ public class User {
         this.places = new ArrayList<>(other.places);
     }
 */
+public void setLng(String lng) {
+    this.lng = lng;
+}
 
-    /**
-     * Constructor thta fill data of the user instaneous.
-     * @param ID . a unique positive integer refer to the data
-     * that the instaneous hold.
-     * @param name . String hold the username of this instaneous.
-     * @param userType .String hold two value premium or ordinary user.
-     */
-    public User(int ID, String name,String userType)
-    {
-        this.ID=ID;
-        this.name =name;
+    public String getEmail() {
+        return email;
     }
 
-    public User(int id) {
-    }
-
-    public User(JSONObject jsonObject) {
-        try {
-            ID = jsonObject.getInt("id");
-            name = jsonObject.getString("name");
-            email = jsonObject.getString("email");
-            pass = jsonObject.getString("pass");
-            lat = jsonObject.getString("lat");
-            lng =jsonObject.getString("long");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void setEmail(String email) {
+        this.email = email;
     }
     //public User(String name,String user)
+
     /**
      * Return string of the instaneous username.
      * @return name. username 
      */
     public String getName(){
-        return name ;
+        return name;
     }
+
+    /**
+     * Set the username name of current insateous as the give username.
+     * @param name . refer to username.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /**
      * Return unique positive integer.refer to the instaneous information.
      * @return ID. positive value.
@@ -192,14 +198,6 @@ public class User {
      */
     public void setID(int ID) {
         this.ID = ID;
-    }
-
-    /**
-     * Set the username name of current insateous as the give username.
-     * @param name . refer to username.
-     */
-    public void setName(String name) {
-        this.name = name;
     }
     /**
      * Return string inidcate user type whether it premium or ordinary
@@ -279,6 +277,10 @@ public class User {
             savedPlaces = new ArrayList<>();
         }
         savedPlaces.add(id);
+    }
+
+    public ArrayList<Integer> getSavedPlaces() {
+        return savedPlaces;
     }
 
     /**
