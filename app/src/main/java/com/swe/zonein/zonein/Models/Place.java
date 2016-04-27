@@ -66,8 +66,8 @@ public class Place {
 			ID = jsonObject.getInt("id");
 			name = jsonObject.getString("name");
 			description = jsonObject.getString("description");
-			lng = jsonObject.getString("long");
-			lat = jsonObject.getString("lat");
+			lng = jsonObject.getString("Long");
+			lat = jsonObject.getString("Lat");
 
 
 		}catch (JSONException e){

@@ -59,7 +59,7 @@ public class SavedPlacesFragment extends android.app.Fragment {
 
                     JSONObject jsnObject = new JSONObject(response);
                     System.out.print("UserSavedPlaces : " + jsnObject.toString());
-                    JSONArray jsonArray = jsnObject.getJSONArray("UserSavedPlaces");
+                    JSONArray jsonArray = jsnObject.getJSONArray("SavedPlacesAre");
                     if (jsonArray != null) {
 
                         for (int i = 0; i < jsonArray.length(); i++) {

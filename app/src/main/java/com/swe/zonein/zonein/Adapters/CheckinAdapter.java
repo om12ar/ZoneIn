@@ -74,8 +74,8 @@ public class CheckinAdapter extends BaseAdapter {
 
         //TODO CHANGE TO NAMES
         holder.placeName.setText(list.get(position).getPlaceID()+"");
-        holder.userName.setText(list.get(position).getUserID()+"");
-        holder.desc.setText(list.get(position).getText() + " hi");
+        holder.userName.setText(list.get(position).getUserName()+"");
+        holder.desc.setText(list.get(position).getText() +"");
         holder.rating.setRating((float)list.get(position).getRate());
         //TODO GET NNUMBER OF LIKES
         //holder.like.setText(list.get(position).getLikes()+" Likes");
