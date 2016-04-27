@@ -6,20 +6,61 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activities.MainActivity"
-    tools:showIn="@layout/app_bar_main">
-
-
-    <FrameLayout
-        android:id="@+id/view_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" >
-        <include
-            layout="@layout/list_view"
+    >
+        <LinearLayout
+            android:id="@+id/view_content"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:id="@+id/homePageList" />
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="1">
 
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Sort By Nearby"
+                    android:background="@drawable/button_shape"
+                    android:id="@+id/sortByNearbyButton"
+                    android:layout_margin="2dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Sort By Number Of CheckIns"
+                    android:background="@drawable/button_shape"
+                    android:id="@+id/sortByNumberOfCkeckInsButton"
+                    android:layout_margin="2dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Sort By Ratings"
+                    android:background="@drawable/button_shape"
+                    android:id="@+id/sortByRatingsButton"
+                    android:layout_margin="2dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.8" >
+                <include
+                    layout="@layout/list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/homePageList"
+                    />
+            </LinearLayout>
+        </LinearLayout>
 </RelativeLayout>

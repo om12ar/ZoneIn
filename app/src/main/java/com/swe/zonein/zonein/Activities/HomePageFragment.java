@@ -117,10 +117,34 @@ public class HomePageFragment extends android.app.Fragment {
 
             VolleyController.getInstance().addToRequestQueue(request);
 
+        Button sortByNearby = (Button) v.findViewById(R.id.sortByNearbyButton);
+        sortByNearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
+        Button sortByNumberOfCkeckIns = (Button) v.findViewById(R.id.sortByNumberOfCkeckInsButton);
+        sortByNumberOfCkeckIns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
+        Button sortByRatings = (Button) v.findViewById(R.id.sortByRatingsButton);
+        sortByRatings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
 
         return v;
     }
+
+    /*public void buttonTapped(View view){
+        int id = view.getId();
+
+        Log.e("buttonTapped: ", id +"");
+    }*/
 }
