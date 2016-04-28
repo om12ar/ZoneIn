@@ -95,13 +95,14 @@ public class UserAdapter extends BaseAdapter {
 
                 }
                 final String url = VolleyController.baseURL + fn;
+
                 StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
 
                             JSONObject jsnObject = new JSONObject(response);
-                            Log.i(TAG, jsnObject.toString());
+                            Log.i(TAG, url + " " + jsnObject.toString());
                             if (jsnObject != null) {
 
                                 if (isFollower) {
