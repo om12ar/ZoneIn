@@ -9,16 +9,8 @@ import org.json.JSONObject;
 public class Comment {
     String userName ;
     String commentString;
-    int ID ;
-
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+    int commentID;
+    int checkinID;
 
 
     public Comment(String userName, String commentString) {
@@ -26,6 +18,28 @@ public class Comment {
         this.commentString = commentString;
     }
 
+    public Comment(JSONObject jsonObject) {
+
+        try {
+            commentID = jsonObject.getInt("commentID");
+            userName = jsonObject.getString("userID");
+            commentString = jsonObject.getString("comment");
+            checkinID = jsonObject.getInt("checkinID");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public int getID() {
+        return commentID;
+    }
+
+    public void setID(int ID) {
+        this.commentID = ID;
+    }
 
     public String getUserName() {
         return userName;
@@ -43,19 +57,12 @@ public class Comment {
         this.commentString = commentString;
     }
 
-    public Comment(JSONObject jsonObject) {
+    public int getCheckinID() {
+        return checkinID;
+    }
 
-        try {
-            ID = jsonObject.getInt("id");
-            userName = jsonObject.getString("userID");
-            commentString = jsonObject.getString("comment");
-
-
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-
-
+    public void setCheckinID(int checkinID) {
+        this.checkinID = checkinID;
     }
 
 }

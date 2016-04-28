@@ -63,13 +63,14 @@ public class CommentFragment extends  android.app.Fragment  {
         final String urlgetComments = VolleyController.baseURL + "getComments";
 
 
-        StringRequest request = new StringRequest(Request.Method.POST, urlgetComments, new Response.Listener<String>() {
+        final StringRequest requestGetComments = new StringRequest(Request.Method.POST, urlgetComments, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
 
                     JSONObject jsnObject = new JSONObject(response);
                     JSONArray jsonArray = jsnObject.getJSONArray("commentList");
+                    System.out.println(TAG + " " + urlgetComments + " " + response);
                     if(jsonArray!=null) {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
@@ -114,13 +115,13 @@ public class CommentFragment extends  android.app.Fragment  {
         };
 
 
-        VolleyController.getInstance().addToRequestQueue(request);
+        VolleyController.getInstance().addToRequestQueue(requestGetComments);
 
 
         submitComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userName = MainController.user.getName();
+
                 final String comment = commentString.getText().toString();
 
                 final String urlcomment = VolleyController.baseURL + "comment";
@@ -134,6 +135,8 @@ public class CommentFragment extends  android.app.Fragment  {
 
                             if (jsnObject != null) {
                                 System.out.println(TAG + " " + urlcomment + " " + jsnObject.toString());
+                                VolleyController.getInstance().addToRequestQueue(requestGetComments);
+
                             } else {
 
                             }

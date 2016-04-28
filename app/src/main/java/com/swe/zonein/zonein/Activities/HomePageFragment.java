@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,8 +17,6 @@ import com.swe.zonein.zonein.Adapters.CheckinAdapter;
 import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
-import com.swe.zonein.zonein.Models.Place;
-import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
 import org.json.JSONArray;
@@ -124,7 +120,7 @@ public class HomePageFragment extends android.app.Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jsnObject = new JSONObject(response);
-                    JSONArray jsonArray = jsnObject.getJSONArray("placeList");
+                    JSONArray jsonArray = jsnObject.getJSONArray("checkins");
                     if (jsonArray != null) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {

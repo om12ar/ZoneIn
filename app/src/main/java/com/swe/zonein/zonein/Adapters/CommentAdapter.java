@@ -1,18 +1,12 @@
 package com.swe.zonein.zonein.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.swe.zonein.zonein.Activities.CommentFragment;
-import com.swe.zonein.zonein.Controllers.MainController;
-import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.Models.Comment;
 import com.swe.zonein.zonein.R;
 
@@ -57,7 +51,8 @@ public class CommentAdapter extends BaseAdapter {
 
 
         //TODO CHANGE TO NAMES
-        holder.userName.setText(list.get(position).getUserName()+"");
+        //holder.userName.setText(list.get(position).getUserName()+"");
+        holder.userName.setText(list.get(position).getID() + "");
         holder.commentString.setText(list.get(position).getCommentString()+"");
 
 

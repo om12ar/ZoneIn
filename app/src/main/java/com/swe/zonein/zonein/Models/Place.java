@@ -68,7 +68,7 @@ public class Place {
 			description = jsonObject.getString("description");
 			lng = jsonObject.getString("long");
 			lat = jsonObject.getString("lat");
-			rating = Float.parseFloat(jsonObject.getDouble("rating") + "");
+			rating = Float.parseFloat(jsonObject.getString("rating"));
 
 
 		}catch (JSONException e){
@@ -114,12 +114,12 @@ public class Place {
 		return taste;
 	}
 
-	public void setTaste(ArrayList<Taste> taste) {
-		this.taste = taste;
+	public void setTaste(Taste taste) {
+		this.taste.add(taste);
 	}
 
-	public void setTaste(Taste taste) {
-		this.taste .add(taste);
+	public void setTaste(ArrayList<Taste> taste) {
+		this.taste = taste;
 	}
 
 	public int getID() {
