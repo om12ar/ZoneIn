@@ -59,17 +59,6 @@ public class NotificationAdapter extends BaseAdapter {
 
         holder.notificationText = u;
         holder.show = p;
-        int notification = list.get(position).getID();
-        boolean isFollower;
-        /*
-        isFollower = MainController.user.isFollowing(user);
-        if (isFollower == true) {
-            holder.follow.setText("UnFollow");
-        }
-        else{
-            holder.follow.setText("Follow");
-        }
-*/
 
         String notificationText = list.get(position).getNotification();
 
@@ -82,7 +71,10 @@ public class NotificationAdapter extends BaseAdapter {
             public void onClick(View view) {
                 int notification = list.get(position).getID();
                 Bundle bundle = new Bundle();
+                //TODO make it names
                 bundle.putInt("placeID", list.get(position).getContentID());
+                //bundle.putInt("checkinID", list.get(position).getContentID());
+                bundle.putInt("checkinID", 16);
 //                bundle.putInt("placeID", list.get(position).getContentID());
 
                 Log.e("Notification ADAPTER", bundle.toString());

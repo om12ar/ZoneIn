@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.swe.zonein.zonein.R;
 
@@ -25,7 +26,9 @@ public class RespondToNotificationFragment extends  android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.checkin_item, container, false);
         final int placeID = getArguments().getInt("placeID");
+        final int checkinID = getArguments().getInt("checkinID");
         String PlaceName = getArguments().getString("placeName");
+        Toast.makeText(getActivity(), checkinID + "", Toast.LENGTH_LONG).show();
 
 
 
