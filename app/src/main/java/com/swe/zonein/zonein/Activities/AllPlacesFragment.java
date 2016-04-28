@@ -73,9 +73,6 @@ public class AllPlacesFragment extends android.app.Fragment {
 
                         adapter.notifyDataSetChanged();
 
-
-                        adapter.notifyDataSetChanged();
-
                         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

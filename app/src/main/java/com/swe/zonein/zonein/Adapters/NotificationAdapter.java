@@ -1,6 +1,8 @@
 package com.swe.zonein.zonein.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.swe.zonein.zonein.Activities.RespondToNotificationFragment;
 import com.swe.zonein.zonein.Models.NotificationModel;
 import com.swe.zonein.zonein.R;
 
@@ -78,6 +81,17 @@ public class NotificationAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 int notification = list.get(position).getID();
+                Bundle bundle = new Bundle();
+                bundle.putInt("placeID", list.get(position).getContentID());
+//                bundle.putInt("placeID", list.get(position).getContentID());
+
+                Log.e("Notification ADAPTER", bundle.toString());
+                RespondToNotificationFragment nextFrag = new RespondToNotificationFragment();
+                nextFrag.setArguments(bundle);
+                ((Activity) context).getFragmentManager().beginTransaction()
+                        .replace(R.id.view_content, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
 
             }
 
