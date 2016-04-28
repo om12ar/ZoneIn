@@ -77,9 +77,9 @@ public class PlaceAdapter extends BaseAdapter{
             holder.save.setText("Save");
         }
 
-
         holder.placeName.setText(list.get(position).getName());
         holder.placeDesc.setText(list.get(position).getDescription());
+        holder.rating.setRating(list.get(position).getRating());
 
         pSave.setOnClickListener(new View.OnClickListener() {
 
@@ -91,7 +91,7 @@ public class PlaceAdapter extends BaseAdapter{
                 final boolean isSaved;
                 isSaved = MainController.user.isPlaceSaved(place);
                 String fn = "";
-                if (isSaved == true) {
+                if (isSaved) {
                     fn = "unsavePlace";
                 } else {
                     fn = "saveplace";
@@ -99,7 +99,7 @@ public class PlaceAdapter extends BaseAdapter{
                 }
 
                 final String url = VolleyController.baseURL + fn;
-                Log.e("PLACE Fragment url ", url);
+
                 StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -161,6 +161,8 @@ public class PlaceAdapter extends BaseAdapter{
                 bundle.putString("placeName", name.getText().toString());
                 bundle.putInt("placeID", list.get(position).getID());
                 bundle.putFloat("rating", list.get(position).getRating());
+                bundle.putString("desc", list.get(position).getDescription());
+                bundle.putInt("numOfCheckins", list.get(position).getNumberOfCheckIn());
                 Log.e("PLACEE ADAPTER", bundle.toString());
                 PlaceFragment nextFrag = new PlaceFragment();
                 nextFrag.setArguments(bundle);
@@ -188,3 +190,4 @@ public class PlaceAdapter extends BaseAdapter{
     }
 
 }
+
