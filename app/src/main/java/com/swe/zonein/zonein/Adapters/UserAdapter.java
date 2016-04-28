@@ -125,14 +125,16 @@ public class UserAdapter extends BaseAdapter {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
                         System.out.println("ERROR!");
                     }
                 }) {
                     @Override
                     protected HashMap<String, String> getParams() {
                         HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("FollowerID", "" + MainController.user.getID());
-                        params.put("FollowedID", "" + list.get(position).getID());
+                        params.put("followerID", "" + MainController.user.getID());
+                        params.put("followedID", "" + list.get(position).getID());
+                        Log.i(TAG, url + " " + params.toString());
                         return params;
                     }
 
