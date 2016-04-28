@@ -154,6 +154,7 @@ public class CheckinAdapter extends BaseAdapter {
                 int checkinID = list.get(position).getID() ;
                 Bundle bundle = new Bundle();
                 bundle.putInt("checkinID", checkinID);
+                bundle.putString("userName", list.get(position).getUserName());
                 nextFrag.setArguments(bundle);
                 ((Activity) context).getFragmentManager().beginTransaction()
                         .replace(R.id.view_content, nextFrag)

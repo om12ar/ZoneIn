@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.CommentAdapter;
 import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.Requests;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Comment;
 import com.swe.zonein.zonein.R;
@@ -160,6 +161,14 @@ public class CommentFragment extends  android.app.Fragment  {
 
 
                 VolleyController.getInstance().addToRequestQueue(request);
+
+                String actionType = "comment";
+                String description = "You made a comment to " + getArguments().getString("userName");
+
+                Requests addaction = new Requests();
+                addaction.addAction(actionType, description, checkinID);
+
+
             }
         });
 

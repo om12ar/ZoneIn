@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Activities.PlaceFragment;
 import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.Requests;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
@@ -152,6 +153,14 @@ public class PlaceAdapter extends BaseAdapter{
 
                 VolleyController.getInstance().addToRequestQueue(request);
 
+                if(isSaved == false){
+
+                    String actionType = "saveplace";
+                    String description = "You saved " + list.get(position).getName();
+
+                    Requests addaction = new Requests();
+                    addaction.addAction(actionType, description, list.get(position).getID());
+                }
 
             }
         });

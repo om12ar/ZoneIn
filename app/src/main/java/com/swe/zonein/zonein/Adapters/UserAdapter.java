@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.Requests;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
@@ -184,6 +185,12 @@ public class UserAdapter extends BaseAdapter {
 
 
                     VolleyController.getInstance().addToRequestQueue(request);
+
+                    String actionType = "follow";
+                    String description = "You followed " + list.get(position).getName();
+
+                    Requests addaction = new Requests();
+                    addaction.addAction(actionType, description, list.get(position).getID());
 
                     MainController.user.follow(list.get(position).getID());
                     p.setText("unFollow");

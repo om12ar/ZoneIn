@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.Requests;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
@@ -43,7 +44,7 @@ public class CheckInFragment extends  android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_checkin, container, false);
         final int placeID = getArguments().getInt("placeID");
-        String PlaceName = getArguments().getString("placeName");
+        final String PlaceName = getArguments().getString("placeName");
         desc = (EditText) v.findViewById(R.id.checkinReview);
         rate = (RatingBar) v.findViewById(R.id.checkinRate);
 
@@ -107,7 +108,11 @@ public class CheckInFragment extends  android.app.Fragment {
 
                 VolleyController.getInstance().addToRequestQueue(request);
 
+                String actionType = "checkIn";
+                String description = "You checked in " + PlaceName;
 
+                Requests addaction = new Requests();
+                addaction.addAction(actionType, description, newCheckin.getPlaceID());
             }
         });
 

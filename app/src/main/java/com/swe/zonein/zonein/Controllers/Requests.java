@@ -99,4 +99,23 @@ public class Requests{
         params.put("userID", "" + MainController.user.getID());
         request("unsaveplace", params);
     }
+
+    public void removeAction(int actionID){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("actionID","" + actionID);
+        request("removeaction", params);
+
+    }
+
+    public void addAction(String actionType, String description, int parameterID){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userID","" +  MainController.user.getID());
+        params.put("actionType", actionType);
+        params.put("description", description);
+        request("addaction", params);
+
+
+    }
 }

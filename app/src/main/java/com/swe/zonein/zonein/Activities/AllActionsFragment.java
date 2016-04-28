@@ -85,6 +85,7 @@ public class AllActionsFragment extends  android.app.Fragment {
 
 
                         actionsAdapter.notifyDataSetChanged();
+
                         Log.e("AF", actions.toString());
                         actionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
