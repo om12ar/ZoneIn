@@ -18,6 +18,7 @@ import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Action;
 import com.swe.zonein.zonein.Models.Command;
 import com.swe.zonein.zonein.Models.RemoveActionCommand;
+import com.swe.zonein.zonein.Models.UnCheckInCommand;
 import com.swe.zonein.zonein.Models.UnCommentCommand;
 import com.swe.zonein.zonein.Models.UnFollowCommand;
 import com.swe.zonein.zonein.Models.UnLikeCommand;
@@ -85,8 +86,13 @@ public class ActionAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-               if(actionType.equals("checkIn")){
 
+                System.out.println("ACTIONTYPE: " + actionType);
+
+                if(actionType.equals("checkIn")){
+                   Command command = new UnCheckInCommand();
+                   RequestInvoker invoker = new RequestInvoker(command);
+                   invoker.undo(list.get(position).getActionParameterID());
                }
                else if(actionType.equals("comment")){
 

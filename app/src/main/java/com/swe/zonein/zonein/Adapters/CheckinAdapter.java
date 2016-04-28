@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Activities.CommentFragment;
 import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.Requests;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
@@ -57,7 +58,7 @@ public class CheckinAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.checkin_item, null);
 
-        TextView pName = (TextView) convertView.findViewById(R.id.checkinPlaceNameTv);
+        final TextView pName = (TextView) convertView.findViewById(R.id.checkinPlaceNameTv);
         TextView uName = (TextView) convertView.findViewById(R.id.checkinUserNameTV);
         TextView desc = (TextView) convertView.findViewById(R.id.checkinDescTV);
         RatingBar pRating = (RatingBar) convertView.findViewById(R.id.checkinRatingbar);
@@ -75,7 +76,7 @@ public class CheckinAdapter extends BaseAdapter {
 
 
         //TODO CHANGE TO NAMES
-        holder.placeName.setText(list.get(position).getPlaceID()+"");
+        holder.placeName.setText(list.get(position).getPlaceName()+"");
         holder.userName.setText(list.get(position).getUserName()+"");
         holder.desc.setText(list.get(position).getText() +"");
         holder.rating.setRating((float)list.get(position).getRate());
@@ -146,6 +147,16 @@ public class CheckinAdapter extends BaseAdapter {
 
                 VolleyController.getInstance().addToRequestQueue(request, TAG);
 
+                if(isLiked == false){
+
+                    String actionType = "like";
+                    String description = "You liked " + list.get(position).getUserName() + " Check In";
+
+                    Requests addaction = new Requests();
+                    addaction.addAction(actionType, description, checkin);
+
+                }
+
             }
         });
 
@@ -157,6 +168,7 @@ public class CheckinAdapter extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putInt("checkinID", checkinID);
                 bundle.putString("userName", list.get(position).getUserName());
+                bundle.putString("placeName", list.get(position).getPlaceName());
                 nextFrag.setArguments(bundle);
                 ((Activity) context).getFragmentManager().beginTransaction()
                         .replace(R.id.view_content, nextFrag)

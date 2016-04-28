@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.UserAdapter;
 import com.swe.zonein.zonein.Controllers.MainController;
+import com.swe.zonein.zonein.Controllers.Requests;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.Models.User;
@@ -121,7 +122,6 @@ public class AddPlaceFragment extends  android.app.Fragment {
 
 
                 VolleyController.getInstance().addToRequestQueue(request, TAG);
-
 
 
             }

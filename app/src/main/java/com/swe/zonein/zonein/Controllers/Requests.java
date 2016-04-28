@@ -1,5 +1,7 @@
 package com.swe.zonein.zonein.Controllers;
 
+import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,10 +29,9 @@ public class Requests{
                 try {
 
                     JSONObject jsnObject = new JSONObject(response);
-                    JSONArray jsonArray = jsnObject.getJSONArray("status");
-                    if(jsonArray!=null){
+                    if(jsnObject!=null){
 
-
+                        Log.e("Requests Status is:", response.toString());
                     } else {
 
                     }
@@ -59,21 +60,25 @@ public class Requests{
 
     }
 
-    public void unCheckIn(final int checkInID){
+    public void unCheckIn(int placeID){
 
-        //TODO in backend then volley
+        HashMap<String, String> params = new HashMap<>();
+        params.put("placeID", "" + placeID);
+        params.put("userID", "" + MainController.user.getID());
+        request("removeCheckin", params);
 
     }
 
-    public void unComment(final int commentID){
+    public void unComment(int checkinID){
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("commentID","" + commentID);
+        params.put("checkinID", "" + checkinID);
+        params.put("userID", "" + MainController.user.getID());
         request("uncomment", params);
     }
 
 
-    public void unFollow(final int followedID){
+    public void unFollow(int followedID){
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("FollowerID", "" + MainController.user.getID());
@@ -97,7 +102,16 @@ public class Requests{
         HashMap<String, String> params = new HashMap<>();
         params.put("placeID","" + placeID);
         params.put("userID", "" + MainController.user.getID());
-        request("unsaveplace", params);
+        request("unsavePlace", params);
+    }
+
+
+    public void removePlace(int placeID){
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("placeID","" + placeID);
+        request("removePlace", params);
+
     }
 
     public void removeAction(int actionID){
@@ -114,6 +128,7 @@ public class Requests{
         params.put("userID","" +  MainController.user.getID());
         params.put("actionType", actionType);
         params.put("description", description);
+        params.put("parameterID", "" + parameterID);
         request("addaction", params);
 
 
