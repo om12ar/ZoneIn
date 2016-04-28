@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Activities.CommentFragment;
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
 import com.swe.zonein.zonein.R;
@@ -31,6 +32,7 @@ import java.util.List;
  * Created by om12ar on 4/20/16.
  */
 public class CheckinAdapter extends BaseAdapter {
+    final String TAG = "CheckinAdapter";
     List<CheckIn> list;
     Context context;
     public CheckinAdapter(List<CheckIn> list, Context context) {
@@ -79,30 +81,19 @@ public class CheckinAdapter extends BaseAdapter {
         holder.rating.setRating((float)list.get(position).getRate());
         //TODO GET NNUMBER OF LIKES
         //holder.like.setText(list.get(position).getLikes()+" Likes");
-        holder.like.setText("Like");
-        holder.comment.setText(list.get(position).getComments().size()+" Comments");
+        holder.like.setText(list.get(position).getLikes() + " Likes");
+        holder.comment.setText("Comment");
 
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String fn = "";
 
-                boolean isLiked = (likeBtn.getText() != "Like");
+                final boolean isLiked = MainController.user.isLiked(checkin);
                 if (isLiked == true) {
-                    likeBtn.setText("unlike");
-                    likeBtn.refreshDrawableState();
-                    //TODO LIKE
                     fn = "unlike";
-
-                    isLiked = false;
                 } else {
-                    likeBtn.setText("like");
-                    likeBtn.refreshDrawableState();
-                    //TODO UNLIKE
                     fn = "like";
-                    list.get(position).like();
-
-                    isLiked = true;
                 }
 
 
@@ -113,13 +104,23 @@ public class CheckinAdapter extends BaseAdapter {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject obj = new JSONObject(response);
-                            if (obj != null) {
 
-                                Log.e("Checkin Adapter", "Liked/unliked " + obj);
+                            JSONObject jsnObject = new JSONObject(response);
+                            Log.i(TAG, url + " " + jsnObject.toString());
+                            Log.i(TAG, url + " " + jsnObject.toString());
+                            if (jsnObject != null) {
 
+                                if (isLiked) {
+                                    likeBtn.setText(list.get(position).getLikes() + " Likes");
+                                    MainController.user.unlikePost(list.get(position).getID());
+
+                                } else {
+                                    likeBtn.setText(list.get(position).getLikes() + " unLike");
+                                    MainController.user.likePost(list.get(position).getID());
+                                }
 
                             } else {
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -135,14 +136,15 @@ public class CheckinAdapter extends BaseAdapter {
                     protected HashMap<String, String> getParams() {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("checkinID", "" + checkin);
-
+                        params.put("userID", "" + MainController.user.getID());
+                        Log.e(TAG + "params ", params.toString());
                         return params;
                     }
 
                 };
 
 
-                VolleyController.getInstance().addToRequestQueue(request, "Checkin Adapter ");
+                VolleyController.getInstance().addToRequestQueue(request, TAG);
 
             }
         });

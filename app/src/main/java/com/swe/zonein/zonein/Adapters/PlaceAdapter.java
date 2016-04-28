@@ -32,6 +32,7 @@ import java.util.List;
  * Created by om12ar on 4/20/16.
  */
 public class PlaceAdapter extends BaseAdapter{
+    final String TAG = "Place Adapter";
     List<Place> list;
     Context context;
     boolean buttonStatus = true;
@@ -77,9 +78,9 @@ public class PlaceAdapter extends BaseAdapter{
             holder.save.setText("Save");
         }
 
-
         holder.placeName.setText(list.get(position).getName());
         holder.placeDesc.setText(list.get(position).getDescription());
+        holder.rating.setRating(list.get(position).getRating());
 
         pSave.setOnClickListener(new View.OnClickListener() {
 
@@ -88,50 +89,44 @@ public class PlaceAdapter extends BaseAdapter{
 
 
                 final int place = list.get(position).getID();
-                boolean isSaved;
+                final boolean isSaved;
                 isSaved = MainController.user.isPlaceSaved(place);
                 String fn = "";
-                if (isSaved == true) {
-                    fn = "Unsave";
-                    pSave.refreshDrawableState();
-                    //TODO VOLLEY
-
-                    Log.e("PLACE Fragment ", "UNSAVE ");
-                    MainController.user.unSavePlace(list.get(position).getID());
-
-
+                if (isSaved) {
+                    fn = "unsavePlace";
                 } else {
-                    Log.e("PLACE Fragment ", "SAVE");
                     fn = "saveplace";
-                    pSave.setActivated(false);
-                    pSave.refreshDrawableState();
-
 
                 }
 
-                final String urlLogin = VolleyController.baseURL + fn;
-                Log.e("PLACE Fragment url ", urlLogin);
-                StringRequest request = new StringRequest(Request.Method.POST, urlLogin, new Response.Listener<String>() {
+                final String url = VolleyController.baseURL + fn;
+
+                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
 
                             JSONObject jsnObject = new JSONObject(response);
-                            System.out.print("PlaceADapter save " + jsnObject + " " + urlLogin);
+                            Log.i(TAG, url + " " + jsnObject.toString());
                             if (jsnObject != null) {
-                                Log.e("PLACE Fragment url ", jsnObject.toString());
 
-                                MainController.user.SavePlace(list.get(position).getID());
-                                pSave.setText("UnSave");
+                                if (isSaved) {
+                                    pSave.setText("Save");
+                                    MainController.user.unSavePlace(list.get(position).getID());
+
+                            } else {
+                                    pSave.setText("unSave");
+                                    MainController.user.SavePlace(list.get(position).getID());
+                            }
 
                             } else {
 
-                            }
+                        }
                         } catch (Exception e) {
                             e.printStackTrace();
                             e.getMessage();
                             System.out.println("ERROR Exception!");
-                        }
+                    }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -175,6 +170,8 @@ public class PlaceAdapter extends BaseAdapter{
                 bundle.putString("placeName", name.getText().toString());
                 bundle.putInt("placeID", list.get(position).getID());
                 bundle.putFloat("rating", list.get(position).getRating());
+                bundle.putString("desc", list.get(position).getDescription());
+                bundle.putInt("numOfCheckins", list.get(position).getNumberOfCheckIn());
                 Log.e("PLACEE ADAPTER", bundle.toString());
                 PlaceFragment nextFrag = new PlaceFragment();
                 nextFrag.setArguments(bundle);
@@ -202,3 +199,4 @@ public class PlaceAdapter extends BaseAdapter{
     }
 
 }
+

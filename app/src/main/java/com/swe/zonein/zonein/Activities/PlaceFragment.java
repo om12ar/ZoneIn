@@ -18,7 +18,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.CheckinAdapter;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.CheckIn;
-import com.swe.zonein.zonein.Models.Place;
 import com.swe.zonein.zonein.R;
 
 import org.json.JSONArray;
@@ -49,10 +48,18 @@ public class PlaceFragment extends  android.app.Fragment {
         final String name = getArguments().getString("placeName");
         final int placeID = getArguments().getInt("placeID");
         final float rating = getArguments().getFloat("rating");
+        final String desc = getArguments().getString("desc");
+        final int numOfCheckins = getArguments().getInt("numOfCheckins");
+
         TextView nameTv = (TextView) v.findViewById(R.id.placeItemNameTV);
+        TextView descTV = (TextView) v.findViewById(R.id.placeDescTV);
+        TextView numCheckinsTV = (TextView) v.findViewById(R.id.numCheckinsTV);
         RatingBar rateingbar = (RatingBar) v.findViewById(R.id.placeRatingBar);
+
         rateingbar.setRating(rating);
         nameTv.setText(name);
+        descTV.setText(desc);
+        numCheckinsTV.setText(numOfCheckins + "");
 
         listview = (ListView) v.findViewById(R.id.placeCheckinsList);
         checkIns = new ArrayList<>();

@@ -13,7 +13,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.NotificationAdapter;
-import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.NotificationModel;
 import com.swe.zonein.zonein.R;
@@ -32,6 +31,7 @@ import java.util.List;
 public class NotificationsFragment extends android.app.Fragment {
 
 
+    final String TAG = "Notification Fragment";
     List<NotificationModel> notifications;
     ListView notificationsListView;
     NotificationAdapter notificationAdapter;
@@ -48,20 +48,13 @@ public class NotificationsFragment extends android.app.Fragment {
 
         notificationsListView = (ListView) v.findViewById(R.id.list_view);
         notifications = new ArrayList<>();
-       /* notifications.add(new NotificationModel("first"));
-        notifications.add(new NotificationModel("third"));
-        notifications.add(new NotificationModel("Fourth"));
-        notifications.add(new NotificationModel("last"));*/
+
         notificationAdapter = new NotificationAdapter(notifications, getActivity());
 
         notificationsListView.setAdapter(notificationAdapter);
 
 
-
-
-
-
-        final String url = VolleyController.baseURL + "getAllNotifications";
+        final String url = VolleyController.baseURL + "getallnotification";
 
 
 
@@ -71,42 +64,33 @@ public class NotificationsFragment extends android.app.Fragment {
                 try {
 
                     JSONObject jsnObject = new JSONObject(response);
-                    JSONArray jsonArray = jsnObject.getJSONArray("UserNotication: ");
-
+                    JSONArray jsonArray = jsnObject.getJSONArray("notification");
+                    Log.i(TAG, url + " " + response);
                     if (jsonArray != null) {
 
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                NotificationModel tempNotification = new NotificationModel(jsonArray.getJSONObject(i));
+                                notifications.add(tempNotification);
 
-                        if (jsonArray != null) {
-
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                try {
-                                    NotificationModel tempNotification = new NotificationModel(jsonArray.getJSONObject(i));
-                                    notifications.add(tempNotification);
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-
-                            Log.e("AFff", notifications.size() + "");
-
-                            notificationAdapter.notifyDataSetChanged();
-
-
-                            notificationAdapter.notifyDataSetChanged();
-                            Log.e("AF", notifications.toString());
-                            notificationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                }
-                            });
-
-                        } else {
-
                         }
+
+
+                        notificationAdapter.notifyDataSetChanged();
+
+                        notificationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            }
+                        });
+
+                    } else {
+
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     e.getMessage();
@@ -122,7 +106,8 @@ public class NotificationsFragment extends android.app.Fragment {
             @Override
             protected HashMap<String, String> getParams() {
                 HashMap<String, String> params = new HashMap<String, String>();
-                params.put("ID", "" + MainController.user.getID());
+                params.put("ID", "6");
+                Log.i(TAG, params.toString());
                 return params;
             }
 
