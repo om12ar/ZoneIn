@@ -1,5 +1,8 @@
 package com.swe.zonein.zonein.Models;
 
+import com.swe.zonein.zonein.Controllers.MainController;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -51,24 +54,23 @@ public class NotificationModel {
     }
 
     public NotificationModel(JSONObject jsonObject) {
+
+        try {
+            usrID = jsonObject.getInt("FromID");
+            contentID = jsonObject.getInt("notfid");
+            ID = MainController.user.getID();
+            notification = jsonObject.getString("txt");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public NotificationModel(String text) {
         this.notification = text;
     }
 
-
     /**
-     * set ID
-     * @param ID . a positive unique integer that represent the data.
-     */
-    public void setID(int ID)
-    {
-        this.ID=ID;
-    }
-
-    /**
-     * Getter int that return an unique positive value that represent the 
+     * Getter int that return an unique positive value that represent the
      * the data hold .
      * @return ID. a positive unique number.
      */
@@ -76,13 +78,14 @@ public class NotificationModel {
     {
         return ID;
     }
+
     /**
-     * Set the text of notification to the notification instaneous.
-     * @param notification . String have the data of notification.
+     * set ID
+     * @param ID . a positive unique integer that represent the data.
      */
-    public void setNotification(String notification)
+    public void setID(int ID)
     {
-        this.notification=notification;
+        this.ID = ID;
     }
 
     /**
@@ -91,16 +94,16 @@ public class NotificationModel {
      */
     public String getNotification()
     {
-        return  notification;
+        return notification;
     }
 
     /**
-     * set userID to the the instaneous . unique int used to represent data.
-     * @param UserID . unique postive number.
+     * Set the text of notification to the notification instaneous.
+     * @param notification . String have the data of notification.
      */
-    public void  setUserID(int UserID)
+    public void setNotification(String notification)
     {
-        usrID=UserID;
+        this.notification = notification;
     }
 
     /**
@@ -111,6 +114,15 @@ public class NotificationModel {
     public int getUserID()
     {
         return contentID;
+    }
+
+    /**
+     * set userID to the the instaneous . unique int used to represent data.
+     * @param UserID . unique postive number.
+     */
+    public void setUserID(int UserID)
+    {
+        usrID = UserID;
     }
 
     /**

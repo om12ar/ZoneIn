@@ -1,7 +1,7 @@
 package com.swe.zonein.zonein.Adapters;
 
-import android.app.Notification;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.swe.zonein.zonein.Controllers.MainController;
-import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.NotificationModel;
-import com.swe.zonein.zonein.Models.User;
 import com.swe.zonein.zonein.R;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,6 +20,7 @@ import java.util.List;
  */
 public class NotificationAdapter extends BaseAdapter {
 
+    final String TAG = "Notification ADapter";
     List<NotificationModel> list;
     Context context;
 
@@ -81,121 +71,14 @@ public class NotificationAdapter extends BaseAdapter {
         String notificationText = list.get(position).getNotification();
 
         holder.notificationText.setText(notificationText);
-
+        Log.i(TAG, notificationText);
 
         p.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                int user = list.get(position).getID();
-                /*
-                boolean isFollower;
-                isFollower = MainController.user.isFollowing(user);
+                int notification = list.get(position).getID();
 
-                if (isFollower == true) {
-                    p.setText("Unfollow");
-                    p.refreshDrawableState();
-
-
-                    final String url = VolleyController.baseURL + "unfollow";
-
-
-                    StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-
-                                JSONObject jsnObject = new JSONObject(response);
-                                JSONArray jsonArray = jsnObject.getJSONArray("status");
-                                if(jsonArray!=null){
-
-
-                                } else {
-
-                                }
-                            }catch(Exception e){
-                                e.printStackTrace();
-                                e.getMessage();
-                                System.out.println("ERROR Exception!");
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println("ERROR!");
-                        }
-                    }){
-                        @Override
-                        protected HashMap<String, String> getParams()
-                        {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("FollowerID", "" + MainController.user.getID());
-                            params.put("FollowedID", ""+ list.get(position).getID());
-                            return params;
-                        }
-
-                    };
-
-
-
-                    VolleyController.getInstance().addToRequestQueue(request);
-
-                    MainController.user.unfollow(list.get(position).getID());
-                    p.setText("Follow");
-
-                } else {
-
-                    p.setText("Follow");
-                    p.refreshDrawableState();
-
-                    final String url = VolleyController.baseURL + "follow";
-
-
-                    StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-
-                                JSONObject jsnObject = new JSONObject(response);
-                                JSONArray jsonArray = jsnObject.getJSONArray("status");
-                                if(jsonArray!=null){
-
-
-                                } else {
-
-                                }
-                            }catch(Exception e){
-                                e.printStackTrace();
-                                e.getMessage();
-                                System.out.println("ERROR Exception!");
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println("ERROR!");
-                        }
-                    }){
-                        @Override
-                        protected HashMap<String, String> getParams()
-                        {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("FollowerID", "" + MainController.user.getID());
-                            params.put("FollowedID", ""+ list.get(position).getID());
-                            return params;
-                        }
-
-                    };
-
-
-                    VolleyController.getInstance().addToRequestQueue(request);
-
-                    MainController.user.follow(list.get(position).getID());
-                    p.setText("unFollow");
-                }
-
-
-*/
             }
 
 
