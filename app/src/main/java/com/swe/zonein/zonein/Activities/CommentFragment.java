@@ -38,6 +38,7 @@ public class CommentFragment extends  android.app.Fragment  {
     EditText commentString ;
     Button submitComment;
     CommentAdapter adapter ;
+    int commentID;
 
     public static CommentFragment newInstance() {
         CommentFragment fragment = new CommentFragment();
@@ -153,6 +154,7 @@ public class CommentFragment extends  android.app.Fragment  {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("checkinID", "" + checkinID);
                         params.put("comment", comment);
+                        params.put("userID", "" + MainController.user.getID());
                         System.out.println(params.toString());
                         return params;
                     }
@@ -161,6 +163,8 @@ public class CommentFragment extends  android.app.Fragment  {
 
 
                 VolleyController.getInstance().addToRequestQueue(request);
+
+
 
                 String actionType = "comment";
                 String description = "You made a comment to " + getArguments().getString("userName");

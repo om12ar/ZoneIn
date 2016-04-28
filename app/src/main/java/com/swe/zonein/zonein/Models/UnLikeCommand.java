@@ -7,7 +7,7 @@ import com.swe.zonein.zonein.Controllers.Requests;
  */
 public class UnLikeCommand implements Command{
 
-    Requests request;
+    Requests request = new Requests();
     @Override
     public void execute(int id) {
         request.unLike(id);

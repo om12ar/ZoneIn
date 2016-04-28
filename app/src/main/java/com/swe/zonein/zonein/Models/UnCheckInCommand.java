@@ -7,7 +7,7 @@ import com.swe.zonein.zonein.Controllers.Requests;
  */
 public class UnCheckInCommand implements Command {
 
-    Requests request;
+    Requests request = new Requests();
     @Override
     public void execute(int id) {
         request.unCheckIn(id);

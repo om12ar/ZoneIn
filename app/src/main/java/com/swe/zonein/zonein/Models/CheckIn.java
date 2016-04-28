@@ -21,6 +21,8 @@ public class CheckIn {
 	int placeID;
     double rate ;
 	int likes ;
+	String placeName;
+
 	ArrayList<String> comments= new ArrayList<>();
 
     public CheckIn(int Userid, int placeID, String descString, float pRate) {
@@ -70,6 +72,7 @@ public class CheckIn {
 			text = object.getString("review");
 			rate = object.getDouble("rating");
 			likes = object.getInt("likes");
+			placeName = object.getString("placeName");
 		}
 		catch (JSONException e){
 
@@ -196,6 +199,14 @@ public class CheckIn {
 	public String getUserName(){
 
 		return userName;
+	}
+
+	public String  getPlaceName(){
+		return placeName;
+	}
+
+	public void  setPlaceName(String placeName){
+			this.placeName = placeName;
 	}
 
 }

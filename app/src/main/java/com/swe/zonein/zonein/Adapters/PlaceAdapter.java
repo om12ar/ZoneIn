@@ -154,7 +154,7 @@ public class PlaceAdapter extends BaseAdapter{
                     String description = "You saved " + list.get(position).getName();
 
                     Requests addaction = new Requests();
-                    addaction.addAction(actionType, description, list.get(position).getID());
+                    addaction.addAction(actionType, description, place);
                 }
 
             }

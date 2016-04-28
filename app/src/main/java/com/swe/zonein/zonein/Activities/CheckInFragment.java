@@ -32,6 +32,7 @@ public class CheckInFragment extends  android.app.Fragment {
     EditText desc;
     RatingBar rate;
     Button checkIn;
+    int checkinID;
 
     public static CheckInFragment newInstance() {
         CheckInFragment fragment = new CheckInFragment();
