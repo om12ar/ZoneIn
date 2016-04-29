@@ -80,8 +80,7 @@ public class CheckinAdapter extends BaseAdapter {
         holder.userName.setText(list.get(position).getUserName()+"");
         holder.desc.setText(list.get(position).getText() +"");
         holder.rating.setRating((float)list.get(position).getRate());
-        //TODO GET NNUMBER OF LIKES
-        //holder.like.setText(list.get(position).getLikes()+" Likes");
+
         holder.like.setText(list.get(position).getLikes() + " Likes");
         holder.comment.setText("Comment");
 
@@ -108,16 +107,19 @@ public class CheckinAdapter extends BaseAdapter {
 
                             JSONObject jsnObject = new JSONObject(response);
                             Log.i(TAG, url + " " + jsnObject.toString());
-                            Log.i(TAG, url + " " + jsnObject.toString());
+
                             if (jsnObject != null) {
 
-                                if (isLiked) {
-                                    likeBtn.setText(list.get(position).getLikes() + " Likes");
-                                    MainController.user.unlikePost(list.get(position).getID());
+                                if (jsnObject.getInt("status") == 1) {
+                                    Log.i(TAG, url + "action done ");
+                                    if (isLiked) {
+                                        likeBtn.setText(list.get(position).getLikes() + " Likes");
+                                        MainController.user.unlikePost(list.get(position).getID());
 
-                                } else {
-                                    likeBtn.setText(list.get(position).getLikes() + " unLike");
-                                    MainController.user.likePost(list.get(position).getID());
+                                    } else {
+                                        likeBtn.setText(list.get(position).getLikes() + " unLike");
+                                        MainController.user.likePost(list.get(position).getID());
+                                    }
                                 }
 
                             } else {

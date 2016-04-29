@@ -33,6 +33,7 @@ import java.util.List;
  */
 public class PlaceFragment extends  android.app.Fragment {
     static Bundle args ;
+    final String TAG = "Place Fragment";
     List<CheckIn> checkIns;
     ListView listview;
     CheckinAdapter adapter ;
@@ -76,6 +77,7 @@ public class PlaceFragment extends  android.app.Fragment {
                     JSONObject jsnObject = new JSONObject(response);
                     JSONArray jsonArray = jsnObject.getJSONArray("checkinList");
                     if (jsonArray != null) {
+                        Log.i(TAG, jsnObject.toString() + " " + url + " " + placeID);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             try {
                                 CheckIn tempCheckin = new CheckIn(jsonArray.getJSONObject(i));
