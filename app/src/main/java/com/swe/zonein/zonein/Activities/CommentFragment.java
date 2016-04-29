@@ -83,7 +83,6 @@ public class CommentFragment extends  android.app.Fragment  {
                             }
                         }
 
-
                         Log.e("AFff", comments.size() + "");
                         adapter.notifyDataSetChanged();
 

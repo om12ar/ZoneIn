@@ -68,7 +68,7 @@ public class CheckIn {
 		try {
 
 			ID = object.getInt("id");
-			userName = object.getString("username");
+			userName = object.getString("userName");
 			text = object.getString("review");
 			rate = object.getDouble("rating");
 			likes = object.getInt("likes");

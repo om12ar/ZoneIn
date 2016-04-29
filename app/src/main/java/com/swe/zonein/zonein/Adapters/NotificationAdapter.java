@@ -69,13 +69,10 @@ public class NotificationAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-                int notification = list.get(position).getID();
+
                 Bundle bundle = new Bundle();
-                //TODO make it names
-                bundle.putInt("placeID", list.get(position).getContentID());
-                //bundle.putInt("checkinID", list.get(position).getContentID());
-                bundle.putInt("checkinID", 16);
-//                bundle.putInt("placeID", list.get(position).getContentID());
+
+                bundle.putInt("checkinID", list.get(position).getPostID());
 
                 Log.e("Notification ADAPTER", bundle.toString());
                 RespondToNotificationFragment nextFrag = new RespondToNotificationFragment();

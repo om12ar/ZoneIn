@@ -19,6 +19,7 @@ public class NotificationModel {
     String notification;
     int contentID;
     int usrID;
+    int postID;
 
     /**
      * Construction used to construct an instanteous of object with data.
@@ -42,9 +43,10 @@ public class NotificationModel {
 
     }
 
+
     /**
      * Copy constructor that copy data of other notification in
-     * the instantous value. 
+     * the instantous value.
      */
     public NotificationModel(NotificationModel other)
     {
@@ -60,6 +62,7 @@ public class NotificationModel {
             contentID = jsonObject.getInt("notfid");
             ID = MainController.user.getID();
             notification = jsonObject.getString("txt");
+            postID = jsonObject.getInt("postID");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,6 +70,14 @@ public class NotificationModel {
 
     public NotificationModel(String text) {
         this.notification = text;
+    }
+
+    public int getPostID() {
+        return postID;
+    }
+
+    public void setPostID(int postID) {
+        this.postID = postID;
     }
 
     /**
