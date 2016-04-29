@@ -167,7 +167,8 @@ public class PlaceAdapter extends BaseAdapter{
                 Log.e("allplaces :", "ON CLICK ");
                 Bundle bundle = new Bundle();
                 TextView name = (TextView) v.findViewById(R.id.placeItemNameTV);
-                bundle.putString("placeName", name.getText().toString());
+     //           bundle.putString("placeName", name.getText().toString());
+                bundle.putString("placeName", list.get(position).getName());
                 bundle.putInt("placeID", list.get(position).getID());
                 bundle.putFloat("rating", list.get(position).getRating());
                 bundle.putString("desc", list.get(position).getDescription());
