@@ -9,7 +9,7 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
-    <color name="divider2">#DCDCDD</color>
-    <color name="divider3">#CA3E6E</color>
+    <color name="backlist">#CAEAEC</color>
+    <color name="divider3">#FF9800</color>
 
 </resources>
