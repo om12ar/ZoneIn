@@ -24,6 +24,7 @@
         android:layout_weight="0.05"
         android:layout_marginBottom="5dp"
         android:background="@drawable/button_shape"
+        android:textColor="@color/icons"
         android:visibility="visible" />
 
     <Button
@@ -33,6 +34,7 @@
             android:id="@+id/followersButton"
             android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
+        android:textColor="@color/icons"
             android:background="@drawable/button_shape"
             android:layout_weight="0.05"/>
 
@@ -43,6 +45,7 @@
             android:id="@+id/followingButton"
         android:background="@drawable/button_shape"
         android:layout_marginBottom="5dp"
+        android:textColor="@color/icons"
         android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"/>
 
@@ -51,6 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Posts"
             android:id="@+id/postsButton"
+        android:textColor="@color/icons"
         android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal"
         android:layout_marginBottom="5dp"
@@ -63,6 +67,7 @@
             android:id="@+id/tastesButton"
             android:background="@drawable/button_shape"
             android:layout_marginBottom="5dp"
+            android:textColor="@color/icons"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"/>
 

@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="Undo"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/icons"
         android:textSize="15dp"
         android:textStyle="normal"
         android:background="@drawable/button_shape"
