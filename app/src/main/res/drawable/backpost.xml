@@ -5,7 +5,7 @@
         android:width="1dip"
         android:color="@color/colorPrimary"/>
     <solid
-        android:color="@color/divider4"/>
+        android:color="@color/icons"/>
     <corners
         android:radius="40dp"/>
 

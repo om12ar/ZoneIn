@@ -45,6 +45,7 @@
             android:id="@+id/CommentSubmitBtn"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/confirm_button"
+            android:textColor="@color/icons"
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
             android:width="190dp"

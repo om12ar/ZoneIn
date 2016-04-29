@@ -28,6 +28,7 @@
                     android:layout_weight="0.3"
                     android:text="Sort By Nearby"
                     android:background="@drawable/button_shape"
+                    android:textColor="@color/icons"
                     android:id="@+id/sortByNearbyButton"
                     android:padding="3dp"
                     android:layout_margin="3dp" />
@@ -38,6 +39,7 @@
                     android:layout_weight="0.3"
                     android:text="Sort By Number Of CheckIns"
                     android:background="@drawable/button_shape"
+                    android:textColor="@color/icons"
                     android:id="@+id/sortByNumberOfCkeckInsButton"
                     android:padding="3dp"
                     android:layout_margin="3dp" />
@@ -48,6 +50,7 @@
                     android:layout_weight="0.3"
                     android:text="Sort By Ratings"
                     android:background="@drawable/button_shape"
+                    android:textColor="@color/icons"
                     android:id="@+id/sortByRatingsButton"
                     android:padding="3dp"
                     android:layout_margin="3dp" />
