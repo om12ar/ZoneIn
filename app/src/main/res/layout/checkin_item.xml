@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:weightSum="6">
+    android:weightSum="6"
+    android:background="@drawable/backpost"
+    android:padding="5dp"
+    android:layout_margin="5dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -61,6 +64,7 @@
         android:layout_gravity="left|center_horizontal"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:progressBackgroundTint="@color/colorPrimary"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -76,6 +80,8 @@
             android:layout_height="wrap_content"
             android:text="noolike"
             android:id="@+id/checkinLikeBtn"
+            android:background="@drawable/button_shape"
+            android:layout_margin="5dp"
             android:layout_weight="0.5" />
 
         <Button
@@ -83,6 +89,8 @@
             android:layout_height="wrap_content"
             android:text="noocomment"
             android:id="@+id/checkinCommentBtn"
+            android:background="@drawable/button_shape"
+            android:layout_margin="5dp"
             android:layout_weight="0.5" />
 
     </LinearLayout>

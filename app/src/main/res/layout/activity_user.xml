@@ -22,6 +22,8 @@
         android:id="@+id/followButton"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.05"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/button_shape"
         android:visibility="visible" />
 
     <Button
@@ -30,6 +32,8 @@
             android:text="Followers"
             android:id="@+id/followersButton"
             android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+            android:background="@drawable/button_shape"
             android:layout_weight="0.05"/>
 
     <Button
@@ -37,7 +41,9 @@
             android:layout_height="wrap_content"
             android:text="Following"
             android:id="@+id/followingButton"
-            android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"/>
 
     <Button
@@ -45,7 +51,9 @@
             android:layout_height="wrap_content"
             android:text="Posts"
             android:id="@+id/postsButton"
+        android:background="@drawable/button_shape"
             android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
             android:layout_weight="0.05"/>
 
         <Button
@@ -53,6 +61,8 @@
             android:layout_height="wrap_content"
             android:text="Tastes"
             android:id="@+id/tastesButton"
+            android:background="@drawable/button_shape"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"/>
 

@@ -47,6 +47,7 @@
             android:background="@drawable/confirm_button"
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
+            android:width="190dp"
             android:layout_weight="0.5" />
     </LinearLayout>
 

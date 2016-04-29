@@ -9,9 +9,6 @@
     android:padding="6dp"
 
     >
-
-
-
     <TextView
         android:id="@+id/userNameTextView"
         android:layout_width="0dp"
