@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.swe.zonein.zonein.Adapters.NotificationAdapter;
+import com.swe.zonein.zonein.Controllers.MainController;
 import com.swe.zonein.zonein.Controllers.VolleyController;
 import com.swe.zonein.zonein.Models.NotificationModel;
 import com.swe.zonein.zonein.R;
@@ -106,7 +107,7 @@ public class NotificationsFragment extends android.app.Fragment {
             @Override
             protected HashMap<String, String> getParams() {
                 HashMap<String, String> params = new HashMap<String, String>();
-                params.put("ID", "6");
+                params.put("ID", MainController.user.getID() + "");
                 Log.i(TAG, params.toString());
                 return params;
             }

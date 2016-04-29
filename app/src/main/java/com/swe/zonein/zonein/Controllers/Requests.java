@@ -82,8 +82,8 @@ public class Requests{
     public void unFollow(int followedID){
 
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("FollowerID", "" + MainController.user.getID());
-        params.put("FollowedID", ""+ followedID);
+        params.put("followerID", "" + MainController.user.getID());
+        params.put("followedID", ""+ followedID);
         request("unfollow", params);
 
         MainController.user.unfollow(followedID);

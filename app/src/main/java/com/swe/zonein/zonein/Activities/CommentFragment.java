@@ -83,7 +83,6 @@ public class CommentFragment extends  android.app.Fragment  {
                             }
                         }
 
-
                         Log.e("AFff", comments.size() + "");
                         adapter.notifyDataSetChanged();
 
@@ -136,6 +135,7 @@ public class CommentFragment extends  android.app.Fragment  {
                             if (jsnObject != null) {
                                 System.out.println(TAG + " " + urlcomment + " " + jsnObject.toString());
                                 VolleyController.getInstance().addToRequestQueue(requestGetComments);
+                                adapter.notifyDataSetChanged();
 
                             } else {
 
