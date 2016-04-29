@@ -75,6 +75,7 @@ public class Requests{
         params.put("checkinID", "" + checkinID);
         params.put("userID", "" + MainController.user.getID());
         request("uncomment", params);
+
     }
 
 
@@ -85,14 +86,18 @@ public class Requests{
         params.put("FollowedID", ""+ followedID);
         request("unfollow", params);
 
+        MainController.user.unfollow(followedID);
+
     }
 
     public void unLike(int checkInID){
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("checkInID","" + checkInID);
+        params.put("checkinID","" + checkInID);
         params.put("userID", "" + MainController.user.getID());
         request("unlike", params);
+
+        MainController.user.unlikePost(checkInID);
 
     }
 
@@ -103,6 +108,8 @@ public class Requests{
         params.put("placeID","" + placeID);
         params.put("userID", "" + MainController.user.getID());
         request("unsavePlace", params);
+
+        MainController.user.unSavePlace(placeID);
     }
 
 

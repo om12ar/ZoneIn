@@ -129,6 +129,7 @@ public class PlaceFragment extends  android.app.Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("placeID", placeID);
+                bundle.getString("placeName", name);
                 CheckInFragment nextFrag = new CheckInFragment();
                 nextFrag.setArguments(bundle);
                 getActivity().getFragmentManager().beginTransaction()

@@ -22,7 +22,7 @@ public class Comment {
 
         try {
             commentID = jsonObject.getInt("commentID");
-            userName = jsonObject.getString("userID");
+            userName = jsonObject.getString("userName");
             commentString = jsonObject.getString("comment");
             checkinID = jsonObject.getInt("checkinID");
 
