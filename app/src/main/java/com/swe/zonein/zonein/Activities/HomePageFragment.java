@@ -49,7 +49,7 @@ public class HomePageFragment extends android.app.Fragment {
         final View v = inflater.inflate(R.layout.content_main, container, false);
         homePosts = new ArrayList<>();
         adapter = new CheckinAdapter(homePosts, getActivity());
-
+        homePosts.clear();
 
         list = (ListView) v.findViewById(R.id.homePageList);
         list.setAdapter(adapter);

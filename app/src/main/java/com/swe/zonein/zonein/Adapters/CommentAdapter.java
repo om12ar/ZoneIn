@@ -52,8 +52,8 @@ public class CommentAdapter extends BaseAdapter {
 
         //TODO CHANGE TO NAMES
         //holder.userName.setText(list.get(position).getUserName()+"");
-        holder.userName.setText(list.get(position).getID() + "");
-        holder.commentString.setText(list.get(position).getCommentString()+"");
+        uName.setText(list.get(position).getID() + "");
+        desc.setText(list.get(position).getCommentString()+"");
 
 
         return convertView;
