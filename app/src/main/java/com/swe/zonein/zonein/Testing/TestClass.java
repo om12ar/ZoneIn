@@ -1,4 +1,6 @@
+
 package com.swe.zonein.zonein.Testing;
+
 
 import junit.framework.Assert;
 
@@ -18,6 +20,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -26,7 +29,7 @@ import io.appium.*;
 
 ///**
 // * Created by malsa on 5/5/2016.
-// */
+//
 
 public class TestClass {
     AndroidDriver driver;
@@ -77,10 +80,45 @@ public class TestClass {
         Assert.assertTrue(driver.findElement(By.xpath("//android.widget.Button[@text='Sort By Nearby']")).isDisplayed());
     }
 
+    @Test
+    public void testcaseSavePlace() throws Exception
+    {
+        driver.findElementById("fab").click();
+        driver.findElement(By.xpath("//android.widget.ImageButton[@content-desc='Open navigation drawer']")).click();
+        driver.findElement(By.xpath("//android.widget.CheckedTextView[@text='All Places']")).click();
+        driver.findElement(By.xpath("//android.widget.Button[@text='Save']")).click();
+        Assert.assertTrue(driver.findElement(By.xpath("//android.widget.Button[@text='unSave']")).isDisplayed());
+    }
+
+    @Test
+    public void testcasefollowPeople() throws Exception
+    {
+        driver.findElementById("fab").click();
+        driver.findElement(By.xpath("//android.widget.ImageButton[@content-desc='Open navigation drawer']")).click();
+        driver.findElement(By.xpath("//android.widget.CheckedTextView[@text='All users']")).click();
+        driver.findElement(By.xpath("//android.widget.Button[@text='Follow']")).click();
+        Assert.assertTrue(driver.findElement(By.xpath("//android.widget.Button[@text='UnFollow']")).isDisplayed());
+    }
+
+    @Test
+    public void testcaseCheckIn() throws Exception
+    {
+        driver.findElementById("fab").click();
+        driver.findElement(By.xpath("//android.widget.ImageButton[@content-desc='Open navigation drawer']")).click();
+        driver.findElement(By.xpath("//android.widget.CheckedTextView[@text='All Places']")).click();
+       for(int i = 0; i < 5; i++){
+            driver.findElement(By.xpath("//android.widget.TextView[@text='FCI']")).click();
+        }
+
+        driver.findElement(By.xpath("//android.widget.Button[@text='Check In']")).click();
+        driver.findElement(By.xpath("//android.widget.Button[@index='3']")).click();
+        Assert.assertTrue(driver.findElement(By.xpath("//android.widget.TextView[@text='U']")).isDisplayed());
+    }
+
+
     @After
     public void testCaseTearDown()
     {
-
         driver.quit();
     }
 
