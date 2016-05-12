@@ -1,8 +1,7 @@
 package com.swe.zonein.zonein.Models;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class Place {
 	String lng;
@@ -10,7 +9,6 @@ public class Place {
 	String name;
     String description;
 	int numberOfCheckIn=0;
-	ArrayList<Taste> taste= new ArrayList<>();
 	int ID;
 	float rating;
 	public Place(){
@@ -23,14 +21,11 @@ public class Place {
 			lat=place.getLat();
 			name=place.getName();
 			numberOfCheckIn=place.getNumberOfCheckIn();
-			for(int i=0;i<place.taste.size();i++)
-			{
-				taste.add(place.taste.get(i));
-			}
 			ID=place.getID();
 			rating=place.getRating();
 		}
-		public Place(String name , String description ,String lng , String lat){
+
+	public Place(String name, String description, String lng, String lat) {
 			this.name = name;
             this.description= description;
             this.lng =lng;
@@ -38,27 +33,6 @@ public class Place {
             numberOfCheckIn = 0 ;
             rating=0;
 		}
-		public Place(String lng, String lat, String name, int numberOfCheckIn,ArrayList<Taste> taste, int iD,
-		float rating) {
-			super();
-			this.lng = lng;
-			this.lat = lat;
-			this.name = name;
-			this.numberOfCheckIn = numberOfCheckIn;
-			//this.taste.add(taste);
-			for(int i=0;i<taste.size();i++)
-			{
-				this.taste.add(taste.get(i));
-			}
-			ID = iD;
-			this.rating=rating;
-		}
-
-		// public Place(String lng, String lat, String name) {
-		//   this.ID = ID;
-//    }
-
-
 	public Place(JSONObject jsonObject) {
 
 		try {
@@ -110,17 +84,6 @@ public class Place {
 		this.numberOfCheckIn = numberOfCheckIn;
 	}
 
-	public ArrayList<Taste> getTaste() {
-		return taste;
-	}
-
-	public void setTaste(Taste taste) {
-		this.taste.add(taste);
-	}
-
-	public void setTaste(ArrayList<Taste> taste) {
-		this.taste = taste;
-	}
 
 	public int getID() {
 		return ID;
